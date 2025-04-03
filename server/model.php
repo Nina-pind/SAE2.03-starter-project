@@ -24,8 +24,9 @@ function getAllMovies(){
     
     $sql = "selecte id, name, image from Movie";
     $stm = $csx->prepare($sql);
-    $stmt = ->execute();*
+    $stmt ->execute();
     $res= $stmt->fetchAll(PDO::FETCH_ASSOC); 
     
     return $res; // Retourne le tableau des films
 }
+
