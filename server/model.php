@@ -23,18 +23,9 @@ function getAllMovies(){
     $snx = new PDO("mysql:host=".HOST. ";dbname=" .DBLOGIN, DBPWD, DBNAME);
     
     $sql = "selecte id, name, image from Movie";
-    $stm = $conn->query($sql);
+    $stm = $csx->prepare($sql);
+    $stmt = ->execute();*
+    $res= $stmt->fetchAll(PDO::FETCH_ASSOC); 
     
-    // Vérification du résultat de la requête
-    if ($result === false) {
-        return false; // Erreur dans la requête SQL
-    }
-    
-    // Récupération des résultats sous forme de tableau associatif
-    $movies = $result->fetch_all(MYSQLI_ASSOC);
-    
-    // Fermeture de la connexion à la base de données
-    $conn->close();
-    
-    return $movies; // Retourne le tableau des films
+    return $res; // Retourne le tableau des films
 }
