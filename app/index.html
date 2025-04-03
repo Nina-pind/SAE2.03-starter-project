@@ -17,7 +17,7 @@
 
       // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
-      import { Movie } from "./component/film/script.js";
+      import { Films } from "./component/film/script.js";
       
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -32,12 +32,16 @@
 
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
-        C.readmovies(); // Appelle la fonction pour récupérer les films
+        C.getAllMovies(); // Appelle la fonction pour récupérer les films
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
+      C.getAllMovies = async function () {
+      let data = await DataMovie.requestMovies(); // Utilisez la méthode correcte
+      V.renderMovies(data); // Affiche les films
+      };
       /**
        * V.renderNavBar
        *
@@ -48,6 +52,11 @@
       V.renderNavBar = function (hAbout) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hAbout);
+      };
+
+      V.renderMovies = function (data) {
+      let content = document.querySelector("#content");
+      content.innerHTML = Films.format(data);
       };
 
       C.start(); // Démarre l'application

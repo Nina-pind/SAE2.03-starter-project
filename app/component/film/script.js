@@ -1,17 +1,17 @@
 let templateFile = await fetch("./component/film/template.html");
 let template = await templateFile.text();
 
-let Movie = {};
+let Films = {};
 
-Movie.format = function (movies) {
+Films.format = function (films) {
   let html = "";
-  movies.forEach((movie) => {
-    let movieHtml = template;
-    movieHtml = movieHtml.replace("{{titre}}", movie.name);
-    movieHtml = movieHtml.replace("{{image}}", movie.image);
-    html += movieHtml;
+  films.forEach((film) => {
+    let filmHtml = template;
+    filmHtml = filmHtml.replace("{{titre}}", film.name);
+    filmHtml = filmHtml.replace("{{image}}", film.image);
+    html += filmHtml;
   });
   return html;
 };
 
-export { Movie };
+export { Films };
