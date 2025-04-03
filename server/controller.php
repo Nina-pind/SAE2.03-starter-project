@@ -20,3 +20,7 @@
  */
 require("model.php");
 
+function readMoviesController(){
+  // on appelle la fonction de modèle readMovies() pour récupérer les films
+  $movies = getAllMovies();
+    return movies;
