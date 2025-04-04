@@ -27,25 +27,23 @@ function readmoviesController(){
 }
 
 
-function addFilmController (){
-  if (
-    isset($_POST['title'], $_POST['director'], $_POST['year'], $_POST['duration'], 
-          $_POST['description'], $_POST['id_category'], $_POST['poster'], 
-          $_POST['trailer'], $_POST['age_restriction'])
-) {
-    $title = $_POST['title'];
-    $director = $_POST['director'];
-    $year = $_POST['year'];
-    $duration = $_POST['duration'];
-    $description = $_POST['description'];
-    $id_category = $_POST['id_category'];
-    $poster = $_POST['poster'];
-    $trailer = $_POST['trailer'];
-    $age_restriction = $_POST['age_restriction'];
 
-    $success = addFilm($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction);
-    return $success ? ['success' => true, 'message' => "$title ajouté avec succès"] : false;
-} else {
-    return false; // Paramètres manquants
-}
+
+function addFilmController(){
+  $title = $_REQUEST['title'];
+  $director = $_REQUEST['director'];
+  $year = $_REQUEST['year'];
+  $duration = $_REQUEST['duration'];
+  $description = $_REQUEST['description'];
+  $poster = $_REQUEST['poster'];
+  $id_category = $_REQUEST['id_category'];
+  $trailer = $_REQUEST['trailer'];
+  $age_restriction = $_REQUEST['age_restriction'];
+  $ok = addMovies($title, $description, $director, $year, $duration, $poster, $trailer, $age_restriction, $id_category);
+  if ($ok!=0){
+    return "$title a été ajouté avec succès !";
+  }
+  else{
+    return "Erreur lors de l'ajout de $title !";
+  }
 }
