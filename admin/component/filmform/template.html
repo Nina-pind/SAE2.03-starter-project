@@ -2,14 +2,14 @@
   <h4 class="addfilm__title"># Ajouter ou modifier un film</h4>
 
   <form class="addfilm__form">
-    <input type="text" name="title" placeholder="Saisir le titre du film" required>
+    <input type="text" name="name" placeholder="Saisir le titre du film" required>
 
     <input type="text" name="director" placeholder="Saisir le réalisateur" pattern="[^0-9]*" 
            title="Les chiffres ne sont pas autorisés" required>
 
     <input type="number" name="year" placeholder="Année de sortie" min="1900" max="2025" required>
 
-    <input type="number" name="duration" placeholder="Durée en minutes" min="1" required>
+    <input type="number" name="length" placeholder="Durée en minutes" min="1" required>
 
     <input type="text" name="description" placeholder="Saisir le synopsis" required>
 
@@ -27,12 +27,12 @@
       <option value="10">Documentaire</option>
     </select>
 
-    <input type="text" name="poster" placeholder="Nom du fichier de l'affiche" required>
+    <input type="text" name="image" placeholder="Nom du fichier de l'affiche" required>
 
     <input type="url" name="trailer" placeholder="URL du trailer" required>
 
-    <input type="number" name="age_restriction" placeholder="Restrictions d'âge" min="0" max="18" required>
+    <input type="number" name="min_age" placeholder="Restrictions d'âge" min="0" max="18" required>
 
-    <button type="submit">Ajouter</button>
+    <input onclick="{{handler}}" type="button" value="Ajouter" name="todo">
   </form>
 </div>

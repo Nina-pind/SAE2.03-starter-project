@@ -33,25 +33,25 @@ function getAllMovies(){
         }
     }
 
-    function addFilm($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction) {
+    function addFilm($name, $director, $year, $length, $description, $id_category, $image, $trailer, $min_age) {
         try {
             $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]);
     
-            $sql = "INSERT INTO Movie (title, director, year, duration, description, id_category, poster, trailer, age_restriction) 
-                    VALUES (:title, :director, :year, :duration, :description, :id_category, :poster, :trailer, :age_restriction)";
+            $sql = "INSERT INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
+                    VALUES (:name, :director, :year, :length, :description, :id_category, :image, :trailer, :min_age)";
             $stmt = $cnx->prepare($sql);
             $stmt->execute([
-                ':title' => $title,
+                ':name' => $name,
                 ':director' => $director,
                 ':year' => $year,
-                ':duration' => $duration,
+                ':length' => $length,
                 ':description' => $description,
                 ':id_category' => $id_category,
-                ':poster' => $poster,
+                ':image' => $image,
                 ':trailer' => $trailer,
-                ':age_restriction' => $age_restriction
+                ':min_age' => $min_age
             ]);
     
             return true;
@@ -62,28 +62,30 @@ function getAllMovies(){
     }
 
 
-    function getMovieTrailer($id) {
-        try {
-            // Connexion à la base de données
-            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-            ]);
-    
-            // Requête SQL pour récupérer les détails du film
-            $sql = "SELECT id, name, director, year, durée, description, id_category, image, trailer, min_age 
-                    FROM Movie 
-                    WHERE id = :id";
-    
-            $stmt = $cnx->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-    
-            // Récupère le résultat sous forme d'objet
-            $movieTrailer = $stmt->fetch(PDO::FETCH_OBJ);
-    
-            return $movieTrailer; // Retourne les détails du film
-        } catch (Exception $e) {
-            error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
-            return false;
-        }
+function addMovie($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction) {
+    try {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+
+        $sql = "INSERT INTO Movie (title, director, year, duration, description, id_category, poster, trailer, age_restriction) 
+                VALUES (:title, :director, :year, :duration, :description, :id_category, :poster, :trailer, :age_restriction)";
+        $stmt = $cnx->prepare($sql);
+        $stmt->execute([
+            ':title' => $title,
+            ':director' => $director,
+            ':year' => $year,
+            ':duration' => $duration,
+            ':description' => $description,
+            ':id_category' => $id_category,
+            ':poster' => $poster,
+            ':trailer' => $trailer,
+            ':age_restriction' => $age_restriction
+        ]);
+
+        return true;
+    } catch (Exception $e) {
+        error_log("Erreur SQL : " . $e->getMessage());
+        return false;
     }
+}

@@ -17,9 +17,19 @@
 
       window.C = {};
 
+      C.handlerAddFilm = async function () {
+        let form = document.querySelector(".addfilm__form");
+
+        let fd = new FormData(form);
+        console.log("fd", fd);
+        let res = await DataFilm.addFilm(fd);
+        V.renderLog(res);
+
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
-        C.addFilm();
+        V.renderaddFilm("C.handlerAddFilm()");
       };
       
 
@@ -27,20 +37,14 @@
       window.V = {};
       
 
-      C.addFilm = async function () {
-        let data = await DataFilm.requestFilms();
-        V.renderAddfilm(data);
-      };
-        
-
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
-      V.renderAddfilm = function (obj) {
+      V.renderaddFilm = function (handler) {
         let content = document.querySelector("#addfilm");
-        content.innerHTML = FilmsForm.format(obj);
+        content.innerHTML = FilmsForm.format(handler);
       };
 
       C.start();

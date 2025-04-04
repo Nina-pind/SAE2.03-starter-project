@@ -3,9 +3,9 @@ let template = await templateFile.text();
 
 let FilmsForm = {};
 
-FilmsForm.format = function (obj) {
+FilmsForm.format = function (handler) {
   let html = template;
-  html = html.replace("{{id}}", obj.id);
+  html = html.replace("{{handler}}", handler);
   return html;
 };
 

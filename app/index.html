@@ -9,8 +9,9 @@
 
   <body>
     <header id="header"></header>
-    <section id="content"></section>
 
+    <section id="content"></section>
+    <section id="content"></section>
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
@@ -36,6 +37,12 @@
         C.getAllMovies(); // Appelle la fonction pour récupérer les films
       };
 
+
+      C.start = function () {
+        V.renderNavBar("C.handlerAbout()", "C.handlerShowMovies()");
+        C.getMovie(); // Appelle la fonction pour récupérer les films
+        V.renderMovieTetail(); // Affiche les détails du film
+      };
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -47,7 +54,7 @@
 
       C.handlerTrailer = async function (movieId) {
           let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
-          V.renderMovieDetail(movieData); // Affiche les détails du film
+          V.renderMovieTrailer(movieData); // Affiche les détails du film
       };
 
       /**
@@ -66,6 +73,11 @@
       V.renderMovies = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = Films.formatLi(data);
+      };
+
+      V.renderMovieTrailer = function (movieData) {
+        let content = document.querySelector("#movie__Trailer");
+        content.innerHTML = MovieTrailer.format(movieData);
       };
 
       C.start(); // Démarre l'application
