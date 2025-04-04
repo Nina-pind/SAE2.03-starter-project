@@ -33,22 +33,30 @@ function getAllMovies(){
         }
     }
 
-function addFilm($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction){
-    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-
-    $sql = "REPLACE INTO film (title, director, year, duration, description, id_category, post, trailer, age_restriction) 
-            VALUES (:title, :director, :year, :duration, :description, :id_category, :post, :trailer, :age_restriction)";
-    $stmt = $cnx->prepare($sql);
-    $stmt->bindParam(':title', $title);
-    $stmt->bindParam(':director', $director);
-    $stmt->bindParam(':year', $year);   
-    $stmt->bindParam(':duration', $duration);
-    $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':id_category', $id_category);
-    $stmt->bindParam(':poster', $poster);
-    $stmt->bindParam(':trailer', $trailer);
-    $stmt->bindParam(':age_restriction', $age_restriction);
-    return $stmt->execute(); // Retourne true si l'insertion a réussi, false sinon
-    $res = $stmt->rowcount();
-    return $res;
-}
+    function addFilm($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction) {
+        try {
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+    
+            $sql = "INSERT INTO Movie (title, director, year, duration, description, id_category, poster, trailer, age_restriction) 
+                    VALUES (:title, :director, :year, :duration, :description, :id_category, :poster, :trailer, :age_restriction)";
+            $stmt = $cnx->prepare($sql);
+            $stmt->execute([
+                ':title' => $title,
+                ':director' => $director,
+                ':year' => $year,
+                ':duration' => $duration,
+                ':description' => $description,
+                ':id_category' => $id_category,
+                ':poster' => $poster,
+                ':trailer' => $trailer,
+                ':age_restriction' => $age_restriction
+            ]);
+    
+            return true;
+        } catch (Exception $e) {
+            error_log("Erreur SQL : " . $e->getMessage());
+            return false;
+        }
+    }
