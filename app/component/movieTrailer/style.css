@@ -3,7 +3,7 @@
   margin: 40px auto;
   padding: 20px;
   background-color: #1e1e1e;
-  color: #f0f0f0;
+  color: #949494;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   font-family: "Outfit", sans-serif;
@@ -12,16 +12,32 @@
 .movie__title {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #e50914; 
+  color: #ffffff; 
   text-align: center;
+}
+
+.movie__details {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
 }
 
 .movie__image {
   width: 100%;
-  max-height: 450px;
-  object-fit: cover;
+  max-width: 250px;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.movie__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.movie__info {
+  display: flex;
+  flex-direction: column;
 }
 
 .movie__synopsis {
@@ -36,7 +52,7 @@
 }
 
 .movie__trailer strong {
-  color: #ffcc00;
+  color: #ffffff;
 }
 
 #movie__video__container {
