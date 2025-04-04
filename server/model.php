@@ -33,7 +33,7 @@ function getAllMovies(){
         }
     }
 
-function addMovie($title, $director, $year, $duration, $description, $id_category, $post, $trailer, $age_restriction){
+function addFilm($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction){
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
     $sql = "REPLACE INTO film (title, director, year, duration, description, id_category, post, trailer, age_restriction) 
@@ -45,7 +45,7 @@ function addMovie($title, $director, $year, $duration, $description, $id_categor
     $stmt->bindParam(':duration', $duration);
     $stmt->bindParam(':description', $description);
     $stmt->bindParam(':id_category', $id_category);
-    $stmt->bindParam(':post', $post);
+    $stmt->bindParam(':poster', $poster);
     $stmt->bindParam(':trailer', $trailer);
     $stmt->bindParam(':age_restriction', $age_restriction);
     return $stmt->execute(); // Retourne true si l'insertion a réussi, false sinon

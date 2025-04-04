@@ -27,18 +27,18 @@ function readmoviesController(){
 }
 
 
-function addfilm (){
+function addFilmController (){
     $title = $_REQUEST['title'];
     $director = $_REQUEST['director'];
     $year = $_REQUEST['year'];
     $duration = $_REQUEST['duration'];
     $description = $_REQUEST['description'];
     $id_category = $_REQUEST['id_category'];
-    $post = $_REQUEST['post'];
+    $post = $_REQUEST['poster'];
     $trailer = $_REQUEST['trailer'];
     $age_restriction = $_REQUEST['age_restriction'];
 
-    $ok = addfilm($title, $director, $year, $duration, $description,$id_category, $post, $trailer, $age_restriction);
+    $ok = addFilm($title, $director, $year, $duration, $description,$id_category, $poster, $trailer, $age_restriction);
     if ($ok!=0){
       return "$title a été ajouté avec succès";
     }

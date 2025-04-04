@@ -5,7 +5,7 @@ let FilmsForm = {};
 
 FilmsForm.format = function (obj) {
   let html = template;
-  html = html.replace("{{id}}", id);
+  html = html.replace("{{id}}", obj.id);
   return html;
 };
 

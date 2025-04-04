@@ -30,6 +30,11 @@
         content.innerHTML = Log.format(txt);
       };
 
+      V.renderAddfilm = function (obj) {
+        let content = document.querySelector("#addfilm");
+        content.innerHTML = FilmForm.format(obj);
+      };
+
       C.start();
     </script>
   </body>
