@@ -61,31 +61,36 @@ function getAllMovies(){
         }
     }
 
-
-function addMovie($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction) {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-
-        $sql = "INSERT INTO Movie (title, director, year, duration, description, id_category, poster, trailer, age_restriction) 
-                VALUES (:title, :director, :year, :duration, :description, :id_category, :poster, :trailer, :age_restriction)";
-        $stmt = $cnx->prepare($sql);
-        $stmt->execute([
-            ':title' => $title,
-            ':director' => $director,
-            ':year' => $year,
-            ':duration' => $duration,
-            ':description' => $description,
-            ':id_category' => $id_category,
-            ':poster' => $poster,
-            ':trailer' => $trailer,
-            ':age_restriction' => $age_restriction
-        ]);
-
-        return true;
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage());
-        return false;
+    function getMovieTrailer($id) {
+        try {
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+    
+            // Requête SQL avec jointure pour récupérer les détails du film et le nom de la catégorie
+            $sql = "SELECT 
+                        Movie.id, 
+                        Movie.name, 
+                        Movie.director, 
+                        Movie.year, 
+                        Movie.length, 
+                        Movie.description, 
+                        Movie.image, 
+                        Movie.trailer, 
+                        Movie.min_age, 
+                        Movie.id_category, 
+                        Category.name AS category
+                    FROM Movie
+                    JOIN Category ON Movie.id_category = Category.id
+                    WHERE Movie.id = :id";
+    
+            $stmt = $cnx->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            return $stmt->fetch(PDO::FETCH_OBJ); // Retourne les détails du film sous forme d'objet
+        } catch (Exception $e) {
+            error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
+            return false;
+        }
     }
-}

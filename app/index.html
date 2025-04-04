@@ -17,6 +17,9 @@
       import { NavBar } from "./component/NavBar/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { Films } from "./component/film/script.js";
+      import { MovieTrailer } from "./component/movieTrailer/script.js";
+
+
       //import { MovieTrailer } from "./component/movieTrailer/script.js";
 
 
@@ -32,9 +35,25 @@
         );
       };
 
+
+      C.handlerTrailer = async function (movieId) {
+          // Récupérer les détails du film depuis le serveur
+          let movieTrailer = await DataMovie.requestMovieTrailer(movieId);
+
+          // Vérifiez si les données sont valides
+          if (!movieTrailer || !movieTrailer.name) {
+            throw new Error("Les détails du film sont invalides ou manquants.");
+          }
+
+          // Afficher les détails du film
+          V.renderMovieTrailer(movieTrailer);
+      };
+
+
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
         C.getAllMovies(); // Appelle la fonction pour récupérer les films
+        V.renderMovieTrailer();
       };
 
 
@@ -47,10 +66,6 @@
       };
 
 
-      C.handlerTrailer = async function (movieId) {
-          let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
-          V.renderMovieTrailer(movieData); // Affiche les détails du film
-      };
 
       /**
        * V.renderNavBar
@@ -71,9 +86,10 @@
       };
 
       V.renderMovieTrailer = function (movieData) {
-        let content = document.querySelector("#movie__Trailer");
+        let content = document.querySelector("#content");
         content.innerHTML = MovieTrailer.format(movieData);
       };
+      
 
       C.start(); // Démarre l'application
     </script>

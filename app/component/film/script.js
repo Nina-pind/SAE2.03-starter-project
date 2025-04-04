@@ -7,13 +7,13 @@ let templateLi = await templateLiFile.text();
 
 let Films = {};
 
-Films.format = function (films) {
+Films.format = function (films ) {
   let html = "";
   films.forEach((film) => {
     let filmHtml = template;
     filmHtml = filmHtml.replace("{{titre}}", film.name);
     filmHtml = filmHtml.replace("{{image}}", film.image);
-    html = html.replace("{{handler}}", handler);
+    filmHtml = filmHtml.replace("{{handler}}", `C.handlerTrailer(${film.id})`);
     html += filmHtml;
   });
   return html;

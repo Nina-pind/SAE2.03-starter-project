@@ -11,6 +11,13 @@
       <p><strong>Restrictions d'âge :</strong> <span class="movie-age-restriction">{{movieAgeRestriction}}</span></p>
       <div id="movie__video__container">
         <h3>Trailer</h3>
-        <iframe class="movie__video" src="{{movieTrailerUrl}}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+        <iframe 
+        class="movie__video" src="{{movieTrailerUrl}}" width="560" height="315" frameborder="0" allowfullscreen 
+        title="Trailer de {{ movieTitle }}" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
+      
+      
     </div>
   </div>

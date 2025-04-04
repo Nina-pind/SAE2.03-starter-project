@@ -48,19 +48,16 @@ function addFilmController() {
 
 
 function readMovieTrailerController() {
-  // Vérifie que l'identifiant du film est fourni
-  if (!isset($_REQUEST['id']) || empty($_REQUEST['id'])) {
+  if (!isset($_REQUEST['id'])) {
       return false; 
   }
 
-  $id = intval($_REQUEST['id']); 
+  $id = intval($_REQUEST['id']);
+  $movie = getMovieTrailer($id);
 
-  // Appel de la fonction getMovieTrailer déclarée dans model.php
-  $movieTrailer = getMovieTrailer($id);
-
-  if ($movieTrailer === false) {
-      return false; // Erreur lors de la récupération des détails
+  if ($movie) {
+      return $movie;
+  } else {
+      return false;
   }
-
-  return $movieTrailer; // Retourne les détails du film
 }
