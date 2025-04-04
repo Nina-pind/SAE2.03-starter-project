@@ -11,14 +11,19 @@
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
+      import { FilmsForm } from "../admin/component/filmform/script.js";
 
       window.C = {};
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
+        C.getAllMovies();
       };
 
+
       window.V = {};
+
+      
 
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");

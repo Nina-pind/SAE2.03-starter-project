@@ -25,3 +25,5 @@ function readmoviesController(){
   $movies = getAllMovies();
     return $movies;
 }
+
+
