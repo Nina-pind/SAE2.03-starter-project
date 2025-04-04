@@ -54,9 +54,10 @@
         header.innerHTML = NavBar.format(hAbout);
       };
 
+
       V.renderMovies = function (data) {
-      let content = document.querySelector("#content");
-      content.innerHTML = Films.format(data);
+        let content = document.querySelector("#content");
+        content.innerHTML = Films.formatLi(data);
       };
 
       C.start(); // Démarre l'application
