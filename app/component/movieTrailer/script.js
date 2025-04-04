@@ -13,6 +13,7 @@ movieTrailer.format = function (movieData) {
   html = html.replace("{{movieCategory}}", movieData.category || "Unknown Category");
   html = html.replace("{{movieAgeRestriction}}", movieData.min_age || "N/A");
   html = html.replace("{{movieTrailerUrl}}", movieData.trailer || "#");
+
   return html;
 };
 
