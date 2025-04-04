@@ -1,0 +1,16 @@
+<div class="movie__trailer">
+  <h2 class="movie__title">{{movieTitle}}</h2>
+    <img class="movie__image"
+      src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
+      alt="Affiche du film" />
+
+      <p class="movie__synopsis">{{movieSynopsis}}</p>
+      <p><strong>Réalisateur :</strong> <span class="movie-director">{{movieDirector}}</span></p>
+      <p><strong>Année de sortie :</strong> <span class="movie-year">{{movieYear}}</span></p>
+      <p><strong>Catégorie :</strong> <span class="movie-category">{{movieCategory}}</span></p>
+      <p><strong>Restrictions d'âge :</strong> <span class="movie-age-restriction">{{movieAgeRestriction}}</span></p>
+      <div id="movie__video__container">
+        <h3>Trailer</h3>
+        <iframe class="movie__video" src="{{movieTrailerUrl}}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>

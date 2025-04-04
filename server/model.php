@@ -60,3 +60,30 @@ function getAllMovies(){
             return false;
         }
     }
+
+
+    function getMovieTrailer($id) {
+        try {
+            // Connexion à la base de données
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+    
+            // Requête SQL pour récupérer les détails du film
+            $sql = "SELECT id, name, director, year, durée, description, id_category, image, trailer, min_age 
+                    FROM Movie 
+                    WHERE id = :id";
+    
+            $stmt = $cnx->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            // Récupère le résultat sous forme d'objet
+            $movieTrailer = $stmt->fetch(PDO::FETCH_OBJ);
+    
+            return $movieTrailer; // Retourne les détails du film
+        } catch (Exception $e) {
+            error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
+            return false;
+        }
+    }

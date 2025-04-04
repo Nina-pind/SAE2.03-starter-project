@@ -9,15 +9,16 @@
 
   <body>
     <header id="header"></header>
-
     <section id="content"></section>
+
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
-
-      // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
       import { Films } from "./component/film/script.js";
+      //import { MovieTrailer } from "./component/movieTrailer/script.js";
+
+
       
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -42,6 +43,13 @@
       let data = await DataMovie.requestMovies(); // Utilisez la méthode correcte
       V.renderMovies(data); // Affiche les films
       };
+
+
+      C.handlerTrailer = async function (movieId) {
+          let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
+          V.renderMovieDetail(movieData); // Affiche les détails du film
+      };
+
       /**
        * V.renderNavBar
        *

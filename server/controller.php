@@ -26,10 +26,7 @@ function readmoviesController(){
     return $movies;
 }
 
-
-
-
-function addFilmController(){
+function addFilmController() {
   $title = $_REQUEST['title'];
   $director = $_REQUEST['director'];
   $year = $_REQUEST['year'];
@@ -39,11 +36,31 @@ function addFilmController(){
   $id_category = $_REQUEST['id_category'];
   $trailer = $_REQUEST['trailer'];
   $age_restriction = $_REQUEST['age_restriction'];
-  $ok = addMovies($title, $description, $director, $year, $duration, $poster, $trailer, $age_restriction, $id_category);
-  if ($ok!=0){
-    return "$title a été ajouté avec succès !";
+
+  $ok = addFilm($title, $director, $year, $duration, $description, $id_category, $poster, $trailer, $age_restriction);
+
+  if ($ok) {
+      return "$title a été ajouté avec succès !";
+  } else {
+      return "Erreur lors de l'ajout de $title !";
   }
-  else{
-    return "Erreur lors de l'ajout de $title !";
+}
+
+
+function readMovieTrailerController() {
+  // Vérifie que l'identifiant du film est fourni
+  if (!isset($_REQUEST['id']) || empty($_REQUEST['id'])) {
+      return false; 
   }
+
+  $id = intval($_REQUEST['id']); 
+
+  // Appel de la fonction getMovieTrailer déclarée dans model.php
+  $movieTrailer = getMovieTrailer($id);
+
+  if ($movieTrailer === false) {
+      return false; // Erreur lors de la récupération des détails
+  }
+
+  return $movieTrailer; // Retourne les détails du film
 }
