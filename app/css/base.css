@@ -7,3 +7,4 @@
 @import "../component/NavBar/style.css" layer(components);
 @import "../component/film/style.css" layer(components);
 @import "../component/movieTrailer/style.css" layer(components);
+@import "../component/movieCategory/style.css" layer(components);

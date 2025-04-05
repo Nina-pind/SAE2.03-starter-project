@@ -1,88 +1,17 @@
-.movie__trailer {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: var(--color-white);
-  color: var(--color-gray);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px var(--color-black);
+.category__section{
+  margin-bottom: 3rem;
   font-family: "Outfit", sans-serif;
 }
 
-.movie__title {
+.category__title{
   font-size: 2rem;
-  margin-bottom: 20px;
-  color: var(--color-black); 
-  text-align: left;
-}
-
-
-.movie__details {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-.movie__image {
-  width: 100%;
-  max-width: 250px;
-  border-radius: 10px;
-  margin: 20px 0px;
-
-}
-
-.movie__image img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.movie__info {
-  display: flex;
-  flex-direction: column;
-}
-
-.movie__synopsis {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.movie__trailer p {
-  margin: 10px 0;
-  font-size: 1rem;
-}
-
-.movie__trailer strong {
+  font-weight: bold;
+  margin-bottom: 1rem;
   color: var(--color-black);
 }
 
-#movie__video__container {
-  margin-top: 30px;
-}
-
-#movie__video__container h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.movie__video {
-  width: 100%;
-  max-width: 100%;
-  aspect-ratio: 16 / 9;
-  border: none;
-  border-radius: 8px;
-}
-
-/* Responsive tweaks */
-@media screen and (max-width: 600px) {
-  .movie__title {
-    font-size: 1.5rem;
-  }
-
-  .movie__synopsis,
-  .movie__trailer p {
-    font-size: 0.95rem;
-  }
+.category__list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }

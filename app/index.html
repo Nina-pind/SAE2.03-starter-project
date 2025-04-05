@@ -55,7 +55,7 @@
           V.renderMovieTrailer(movieTrailer);
       };
 
-      C.getMovie = async function () {
+      C.getAllMovies = async function () {
         let data = await DataMovie.requestMoviesByCategory(); // Récupère les films par catégorie
         V.renderMoviesByCategory(data); // Affiche les films par catégorie
       };
@@ -70,11 +70,6 @@
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
-
-      C.getAllMovies = async function () {
-      let data = await DataMovie.requestMovies(); // Utilisez la méthode correcte
-      V.renderMovies(data); // Affiche les films
-      };
 
 
 
