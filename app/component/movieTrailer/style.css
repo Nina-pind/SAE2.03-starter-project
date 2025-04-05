@@ -2,31 +2,34 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #1e1e1e;
-  color: #949494;
+  background-color: var(--color-white);
+  color: var(--color-gray);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px var(--color-black);
   font-family: "Outfit", sans-serif;
 }
 
 .movie__title {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #ffffff; 
-  text-align: center;
+  color: var(--color-black); 
+  text-align: left;
 }
+
 
 .movie__details {
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
+  justify-content: center;
 }
 
 .movie__image {
   width: 100%;
   max-width: 250px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
+
 }
 
 .movie__image img {
@@ -52,7 +55,7 @@
 }
 
 .movie__trailer strong {
-  color: #ffffff;
+  color: var(--color-black);
 }
 
 #movie__video__container {

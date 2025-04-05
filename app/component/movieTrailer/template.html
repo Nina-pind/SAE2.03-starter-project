@@ -3,18 +3,19 @@
   <div id="movie__video__container">
 
     <iframe 
-    class="movie__video" src="{{movieTrailerUrl}}" width="560" height="315" frameborder="0" allowfullscreen 
+    class="movie__video" src="{{movieTrailerUrl}}" width="560" height="415" frameborder="0" allowfullscreen 
     title="Trailer de {{ movieTitle }}" 
     frameborder="0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
   </iframe>
 
-  <h2 class="movie__title">{{movieTitle}}</h2>
+  
   <div class="movie__details">
     <img class="movie__image"
-      src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
-      alt="Affiche du film" />
+    src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
+    alt="Affiche du film" />
     <div class="movie__info">
+      <h2 class="movie__title">{{movieTitle}}</h2>
       <p><strong>Synopsis :</strong> <span class="movie__synopsis">{{movieSynopsis}}</span></p>
       <p><strong>Réalisateur :</strong> <span class="movie-director">{{movieDirector}}</span></p>
       <p><strong>Année de sortie :</strong> <span class="movie-year">{{movieYear}}</span></p>
