@@ -14,4 +14,11 @@ DataMovie.requestMovieTrailer = async function (trailerId) {
   return data;
 }
 
+DataMovie.requestMoviesByCategory = async function () {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovies");
+  let categories = await answer.json();
+  return categories;
+};
+
+
 export {DataMovie}

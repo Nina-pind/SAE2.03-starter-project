@@ -75,19 +75,6 @@
   border-radius: 8px;
 }
 
-.info-box {
-  display: inline-block;
-  background-color: var(--color-white);
-  padding: 8px 12px;
-  border-radius: 10px;
-  margin: 6px 0;
-  font-size: 1rem;
-  color: var(--color-black);
-  box-shadow: 0 2px 4px var(--color-black);
-}
-
-
-
 /* Responsive tweaks */
 @media screen and (max-width: 600px) {
   .movie__title {
