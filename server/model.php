@@ -138,3 +138,21 @@ function getAllMovies(){
             return false;
         }
     }
+
+
+    function addProfile($name, $avatar, $min_age) {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    
+        $sql = "INSERT INTO Profil (name, avatar, min_age) 
+                VALUES (:name, :avatar, :min_age)";
+    
+        $stmt = $cnx->prepare($sql);
+    
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':avatar', $avatar);
+        $stmt->bindParam(':min_age', $min_age);
+    
+        $stmt->execute();
+        $res = $stmt->rowCount();
+        return $res; // Retourne le nombre de lignes affectées par l'opération
+    }

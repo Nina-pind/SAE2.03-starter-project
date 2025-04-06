@@ -1,0 +1,13 @@
+<div class="addprofile">
+  <h4 class="addprofile__title"># Ajouter un profil utilisateur</h4>
+
+  <form class="addprofile__form">
+    <input type="text" id="profile-name" name="name" placeholder="Nom du profil" required />
+
+    <input type="text" id="profile-avatar" name="avatar" placeholder="URL de l'avatar (facultatif)" />
+
+    <input type="number" id="profile-age-restriction" name="min_age" placeholder="Âge minimum" min="0" max="18" required />
+
+    <button type="button" onclick="{{handler}}" class="addprofile__button">Ajouter</button>
+  </form>
+</div>

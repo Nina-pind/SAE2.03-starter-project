@@ -67,3 +67,28 @@ function readMoviesByCategoryController() {
   $categories = getMoviesByCategory();
   return $categories ? $categories : false;
 }
+
+
+function addProfileController() {
+  // Vérifie si tous les paramètres nécessaires sont présents
+  $requiredFields = ['name', 'avatar', 'min_age'];
+  foreach ($requiredFields as $field) {
+      if (!isset($_REQUEST[$field])) {
+          return "Erreur : Le champ '$field' est manquant.";
+      }
+  }
+
+  // Récupère les données du formulaire
+  $name = $_REQUEST['name'];
+  $avatar = $_REQUEST['avatar'];
+  $min_age = intval($_REQUEST['min_age']);
+
+  // Appelle la fonction du modèle pour ajouter le profil
+  $ok = addProfile($name, $avatar, $min_age);
+
+  if ($ok) {
+      return "$name a été ajouté avec succès !";
+  } else {
+      return "Erreur lors de l'ajout du profil $name !";
+  }
+}

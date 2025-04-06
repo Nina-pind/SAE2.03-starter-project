@@ -6,3 +6,4 @@
 
 @import "../component/Log/style.css" layer(components);
 @import "../component/filmform/style.css" layer(components);
+@import "../component/Profileform/style.css"layer(components);
