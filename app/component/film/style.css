@@ -16,7 +16,7 @@
 
 .card {
   position: relative;
-  background-color: var(--color-black);
+  background-color: #F5EBE0;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 12px;
@@ -38,7 +38,8 @@
 .card__title {
   font-family: "Outfit", sans-serif;
   color: var(--color-white);
-  background-color: var(--color-black);
+  background-color: #F5EBE0;
+  color: #7a6650;
   padding: 8px;
   text-align: center;
   font-weight: bold;

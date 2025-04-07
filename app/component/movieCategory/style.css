@@ -1,13 +1,14 @@
 .category__section{
   margin-bottom: 3rem;
   font-family: "Outfit", sans-serif;
+  color: var(--color-black);
 }
 
 .category__title{
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: var(--color-black);
+  color: #7a6650;
 }
 
 .category__list{

@@ -3,8 +3,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 3rem;
-  color: var(--color-fg);
-  background-color: var(--color-bg);
+  color: var(--color-black);
+  background-color: #D5BDAF;
+  font-family: "Outfit", sans-serif;
+
+  .navbar font-sans-serif {
+    font-family: "Outfit", sans-serif;
+  }
 
   .navbar__item {
     --_offset: 0.2rem;
@@ -12,6 +17,8 @@
     text-decoration: underline;
     text-decoration-thickness: 0.1rem;
     text-underline-offset: var(--_offset);
+    color: #7a6650;
+    font-weight: bold;
     cursor: pointer;
     transition: text-underline-offset 0.2s ease-in-out;
     &:hover {
@@ -30,8 +37,9 @@
   font-size: 1rem;
   border-radius: 0.4rem;
   border: 1px solid var(--color-fg);
-  background-color: var(--color-bg);
-  color: var(--color-fg);
+  background-color: #F5EBE0;
+  color: #7a6650;
+  font-weight: bold;
   cursor: pointer;
 }
 
