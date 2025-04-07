@@ -11,7 +11,6 @@
     <header id="header"></header>
 
     <section id="content"></section>
-    <section id="content"></section>
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
@@ -19,6 +18,7 @@
       import { Films } from "./component/film/script.js";
       import { MovieTrailer } from "./component/movieTrailer/script.js";
       import { MovieCategory } from "./component/movieCategory/script.js";
+      import { DataProfile } from "./data/dataProfile.js";
 
 
 
@@ -37,6 +37,9 @@
         );
       };
 
+
+
+      
       C.handlerHome = function () {
         C.getAllMovies(); // Ré-affiche la liste des films
       };
@@ -67,6 +70,20 @@
         V.renderMovieTrailer();
       };
 
+      window.changeProfile = function (event) {
+  const profileId = event.target.value; // Récupère l'ID du profil sélectionné
+  const profiles = JSON.parse(localStorage.getItem("profiles")); // Récupère les profils stockés localement
+
+  if (profiles) {
+    const selectedProfile = profiles.find(profile => profile.id == profileId);
+    if (selectedProfile) {
+      const profileImage = document.querySelector("#profile__image");
+      profileImage.src = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${selectedProfile.avatar}`;
+      profileImage.alt = `Image de ${selectedProfile.name}`;
+    }
+  }
+};
+
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
@@ -80,9 +97,10 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout, hHome) {
+       V.renderNavBar = async function (hAbout, hHome) {
+        const profiles = await DataProfile.read(); // Récupère les profils depuis le serveur
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout, hHome);
+        header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
       };
 
 
@@ -93,12 +111,19 @@
 
       V.renderMovieTrailer = function (movieData) {
         let content = document.querySelector("#content");
-        content.innerHTML = MovieTrailer.format(movieData);
+        content.innerHTML =  MovieTrailer.format(movieData);
       };
       
       V.renderMoviesByCategory = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
+      };
+
+      V.renderNavBar = async function (hAbout, hHome) {
+        const profiles = await DataProfile.read(); // Récupère les profils depuis le serveur
+        localStorage.setItem("profiles", JSON.stringify(profiles)); // Stocke les profils localement
+        let header = document.querySelector("#header");
+        header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
       };
 
       C.start(); // Démarre l'application

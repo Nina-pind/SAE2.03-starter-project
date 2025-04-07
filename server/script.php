@@ -70,7 +70,13 @@ if ( isset($_REQUEST['todo']) ){
       break;
 
     case 'addProfile': // Nouveau cas pour ajouter un profil utilisateur
-      $data = addProfileController();
+      $data = addProfileController(); // Appel de la fonction pour ajouter un profil
+      break;
+
+    case 'readProfiles':
+      $data = readProfilesController();
+      echo json_encode($data);
+      exit(); // Arrête l'exécution du script
       break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée

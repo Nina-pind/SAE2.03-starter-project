@@ -92,3 +92,15 @@ function addProfileController() {
       return "Erreur lors de l'ajout du profil $name !";
   }
 }
+
+
+function readProfilesController() {
+  $profiles = getProfiles(); // Appel de la fonction du modèle
+  error_log("Données retournées par getProfiles : " . print_r($profiles, true));
+  if (!$profiles) {
+    return ["error" => "Impossible de récupérer les profils."];
+  }
+  return $profiles;
+}
+
+
