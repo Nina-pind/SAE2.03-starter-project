@@ -111,15 +111,13 @@ function getAllMovies(){
                         Movie.image AS movie_image
                     FROM Movie
                     JOIN Category ON Movie.id_category = Category.id
-                    WHERE :age = 0 OR Movie.min_age < :age
+                    WHERE  :age = 0 OR Movie.min_age <= :age
                     ORDER BY Category.name, Movie.name";
     
-            $stmt = $cnx->query($sql);
+            $stmt = $cnx->prepare($sql);
             $stmt->bindParam(':age', $age, PDO::PARAM_INT);
             $stmt->execute();
-            
-            $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
-    
+            $rows = $stmt->fetchAll(PDO::FETCH_OBJ); // Récupère tous les résultats sous forme d'objets
             // Regrouper les films par catégorie
             $categories = [];
             foreach ($rows as $row) {

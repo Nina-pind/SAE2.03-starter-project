@@ -63,11 +63,12 @@ function readMovieTrailerController() {
 }
 
 
-  function readMoviesByCategoryController() {
-    $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0;
-    $categories = getMoviesByCategory($age);
-    return $categories ? $categories : false;
-  }
+function readMoviesByCategoryController() {
+  $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0;
+  $categories = getMoviesByCategory($age);
+  return $categories ? $categories : false;
+}
+
 
 function addProfileController() {
   // Vérifie si tous les paramètres nécessaires sont présents
@@ -97,10 +98,7 @@ function addProfileController() {
 function readProfilesController() {
   $profiles = getProfiles(); // Appel de la fonction du modèle
   error_log("Données retournées par getProfiles : " . print_r($profiles, true));
-  if (!$profiles) {
-    return ["error" => "Impossible de récupérer les profils."];
-  }
-  return $profiles;
+  return $profiles ? $profiles : false; // Retourne les profils ou false en cas d'erreur
 }
 
 
