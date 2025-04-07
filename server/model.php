@@ -96,7 +96,7 @@ function getAllMovies(){
     }
 
 
-    function getMoviesByCategory() {
+    function getMoviesByCategory($age) {
         try {
             $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -111,9 +111,13 @@ function getAllMovies(){
                         Movie.image AS movie_image
                     FROM Movie
                     JOIN Category ON Movie.id_category = Category.id
+                    WHERE :age = 0 OR Movie.min_age < :age
                     ORDER BY Category.name, Movie.name";
     
             $stmt = $cnx->query($sql);
+            $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+            $stmt->execute();
+            
             $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
     
             // Regrouper les films par catégorie

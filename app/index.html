@@ -20,12 +20,8 @@
       import { MovieCategory } from "./component/movieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js";
 
-
-
       //import { MovieTrailer } from "./component/movieTrailer/script.js";
 
-
-      
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
       // Une fois l'application terminée, on pourrait remettre let C.
@@ -37,58 +33,63 @@
         );
       };
 
-
-
-      
       C.handlerHome = function () {
         C.getAllMovies(); // Ré-affiche la liste des films
       };
 
-
-      C.handlerTrailer = async function (movieId) {
-          // Récupérer les détails du film depuis le serveur
-          let movieTrailer = await DataMovie.requestMovieTrailer(movieId);
-
-          // Vérifiez si les données sont valides
-          if (!movieTrailer || !movieTrailer.name) {
-            throw new Error("Les détails du film sont invalides ou manquants.");
-          }
-
-          // Afficher les détails du film
-          V.renderMovieTrailer(movieTrailer);
+      C.getSelectedProfileAge = function () {
+        const profileSelect = document.querySelector("#profile-select"); // Assurez-vous que l'élément existe
+        if (profileSelect) {
+          const selectedOption =
+            profileSelect.options[profileSelect.selectedIndex];
+          return parseInt(selectedOption.dataset.age, 10) || 0; // Récupère l'âge ou retourne 0
+        }
+        return 0;
       };
 
+      C.handlerTrailer = async function (movieId) {
+        // Récupérer les détails du film depuis le serveur
+        let movieTrailer = await DataMovie.requestMovieTrailer(movieId);
+
+        // Vérifiez si les données sont valides
+        if (!movieTrailer || !movieTrailer.name) {
+          throw new Error("Les détails du film sont invalides ou manquants.");
+        }
+
+        // Afficher les détails du film
+        V.renderMovieTrailer(movieTrailer);
+      };
+
+
+
       C.getAllMovies = async function () {
-        let data = await DataMovie.requestMoviesByCategory(); // Récupère les films par catégorie
+        const age = C.getSelectedProfileAge();
+        let data = await DataMovie.requestMoviesByCategory(age); // Passe l'âge comme paramètre
+        console.log("Données reçues :", data); // Vérifie la structure des données
         V.renderMoviesByCategory(data); // Affiche les films par catégorie
       };
 
-
-      C.start = function () {
-        V.renderNavBar("C.handlerAbout()", "C.handlerHome()");
+      C.start = async function () {
+        let profiles = await DataProfile.read(); // Récupérer les profils
+        V.renderNavBar("C.handlerAbout()", "C.handlerHome()", profiles);
         C.getAllMovies(); // Appelle la fonction pour récupérer les films
         V.renderMovieTrailer();
       };
 
-      window.changeProfile = function (event) {
-  const profileId = event.target.value; // Récupère l'ID du profil sélectionné
-  const profiles = JSON.parse(localStorage.getItem("profiles")); // Récupère les profils stockés localement
+      C.changeProfile = function (selectElement) {
+        const selectedOption =
+          selectElement.options[selectElement.selectedIndex];
+          const newImage = selectedOption.dataset.img; // Récupère l'attribut data-img
+          const profileImage = document.querySelector("#profile__image");
+            profileImage.src = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${newImage}`;
+            profileImage.alt = `Image de ${selectedOption.name}`;
 
-  if (profiles) {
-    const selectedProfile = profiles.find(profile => profile.id == profileId);
-    if (selectedProfile) {
-      const profileImage = document.querySelector("#profile__image");
-      profileImage.src = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${selectedProfile.avatar}`;
-      profileImage.alt = `Image de ${selectedProfile.name}`;
-    }
-  }
-};
+            C.getAllMovies(); // Appelle la fonction pour récupérer les films
 
+      };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
-
-
 
       /**
        * V.renderNavBar
@@ -97,12 +98,11 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-       V.renderNavBar = async function (hAbout, hHome) {
-        const profiles = await DataProfile.read(); // Récupère les profils depuis le serveur
+      V.renderNavBar = async function (hAbout, hHome, profiles) {
+        profiles = await DataProfile.read(); // Récupère les profils depuis le serveur
         let header = document.querySelector("#header");
         header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
       };
-
 
       V.renderMovies = function (data) {
         let content = document.querySelector("#content");
@@ -111,9 +111,9 @@
 
       V.renderMovieTrailer = function (movieData) {
         let content = document.querySelector("#content");
-        content.innerHTML =  MovieTrailer.format(movieData);
+        content.innerHTML = MovieTrailer.format(movieData);
       };
-      
+
       V.renderMoviesByCategory = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category

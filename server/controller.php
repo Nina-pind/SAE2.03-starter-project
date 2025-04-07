@@ -63,11 +63,11 @@ function readMovieTrailerController() {
 }
 
 
-function readMoviesByCategoryController() {
-  $categories = getMoviesByCategory();
-  return $categories ? $categories : false;
-}
-
+  function readMoviesByCategoryController() {
+    $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0;
+    $categories = getMoviesByCategory($age);
+    return $categories ? $categories : false;
+  }
 
 function addProfileController() {
   // Vérifie si tous les paramètres nécessaires sont présents

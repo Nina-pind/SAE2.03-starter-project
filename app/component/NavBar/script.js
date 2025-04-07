@@ -13,19 +13,12 @@ NavBar.format = function (hAbout, hHome, profiles) {
   // Générer les options pour les profils
   let profileOptions = profiles
     .map(profile => {
-      return `<option value="${profile.id}">${profile.name}</option>`;
+      return `<option value="${profile.id}"data-img="${profile.avatar}" data-age="${profile.min_age}">${profile.name}</option>`;
     })
     .join("");
+  
 
-  // Générer le menu déroulant des profils
-  let profileSelect = `
-  <select id="profile-select" onchange="changeProfile(event)">
-    <option disabled selected>Choisir un profil</option>
-    ${profileOptions}
-  </select>
-`;
-
-  html = html.replace("{{profileSelect}}", profileSelect);
+    html = html.replace("{{profileOptions}}", profileOptions);
 
   return html;
 };

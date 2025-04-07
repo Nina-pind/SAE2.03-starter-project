@@ -5,7 +5,10 @@
   </ul>
 
   <div class="navbar__profiles">
-    {{profileSelect}}
+    <select id="profile-select" onchange="C.changeProfile(this)">
+      <option disabled selected>Choisir un profil</option>
+      {{profileOptions}}
+    </select>
     <img id="profile__image" src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}" alt="Profile Image" class="profile__image">
   </div>
 </nav>
