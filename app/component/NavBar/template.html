@@ -1,11 +1,20 @@
 <nav class="navbar font-sans">
-  <ul class="navbar__list">
-    <li class="navbar__item" onclick="{{hAbout}}">About</li>
-    <li class="navbar__item" onclick="{{hHome}}">Home</li>
-    <select class="navbar__select" onchange=C.changeProfile(this)>">
-      <option value="" disabled selected> Choisir un profil</option>
+  <div class="navbar__left">
+    <ul class="navbar__list">
+      <li class="navbar__item" onclick="{{hAbout}}">About</li>
+      <li class="navbar__item" onclick="{{hHome}}">Home</li>
+    </ul>
+  </div>
+
+  <div class="navbar__profiles">
+    <select class="navbar__select" onchange="C.changeProfile(this)">
+      <option value="" disabled selected>Choisir un profil</option>
       {{profileSelect}}
-      </select>
-      <img id="profile-image" src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}" alt="Profile Image" class="profile__image" style="display: none;">
-  </ul>
+    </select>
+    <img id="profile-image"
+         src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
+         alt="Profile Image"
+         class="profile__image"
+         style="display: none;">
+  </div>
 </nav>
