@@ -9,7 +9,6 @@ let Films = {};
 
 Films.format = function (films ) {
   let html = "";
-  console.log(films);
   films.forEach((film) => {
     let filmHtml = template;
     filmHtml = filmHtml.replace("{{titre}}", film.name);
@@ -26,5 +25,4 @@ Films.formatLi = function (films) {
   liHtml = liHtml.replace("{{film}}", filmContent); // Insère les films dans le conteneur
   return liHtml;
 };
-console.log(Films.formatLi([{ name: "Film 1", image: "image1.jpg", id: 1 }, { name: "Film 2", image: "image2.jpg", id: 2 }]));
 export { Films };
