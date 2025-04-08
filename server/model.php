@@ -142,21 +142,31 @@ function getAllMovies(){
     }
 
 
-    function addProfile($name, $avatar, $min_age) {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    function addProfile($id, $name, $avatar, $min_age) {
+        try {
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+            $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-        $sql = "INSERT INTO Profil (name, avatar, min_age) 
-                VALUES (:name, :avatar, :min_age)";
+            // Si un ID est fourni, on effectue une mise à jour, sinon un ajout
+            if ($id) {
+                $sql = "UPDATE Profil SET name = :name, avatar = :avatar, min_age = :min_age WHERE id = :id";
+                $stmt = $cnx->prepare($sql);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            } else {
+                $sql = "INSERT INTO Profil (name, avatar, min_age) VALUES (:name, :avatar, :min_age)";
+                $stmt = $cnx->prepare($sql);
+            }
     
-        $stmt = $cnx->prepare($sql);
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
+            $stmt->bindParam(':min_age', $min_age, PDO::PARAM_INT);
     
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':avatar', $avatar);
-        $stmt->bindParam(':min_age', $min_age);
-    
-        $stmt->execute();
-        $res = $stmt->rowCount();
-        return $res; // Retourne le nombre de lignes affectées par l'opération
+            $stmt->execute();
+            return $stmt->rowCount(); // Retourne le nombre de lignes affectées
+        } catch (PDOException $e) {
+            error_log("Erreur SQL : " . $e->getMessage());
+            return false;
+        }
     }
 
 
@@ -175,3 +185,6 @@ function getAllMovies(){
             return false;
         }
     }
+
+
+

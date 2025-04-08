@@ -71,27 +71,36 @@ function readMoviesByCategoryController() {
 
 
 function addProfileController() {
-  // Vérifie si tous les paramètres nécessaires sont présents
-  $requiredFields = ['name', 'avatar', 'min_age'];
-  foreach ($requiredFields as $field) {
-      if (!isset($_REQUEST[$field])) {
-          return "Erreur : Le champ '$field' est manquant.";
-      }
-  }
+    // Vérifie si tous les paramètres nécessaires sont présents
+    $requiredFields = ['name', 'avatar', 'min_age'];
+    foreach ($requiredFields as $field) {
+        if (!isset($_REQUEST[$field])) {
+            return "Erreur : Le champ '$field' est manquant.";
+        }
+    }
 
-  // Récupère les données du formulaire
-  $name = $_REQUEST['name'];
-  $avatar = $_REQUEST['avatar'];
-  $min_age = intval($_REQUEST['min_age']);
+    // Récupère les données du formulaire
+    $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
+    $name = $_REQUEST['name'];
+    $avatar = $_REQUEST['avatar'];
+    $min_age = intval($_REQUEST['min_age']);
 
-  // Appelle la fonction du modèle pour ajouter le profil
-  $ok = addProfile($name, $avatar, $min_age);
+    // Appelle la fonction du modèle pour ajouter ou modifier le profil
+    if ($id) {
+        // Si un ID est passé, on modifie le profil
+        $ok = addProfile($id, $name, $avatar, $min_age);
+        if ($ok) {
+            return "$name a été modifié avec succès !";
+        }
+    } else {
+        // Sinon, on ajoute un nouveau profil
+        $ok = addProfile($id, $name, $avatar, $min_age);
+        if ($ok) {
+            return "$name a été ajouté avec succès !";
+        }
+    }
 
-  if ($ok) {
-      return "$name a été ajouté avec succès !";
-  } else {
-      return "Erreur lors de l'ajout du profil $name !";
-  }
+    return "Erreur lors de l'enregistrement du profil $name !";
 }
 
 
@@ -100,5 +109,4 @@ function readProfilesController() {
   error_log("Données retournées par getProfiles : " . print_r($profiles, true));
   return $profiles ? $profiles : false; // Retourne les profils ou false en cas d'erreur
 }
-
 

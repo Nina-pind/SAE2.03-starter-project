@@ -1,13 +1,23 @@
 <div class="addprofile">
-  <h4 class="addprofile__title"># Ajouter un profil utilisateur</h4>
+  <h4 class="addprofile__title"># Ajouter ou modifier un profil utilisateur</h4>
+
+  <!-- Menu déroulant pour sélectionner un profil -->
+  <label for="profile__select">Sélectionner un profil :</label>
+  <select id="profile__select" name="profile">
+    <option value="" >Choisir un profil</option>
+    {{options}}
+  </select>
 
   <form class="addprofile__form">
+    <input id="profile-id" type="hidden" name="id" value=""> <!-- Champ caché pour l'ID -->
     <input type="text" id="profile-name" name="name" placeholder="Nom du profil" required />
 
     <input type="text" id="profile-avatar" name="avatar" placeholder="URL de l'avatar (facultatif)" />
 
     <input type="number" id="profile-age-restriction" name="min_age" placeholder="Âge minimum" min="0" max="18" required />
-
-    <button type="button" onclick="{{handler}}" class="addprofile__button">Ajouter</button>
   </form>
+
+  <!-- Bouton avec onclick pour appeler le handler -->
+  <button type="button" id="profile-submit-btn" class="addprofile__button" onclick="C.handlerAddProfile()">Enregistrer</button>
+
 </div>

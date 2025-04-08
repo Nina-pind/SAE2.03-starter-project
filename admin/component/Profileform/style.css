@@ -1,34 +1,48 @@
-
 /* Conteneur principal pour le formulaire */
 .addprofile {
   max-width: 400px;
   margin: 20px auto;
-  padding: 15px;
+  padding: 20px;
   font-family: "Outfit", sans-serif;
-  background: #fff;
+  background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Titre du formulaire */
 .addprofile__title {
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #333;
 }
 
-/* Champs du formulaire */
-.addprofile__form input,
-.addprofile__form button {
+/* Menu déroulant */
+#profile__select {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Champs du formulaire */
+.addprofile__form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Effet de focus sur les champs */
@@ -38,18 +52,56 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Bouton d'ajout */
+/* Bouton d'ajout ou de modification */
 .addprofile__button {
+  width: 100%;
+  padding: 12px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  cursor: pointer;
+  border-radius: 5px;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 /* Effet au survol du bouton */
 .addprofile__button:hover {
   background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+/* Effet au clic sur le bouton */
+.addprofile__button:active {
+  background-color: #003f7f;
+  transform: scale(0.98);
+}
+
+/* Message de validation ou d'erreur */
+#profile-message {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+  color: #28a745; /* Vert pour les messages de succès */
+}
+
+#profile-message.error {
+  color: #dc3545; /* Rouge pour les messages d'erreur */
+}
+
+/* Responsive : pour les petits écrans */
+@media (max-width: 480px) {
+  .addprofile {
+    padding: 15px;
+  }
+
+  .addprofile__title {
+    font-size: 18px;
+  }
+
+  .addprofile__form input,
+  .addprofile__button {
+    font-size: 14px;
+  }
 }
