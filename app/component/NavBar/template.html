@@ -11,10 +11,15 @@
       <option value="" disabled selected>Choisir un profil</option>
       {{profileSelect}}
     </select>
+    
     <img id="profile-image"
          src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
          alt="Profile Image"
          class="profile__image"
          style="display: none;">
   </div>
+
+  <button class="navbar__favorites" onclick="C.showFavorites()">
+    <i class="fas fa-heart"></i> Favoris
+  </button>
 </nav>

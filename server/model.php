@@ -187,4 +187,69 @@ function getAllMovies(){
     }
 
 
-
+    function addFavorite($profile_id, $movie_id) {
+        try {
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+            $sql = "INSERT INTO Favorites (profile_id, movie_id) VALUES (:profile_id, :movie_id)";
+            $stmt = $cnx->prepare($sql);
+            $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+            $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            error_log("Favori ajouté : profile_id = $profile_id, movie_id = $movie_id");
+            return $stmt->rowCount(); // Retourne le nombre de lignes affectées
+        } catch (Exception $e) {
+            error_log("Erreur SQL dans addFavorite : " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    
+    function getFavorites($profile_id) {
+        try {
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+            $sql = "SELECT Movie.id, Movie.name, Movie.image 
+                    FROM Favorites 
+                    JOIN Movie ON Favorites.movie_id = Movie.id 
+                    WHERE Favorites.profile_id = :profile_id";
+            $stmt = $cnx->prepare($sql);
+            $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $favorites = $stmt->fetchAll(PDO::FETCH_OBJ);
+            return $favorites ?: []; // Retourne un tableau vide si aucun favori n'est trouvé
+        } catch (Exception $e) {
+            error_log("Erreur SQL (getFavorites) : " . $e->getMessage());
+            return []; // Retourne un tableau vide en cas d'erreur
+        }
+    }
+    
+    function isFavorite($profile_id, $movie_id) {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        $sql = "SELECT COUNT(*) FROM Favorites WHERE profile_id = :profile_id AND movie_id = :movie_id";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+        $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+        }
+    
+    function removeFavorite($profile_id, $movie_id) {
+        try {
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+            $sql = "DELETE FROM Favorites WHERE profile_id = :profile_id AND movie_id = :movie_id";
+            $stmt = $cnx->prepare($sql);
+            $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+            $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->rowCount(); // Retourne le nombre de lignes supprimées
+        } catch (Exception $e) {
+            error_log("Erreur SQL (removeFavorite) : " . $e->getMessage());
+            return false; // Retourne false en cas d'erreur
+        }
+    }

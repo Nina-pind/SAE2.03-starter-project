@@ -10,18 +10,20 @@
   border-color: var(--color-fg);
   border-width: 1px;
   overflow: hidden;
-  .log__list {
-    font-size: smaller;
-    color: var(--color-accent);
-    overflow-y: scroll;
-    .last {
-      animation: fondu-en-entree 1s ease-in-out;
-    }
+}
 
-    .clignotant {
-      animation: clignotement 2.5s infinite;
-    }
-  }
+.log__list {
+  font-size: smaller;
+  color: var(--color-accent);
+  overflow-y: scroll;
+}
+
+.log__list .last {
+  animation: fondu-en-entree 1s ease-in-out;
+}
+
+.log__list .clignotant {
+  animation: clignotement 2.5s infinite;
 }
 
 @keyframes fondu-en-entree {

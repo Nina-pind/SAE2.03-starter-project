@@ -110,3 +110,49 @@ function readProfilesController() {
   return $profiles ? $profiles : false; // Retourne les profils ou false en cas d'erreur
 }
 
+
+function addFavoriteController() {
+    if (!isset($_REQUEST['profile_id']) || !isset($_REQUEST['movie_id'])) {
+        http_response_code(400); // Mauvaise requête
+        return json_encode(["success" => false, "message" => "Paramètres manquants."]);
+    }
+
+    $profile_id = intval($_REQUEST['profile_id']);
+    $movie_id = intval($_REQUEST['movie_id']);
+
+    if (isFavorite($profile_id, $movie_id)) {
+        return json_encode(["success" => false, "message" => "Le film est déjà dans vos favoris."]);
+    }
+
+    $ok = addFavorite($profile_id, $movie_id);
+    return $ok ? json_encode(["success" => true, "message" => "Le film a été ajouté à vos favoris."]) 
+               : json_encode(["success" => false, "message" => "Erreur lors de l'ajout aux favoris."]);
+}
+
+function getFavoritesController() {
+    if (!isset($_REQUEST['profile_id'])) {
+        http_response_code(400); // Mauvaise requête
+        return "[error] Missing profile_id";
+    }
+
+    $profile_id = intval($_REQUEST['profile_id']);
+    $favorites = getFavorites($profile_id);
+
+    // Retourne un tableau vide si aucun favori n'est trouvé
+    return $favorites !== false ? $favorites : [];
+}
+
+function removeFavoriteController() {
+    // Vérifie si les paramètres nécessaires sont présents
+    if (!isset($_REQUEST['profile_id']) || !isset($_REQUEST['movie_id'])) {
+        http_response_code(400); // Mauvaise requête
+        return "[error] Missing profile_id or movie_id";
+    }
+
+    $profile_id = intval($_REQUEST['profile_id']);
+    $movie_id = intval($_REQUEST['movie_id']);
+
+    // Supprime le film des favoris
+    $ok = removeFavorite($profile_id, $movie_id);
+    return $ok ? "Le film a été retiré de vos favoris." : "Erreur lors de la suppression du favori.";
+}

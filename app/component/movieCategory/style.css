@@ -1,17 +1,27 @@
-.category__section{
+.category__section {
   margin-bottom: 3rem;
-  font-family: "Outfit", sans-serif;
+  font-family: var(--ff-serif);
   color: var(--color-black);
 }
 
-.category__title{
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #7a6650;
+.category__rectangle {
+  display: inline-flex; /* Utiliser inline-flex pour que la largeur s'ajuste au contenu */
+  align-items: center; /* Centre le titre verticalement dans le rectangle */
+  padding-left: 1rem; /* Un peu d'espace à gauche du titre */
+  padding-right: 1rem; /* Un peu d'espace à droite du titre */
+  background-color: var(--color-card-title);
+  border-radius: 10px; /* Bordure arrondie */
+  margin-top: 2rem;
 }
 
-.category__list{
+.category__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0; /* Enlève la marge par défaut du titre */
+  color: white; /* Couleur du titre */
+}
+
+.category__list {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;

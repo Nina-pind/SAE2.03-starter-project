@@ -15,8 +15,8 @@
 
 .card {
   position: relative;
-  background-color: #F5EBE0;
-  border: 1px solid #ccc;
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
   border-radius: 8px;
   padding: 12px;
   max-width: 300px;
@@ -35,10 +35,9 @@
 }
 
 .card__title {
-  font-family: "Outfit", sans-serif;
-  color: var(--color-white);
-  background-color: #F5EBE0;
-  color: #7a6650;
+  font-family: var(--ff-serif);
+  color: var(--color-card-title);
+  background-color: var(--color-card-bg);
   padding: 8px;
   text-align: center;
   font-weight: bold;
@@ -47,4 +46,26 @@
   width: 250px;
   font-size: 0.9rem;
   margin-top: 10px;
+}
+
+.favorite-btn {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.favorite-btn i {
+  color: var(--color-favorite-icon);
+}
+
+.favorite-btn:hover i {
+  color: var(--color-favorite-hover);
+}
+
+.favorite-btn.disabled i {
+  color: var(--color-favorite-hover);
+  cursor: not-allowed;
 }

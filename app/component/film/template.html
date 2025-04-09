@@ -1,12 +1,13 @@
-<div class="content" onclick="{{handler}}">
-  <div class="card">
+<div class="content">
+  <div class="card" onclick="{{handler}}">
     <img
       src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
       alt="Affiche du film"
       class="card__image"
     />
   </div>
-    <h2 class="card__title">{{titre}}</h2>
+  <h2 class="card__title">{{titre}}</h2>
+  <div class="card__favorite">
+    {{favorite}} 
   </div>
-
-  
+</div>
