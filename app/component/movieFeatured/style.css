@@ -1,0 +1,78 @@
+/* Conteneur principal */
+.featured-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #1c1c1c;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+
+/* Carte individuelle */
+.featured-movie {
+  display: flex;
+  flex-direction: column; /* Disposition verticale pour placer le bouton en bas */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  gap: 20px;
+}
+
+.featured-movie:hover {
+  transform: scale(1.1);
+  background-color: #642362;
+}
+
+/* Informations sur le film */
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-grow: 1; /* Permet au contenu de pousser le bouton vers le bas */
+  color: #fff;
+}
+
+.movie-info h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #c389c7;
+}
+
+.movie-info p {
+  font-size: 1em;
+  color: #ddd;
+}
+
+/* Image du film */
+.movie-image {
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid #c389c7;
+}
+
+/* Bouton d'action */
+.view-details-btn {
+  margin-top: auto; /* Positionne le bouton en bas */
+  padding: 15px 60px; /* Plus large pour plus de visibilité */
+  background-color: #c389c7;
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-details-btn:hover {
+  background-color: #9c51a1;
+  transform: scale(1.01); /* Effet de zoom au survol */
+}

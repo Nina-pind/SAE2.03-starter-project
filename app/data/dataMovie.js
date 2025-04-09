@@ -8,6 +8,12 @@ DataMovie.requestMovies = async function () {
   return data;
 }
 
+DataMovie.requestFeaturedMovies = async function () {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=getFeaturedMovies"); 
+  let data = await answer.json();
+  return data;
+};
+
 DataMovie.requestMovieTrailer = async function (trailerId) {
   let answer = await fetch(HOST_URL + `/server/script.php?todo=readMovieTrailer&id=${trailerId}`);
   let data = await answer.json();
@@ -21,7 +27,7 @@ DataMovie.requestMoviesByCategory = async function () {
 };
 
 DataMovie.addFavorite = async function (movieId, profileId) {
-  const url = `${HOST_URL}/server/script.php?todo=addFavorites&id_profile=${profileId}&id_movie=${movieId}`; // Correction ici
+  const url = `${HOST_URL}/server/script.php?todo=addFavorites&id_profile=${profileId}&id_movie=${movieId}`; 
   console.log("URL générée pour ajouter aux favoris :", url);
   let answer = await fetch(url);
   if (!answer.ok) {
@@ -39,12 +45,11 @@ DataMovie.getFavorite = async function (profileId) {
   return favoriteResponse;
 };
 
-DataMovie.removeFavorite = async function (profileId, movieId) {
-  const url = `${HOST_URL}/server/script.php?todo=removeFavorites&id_profile=${profileId}&id_movie=${movieId}`; // Correction ici
-  console.log("URL générée pour supprimer des favoris :", url);
-  let answer = await fetch(url);
-  let favoriteResponse = await answer.json();
-  return favoriteResponse;
+DataMovie.requestFeaturedMovies = async function () {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=getFeaturedMovies");
+  let data = await answer.json();
+  console.log("Réponse de getFeaturedMovies :", data); // Log de la réponse
+  return data;
 };
 
 

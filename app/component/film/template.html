@@ -1,17 +1,11 @@
-<div>
-<div class="content" onclick="{{handler}}">
-  <div class="card">
-    <img
-      src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
-      alt="Affiche du film"
-      class="card__image"
-    />
-  </div>
+<div class="favorites-container">
+  <div class="content" onclick="{{handler}}">
+    <div class="card">
+      <img src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}" alt="Affiche du film" class="card__image"/>
+    </div>
     <h2 class="card__title">{{titre}}</h2>
-  </div>
-  <div>
-    <div>{{button}}</div> 
+    <div class="favorite-button-wrapper">
+      {{button}} <!-- Le bouton Ajouter/Supprimer des favoris ici -->
+    </div>
   </div>
 </div>
-
-  

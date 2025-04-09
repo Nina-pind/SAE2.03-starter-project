@@ -9,22 +9,18 @@
 
   <body>
     <header id="header"></header>
-
+    <section id="featured-movies"></section>
     <section id="content"></section>
+    
 
     <script type="module">
-      import { NavBar } from "./component/NavBar/script.js";
+      import { NavBar } from "./component/NavBar/script.js";0
       import { DataMovie } from "./data/dataMovie.js";
       import { Films } from "./component/film/script.js";
       import { MovieTrailer } from "./component/movieTrailer/script.js";
       import { MovieCategory } from "./component/movieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js";
-
-
-
-      //import { MovieTrailer } from "./component/movieTrailer/script.js";
-
-
+      import { MovieFeatured } from "./component/movieFeatured/script.js";
       
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -32,6 +28,11 @@
       window.C = {};
 
       C.activeProfileId = null;
+
+      C.getFeaturedMovies = async function () {
+        let featuredMovies = await DataMovie.requestFeaturedMovies();
+        V.renderFeaturedMovies(featuredMovies);
+      };
 
       C.handlerAbout = function () {
         alert(
@@ -109,7 +110,8 @@
 
       C.start = function () {
               V.renderNavBar("C.handlerAbout()", "C.handlerHome()", "C.handlerProfileSelect(event)");
-              C.getAllMovies(); // Appelle la fonction pour récupérer les films
+              C.getAllMovies(); 
+              C.getFeaturedMovies();
               V.renderMovieTrailer();
             };
 
@@ -196,6 +198,10 @@
         localStorage.setItem("profiles", JSON.stringify(profiles)); // Stocke les profils localement
         let header = document.querySelector("#header");
         header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
+      };
+      V.renderFeaturedMovies = function (movies) {
+        let featuredSection = document.querySelector("#featured-movies");
+        featuredSection.innerHTML = MovieFeatured.formatGrid(movies);
       };
 
       V.renderMovies = function (data) {

@@ -8,33 +8,29 @@ let Films = {};
 
 // Formate les films avec le template principal
 Films.format = function (films, profileId, favorites = []) {
-  let i = 0;
+  let filmHtml = "";
 
-    let filmHtml = template;
-    let movie = films[i];
-    filmHtml = filmHtml.replace("{{titre}}", movie.name);
-    filmHtml = filmHtml.replace("{{image}}", movie.image);
-    filmHtml = filmHtml.replace("{{handler}}", `C.handlerTrailer(${movie.id})`);
+  if (!favorites || !Array.isArray(favorites)) {
+    favorites = [];
+  }
 
-    if (!favorites || !Array.isArray(favorites)) {
-      favorites = [];
-    }
+  for (let movie of films) {
+    let templateCopy = template; // Crée une copie du template pour chaque film
+    templateCopy = templateCopy.replace("{{titre}}", movie.name);
+    templateCopy = templateCopy.replace("{{image}}", movie.image);
+    templateCopy = templateCopy.replace("{{handler}}", `C.handlerTrailer(${movie.id})`);
 
-    let isFavorite = false
-    for (let fav of favorites) {
-        if (fav.id === movie.id) {
-            isFavorite = true;
-            break;
-        }
-    }
+    let isFavorite = favorites.some(fav => fav.id === movie.id);
 
     // Ajoute un bouton "Ajouter aux favoris" ou "Favoris" désactivé
     const favoriteButton = isFavorite
       ? `<button disabled>Favoris</button>`
       : `<button class="add-to-favorites-button" onclick="C.addFavorites(${movie.id}, ${profileId})">Ajouter aux favoris</button>`;
 
-    filmHtml = filmHtml.replace("{{button}}", favoriteButton);
-    i++;
+    templateCopy = templateCopy.replace("{{button}}", favoriteButton);
+
+    filmHtml += templateCopy; // Ajoute le HTML du film au contenu global
+  }
 
   return filmHtml;
 };

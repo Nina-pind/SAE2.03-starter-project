@@ -1,9 +1,14 @@
-.container {
+/* Conteneur des films favoris */
+.favorites-container {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 1rem;
 }
 
+/* Contenu du film (identique à la page d'accueil) */
 .content {
   display: flex;
   flex-direction: column;
@@ -11,9 +16,9 @@
   justify-content: center;
   margin-top: 20px;
   gap: 0.1rem;
-
 }
 
+/* Carte du film */
 .card {
   position: relative;
   background-color: #F5EBE0;
@@ -29,15 +34,17 @@
   justify-content: center;
 }
 
+/* Image du film dans la carte */
 .card__image {
   width: 250px;
   height: 350px;
   border: 1px solid var(--color-black);
+  object-fit: cover;
 }
 
+/* Titre du film sous l'image */
 .card__title {
   font-family: "Outfit", sans-serif;
-  color: var(--color-white);
   background-color: #F5EBE0;
   color: #7a6650;
   padding: 8px;
@@ -50,9 +57,8 @@
   margin-top: 10px;
 }
 
-
 .add-to-favorites-button {
-  margin: 10px auto;
+  margin-top: 10px;
   background-color: #f8d7b9;
   color: #7a6650;
   border: 1px solid var(--color-black);
@@ -61,10 +67,10 @@
   font-family: "Outfit", sans-serif;
   font-size: 0.85rem;
   cursor: pointer;
-  display: flex; /* Utilisation de flexbox */
-  align-items: center; /* Aligne le cœur et le texte verticalement */
-  justify-content: center; /* Centre le contenu horizontalement */
-  gap: 8px; /* Espace entre le cœur et le texte */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
@@ -77,5 +83,11 @@
   content: "♡";
   font-size: 1.1rem;
   color: #c44c4c;
-  margin-right: 0; /* Supprime la marge supplémentaire */
+  margin-right: 0;
+}
+
+.favorite-button-wrapper {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }

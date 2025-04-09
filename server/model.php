@@ -220,3 +220,20 @@ function getAllMovies(){
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
+
+
+    function getFeaturedMovies() {
+        try {
+            error_log("Début de getFeaturedMovies"); // Log avant la connexion
+            $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+            $sql = "SELECT id, name, description, image FROM Movie WHERE is_featured = 1";
+            error_log("Requête SQL : $sql"); // Log de la requête
+            $stmt = $cnx->query($sql);
+            $movies = $stmt->fetchAll(PDO::FETCH_OBJ);
+            error_log("Films mis en avant : " . print_r($movies, true)); // Log des résultats
+            return $movies;
+        } catch (Exception $e) {
+            error_log("Erreur SQL : " . $e->getMessage());
+            return [];
+        }
+    }
