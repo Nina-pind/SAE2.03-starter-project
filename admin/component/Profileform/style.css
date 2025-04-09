@@ -1,85 +1,55 @@
+
+/* Conteneur principal pour le formulaire */
 .addprofile {
   max-width: 400px;
   margin: 20px auto;
-  padding: 20px;
-  font-family: var(--ff-serif);
-  background: var(--color-form-bg);
-  border: 1px solid var(--color-form-border);
+  padding: 15px;
+  font-family: "Outfit", sans-serif;
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Titre du formulaire */
 .addprofile__title {
   text-align: center;
-  font-size: 20px;
-  font-family: "Outfit", sans-serif;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 20px;
-  color: var(--color-black-light);
+  margin-bottom: 15px;
+  color: #333;
 }
 
-#profile__select {
+/* Champs du formulaire */
+.addprofile__form input,
+.addprofile__form button {
   width: 100%;
   padding: 10px;
-  font-family: "Outfit", sans-serif;
-  margin-bottom: 15px;
-  border: 1px solid var(--color-form-border);
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  background-color: var(--color-white);
-  color: var(--color-black-light);
-  cursor: pointer;
 }
 
-.addprofile__form input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid var(--color-form-border);
-  border-radius: 5px;
-  font-size: 14px;
-  background-color: var(--color-white);
-  color: var(--color-black-light);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
+/* Effet de focus sur les champs */
 .addprofile__form input:focus {
-  border-color: var(--color-form-focus);
+  border-color: #007bff;
   outline: none;
-  box-shadow: 0 0 5px var(--color-form-focus-shadow);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Bouton d'ajout */
 .addprofile__button {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--color-form-button-bg);
-  color: var(--color-white);
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  font-family: "Outfit", sans-serif;
+  cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
+/* Effet au survol du bouton */
 .addprofile__button:hover {
-  background-color: var(--color-form-button-hover);
-  transform: scale(1.02);
-}
-
-.addprofile__button:active {
-  background-color: var(--color-form-button-active);
-  transform: scale(0.98);
-}
-
-#profile-message {
-  margin-top: 15px;
-  font-size: 14px;
-  text-align: center;
-  color: var(--color-success);
-}
-
-#profile-message.error {
-  color: var(--color-error);
+  background-color: #0056b3;
 }

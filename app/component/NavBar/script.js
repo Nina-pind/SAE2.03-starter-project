@@ -1,30 +1,25 @@
-import { DataProfile} from "../../data/dataProfile.js";
-
 let navBarTemplateFile = await fetch("./component/NavBar/template.html");
 let navBarTemplate = await navBarTemplateFile.text();
 
 let NavBar = {};
 
-NavBar.format = async function (hAbout, hHome) {
+NavBar.format = function (hAbout, hHome, profiles) {
   let html = navBarTemplate;
-
-  const profiles = await DataProfile.read();
-
-
   html = html.replace("{{hAbout}}", hAbout);
   html = html.replace("{{hHome}}", hHome);
-  let image = profiles [0]?.avatar||"";
-  html = html.replace("{{image}}", image);
 
   // Générer les options pour les profils
-  let profileSelect = profiles
+  let profileOptions = profiles
     .map(profile => {
       return `<option value="${profile.id}" data-img="${profile.avatar}" data-age="${profile.min_age}">${profile.name}</option>`;
     })
     .join("");
 
+  html = html.replace("{{profileOptions}}", profileOptions);
 
-  html = html.replace("{{profileSelect}}", profileSelect);
+  // Utiliser l'image du premier profil ou une image par défaut
+  let image = profiles[0]?.avatar || "default-avatar.jpg";
+  html = html.replace("{{image}}", image);
 
   return html;
 };

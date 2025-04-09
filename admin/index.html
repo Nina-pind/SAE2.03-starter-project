@@ -19,8 +19,8 @@
       import { DataProfile } from "./data/dataProfile.js";
 
 
-
       window.C = {};
+      
 
       C.handlerAddFilm = async function () {
         let form = document.querySelector(".addfilm__form");
@@ -33,32 +33,12 @@
       };
 
       C.handlerAddProfile = async function () {
-  let form = document.querySelector(".addprofile__form");
-  let fd = new FormData(form);
+        let form = document.querySelector(".addprofile__form");
 
-  let profileId = document.getElementById("profile__select").value; // Récupère l'id du profil sélectionné
-  
-  let res; // Déclare la variable ici
-  
-  try {
-    if (profileId) {
-      // Si un profil est sélectionné, il s'agit d'une mise à jour
-      fd.append("id", profileId); // Ajoute l'id au FormData
-      res = await DataProfile.updateProfile(fd); // Appelle la fonction de mise à jour
-    } else {
-      // Sinon, il s'agit d'un ajout
-      res = await DataProfile.addProfile(fd); // Appelle la fonction d'ajout
-    }
-
-    V.renderLog(res); // Assure-toi que res contient la réponse attendue
-
-  } catch (error) {
-    console.error("Erreur dans le traitement du formulaire : ", error);
-    V.renderLog("Erreur lors de l'enregistrement du profil.");
-  }
-};
-
-
+        let fd = new FormData(form); // Declare and initialize the FormData object
+        let res = await DataProfile.addProfile(fd);
+        V.renderLog(res);
+      };
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
@@ -81,13 +61,10 @@
         content.innerHTML = FilmsForm.format(handler);
       };
 
-      V.renderAddProfile = async function (handler) {
+      V.renderAddProfile = function (handler) {
         let content = document.querySelector("#addProfile");
-        let profiles = await DataProfile.getProfiles();
-        content.innerHTML = ProfileForm.format(profiles, handler);
-        ProfileForm.init();
+        content.innerHTML = ProfileForm.format(handler);
       };
-
 
       C.start();
     </script>

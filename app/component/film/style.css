@@ -11,12 +11,13 @@
   justify-content: center;
   margin-top: 20px;
   gap: 0.1rem;
+
 }
 
 .card {
   position: relative;
-  background-color: var(--color-card-bg);
-  border: 1px solid var(--color-card-border);
+  background-color: #F5EBE0;
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 12px;
   max-width: 300px;
@@ -35,9 +36,10 @@
 }
 
 .card__title {
-  font-family: var(--ff-serif);
-  color: var(--color-card-title);
-  background-color: var(--color-card-bg);
+  font-family: "Outfit", sans-serif;
+  color: var(--color-white);
+  background-color: #F5EBE0;
+  color: #7a6650;
   padding: 8px;
   text-align: center;
   font-weight: bold;
@@ -48,24 +50,32 @@
   margin-top: 10px;
 }
 
-.favorite-btn {
-  background-color: transparent;
-  border: none;
-  padding: 10px;
+
+.add-to-favorites-button {
+  margin: 10px auto;
+  background-color: #f8d7b9;
+  color: #7a6650;
+  border: 1px solid var(--color-black);
+  border-radius: 1rem;
+  padding: 6px 12px;
+  font-family: "Outfit", sans-serif;
+  font-size: 0.85rem;
   cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s;
+  display: flex; /* Utilisation de flexbox */
+  align-items: center; /* Aligne le cœur et le texte verticalement */
+  justify-content: center; /* Centre le contenu horizontalement */
+  gap: 8px; /* Espace entre le cœur et le texte */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
-.favorite-btn i {
-  color: var(--color-favorite-icon);
+.add-to-favorites-button:hover {
+  background-color: #eac9aa;
 }
 
-.favorite-btn:hover i {
-  color: var(--color-favorite-hover);
-}
-
-.favorite-btn.disabled i {
-  color: var(--color-favorite-hover);
-  cursor: not-allowed;
+.add-to-favorites-button::before {
+  content: "♡";
+  font-size: 1.1rem;
+  color: #c44c4c;
+  margin-right: 0; /* Supprime la marge supplémentaire */
 }

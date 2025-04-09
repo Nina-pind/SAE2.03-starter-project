@@ -64,95 +64,78 @@ function readMovieTrailerController() {
 
 
 function readMoviesByCategoryController() {
-  $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0;
-  $categories = getMoviesByCategory($age);
+  $categories = getMoviesByCategory();
   return $categories ? $categories : false;
 }
 
 
 function addProfileController() {
-    // Vérifie si tous les paramètres nécessaires sont présents
-    $requiredFields = ['name', 'avatar', 'min_age'];
-    foreach ($requiredFields as $field) {
-        if (!isset($_REQUEST[$field])) {
-            return "Erreur : Le champ '$field' est manquant.";
-        }
-    }
+  // Vérifie si tous les paramètres nécessaires sont présents
+  $requiredFields = ['name', 'avatar', 'min_age'];
+  foreach ($requiredFields as $field) {
+      if (!isset($_REQUEST[$field])) {
+          return "Erreur : Le champ '$field' est manquant.";
+      }
+  }
 
-    // Récupère les données du formulaire
-    $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : null;
-    $name = $_REQUEST['name'];
-    $avatar = $_REQUEST['avatar'];
-    $min_age = intval($_REQUEST['min_age']);
+  // Récupère les données du formulaire
+  $name = $_REQUEST['name'];
+  $avatar = $_REQUEST['avatar'];
+  $min_age = intval($_REQUEST['min_age']);
 
-    // Appelle la fonction du modèle pour ajouter ou modifier le profil
-    if ($id) {
-        // Si un ID est passé, on modifie le profil
-        $ok = addProfile($id, $name, $avatar, $min_age);
-        if ($ok) {
-            return "$name a été modifié avec succès !";
-        }
-    } else {
-        // Sinon, on ajoute un nouveau profil
-        $ok = addProfile($id, $name, $avatar, $min_age);
-        if ($ok) {
-            return "$name a été ajouté avec succès !";
-        }
-    }
+  // Appelle la fonction du modèle pour ajouter le profil
+  $ok = addProfile($name, $avatar, $min_age);
 
-    return "Erreur lors de l'enregistrement du profil $name !";
+  if ($ok) {
+      return "$name a été ajouté avec succès !";
+  } else {
+      return "Erreur lors de l'ajout du profil $name !";
+  }
 }
 
 
 function readProfilesController() {
   $profiles = getProfiles(); // Appel de la fonction du modèle
   error_log("Données retournées par getProfiles : " . print_r($profiles, true));
-  return $profiles ? $profiles : false; // Retourne les profils ou false en cas d'erreur
+  if (!$profiles) {
+    return ["error" => "Impossible de récupérer les profils."];
+  }
+  return $profiles;
 }
 
 
-function addFavoriteController() {
-    if (!isset($_REQUEST['profile_id']) || !isset($_REQUEST['movie_id'])) {
-        http_response_code(400); // Mauvaise requête
-        return json_encode(["success" => false, "message" => "Paramètres manquants."]);
+
+function addFavoritesController() {
+    if (!isset($_REQUEST['id_profile']) || !isset($_REQUEST['id_movie'])) {
+        http_response_code(400); // Bad Request
+        return ["error" => "Paramètres manquants : id_profile ou id_movie"];
     }
 
-    $profile_id = intval($_REQUEST['profile_id']);
-    $movie_id = intval($_REQUEST['movie_id']);
+    $id_profile = intval($_REQUEST['id_profile']);
+    $id_movie = intval($_REQUEST['id_movie']);
 
-    if (isFavorite($profile_id, $movie_id)) {
-        return json_encode(["success" => false, "message" => "Le film est déjà dans vos favoris."]);
+    error_log("addFavoritesController : id_profile = $id_profile, id_movie = $id_movie");
+
+    if (isFavorites($id_profile, $id_movie)) {
+        return ["message" => "Le film est déjà dans vos favoris."];
     }
 
-    $ok = addFavorite($profile_id, $movie_id);
-    return $ok ? json_encode(["success" => true, "message" => "Le film a été ajouté à vos favoris."]) 
-               : json_encode(["success" => false, "message" => "Erreur lors de l'ajout aux favoris."]);
+    $ok = addFavorites($id_profile, $id_movie);
+    if (!$ok) {
+        error_log("Erreur lors de l'ajout aux favoris : id_profile = $id_profile, id_movie = $id_movie");
+    }
+    return $ok ? ["message" => "Le film a été ajouté à vos favoris."] : ["error" => "Erreur lors de l'ajout aux favoris."];
 }
 
 function getFavoritesController() {
-    if (!isset($_REQUEST['profile_id'])) {
-        http_response_code(400); // Mauvaise requête
-        return "[error] Missing profile_id";
-    }
-
-    $profile_id = intval($_REQUEST['profile_id']);
-    $favorites = getFavorites($profile_id);
-
-    // Retourne un tableau vide si aucun favori n'est trouvé
-    return $favorites !== false ? $favorites : [];
+  $id_profile = $_REQUEST['id_profile']; 
+  error_log("ID Profil reçu : " . $id_profile);
+  return getFavorites($id_profile); 
 }
 
-function removeFavoriteController() {
-    // Vérifie si les paramètres nécessaires sont présents
-    if (!isset($_REQUEST['profile_id']) || !isset($_REQUEST['movie_id'])) {
-        http_response_code(400); // Mauvaise requête
-        return "[error] Missing profile_id or movie_id";
-    }
-
-    $profile_id = intval($_REQUEST['profile_id']);
-    $movie_id = intval($_REQUEST['movie_id']);
-
-    // Supprime le film des favoris
-    $ok = removeFavorite($profile_id, $movie_id);
-    return $ok ? "Le film a été retiré de vos favoris." : "Erreur lors de la suppression du favori.";
+function removeFavoritesController() {
+  $id_profile = $_REQUEST['id_profile']; 
+  $id_movie = $_REQUEST['id_movie'];
+  $ok = removeFavorites($id_profile, $id_movie); 
+  return $ok ? ["Le film a bien été retiré de vos favoris" => true] : ["error" => "Erreur lors de la suppression des favoris"];
 }

@@ -1,25 +1,15 @@
 <nav class="navbar font-sans">
-  <div class="navbar__left">
-    <ul class="navbar__list">
-      <li class="navbar__item" onclick="{{hAbout}}">About</li>
-      <li class="navbar__item" onclick="{{hHome}}">Home</li>
-    </ul>
-  </div>
+  <ul class="navbar__list">
+    <li class="navbar__item" onclick="{{hAbout}}">About</li>
+    <li class="navbar__item" onclick="{{hHome}}">Home</li>
+    <li class="navbar__item" onclick="C.showFavorites()">Voir mes favoris</li>
+  </ul>
 
   <div class="navbar__profiles">
-    <select class="navbar__select" onchange="C.changeProfile(this)">
+    <select class="navbar__profile-select" onchange="C.handlerProfileSelect(this)">
       <option value="" disabled selected>Choisir un profil</option>
-      {{profileSelect}}
+      {{profileOptions}}
     </select>
-    
-    <img id="profile-image"
-         src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
-         alt="Profile Image"
-         class="profile__image"
-         style="display: none;">
+    <img id="profile__image" src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}" alt="Profile Image" class="profile__image" style="display: none;">
   </div>
-
-  <button class="navbar__favorites" onclick="C.showFavorites()">
-    <i class="fas fa-heart"></i> Favoris
-  </button>
 </nav>

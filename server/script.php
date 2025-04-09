@@ -15,6 +15,9 @@
  *  Et dans une véritable application il peut y avoir énormément de paramètres, ce qui deviendrait compliqué et illisible.
  * 
  */
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /**
  * Inclusion du fichier controller.php.
  * 
@@ -68,30 +71,27 @@ if ( isset($_REQUEST['todo']) ){
       $data = readMoviesByCategoryController();
       break;
 
-    case 'addProfile': // Cas pour ajouter un profil
-      $data = addProfileController();
-      break;
-    
-    case 'updateProfile': // Cas pour modifier un profil
-      $data = addProfileController(); // Réutilise la même fonction pour gérer les deux
+    case 'addProfile': // Nouveau cas pour ajouter un profil utilisateur
+      $data = addProfileController(); // Appel de la fonction pour ajouter un profil
       break;
 
-      case 'readProfiles':
-        $data = readProfilesController();
-        break;
+    case 'readProfiles':
+      $data = readProfilesController();
+      echo json_encode($data);
+      exit(); // Arrête l'exécution du script
+      break;
 
-      case 'addFavorite':
-        $data = addFavoriteController();
-        break;
-    
-      case 'getFavorites':
-        $data = getFavoritesController();
-        break;
-
-        case 'removeFavorite':
-          $data = removeFavoriteController();
-          break;
-
+    case 'addFavorites':
+      $data = addFavoritesController();
+      break;
+      
+    case 'getFavorites':
+      $data = getFavoritesController();
+      break;
+  
+    case 'removeFavorites':
+      $data = removeFavoritesController();
+      break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');

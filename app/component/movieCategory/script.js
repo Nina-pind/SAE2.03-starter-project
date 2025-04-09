@@ -10,7 +10,7 @@ MovieCategory.format = function (category) {
     categoryHtml = categoryHtml.replace("{{categoryName}}", category.name);
 
     // Ensure category.movies is passed to Movie.format
-    let moviesListHtml = Films.formatLi(category.movies || []);
+    let moviesListHtml = Films.format(category.movies || []);
     categoryHtml = categoryHtml.replace("{{moviesList}}", moviesListHtml);
 
     return categoryHtml;

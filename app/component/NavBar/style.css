@@ -1,90 +1,53 @@
 .navbar {
   display: flex;
-  justify-content: space-between; /* Sépare gauche/droite */
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 3rem;
-  background-color: var(--color-navbar-bg);
-  font-family: var(--ff-serif);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+  color: var(--color-black);
+  background-color: #D5BDAF;
+  font-family: "Outfit", sans-serif;
 
-.navbar__list {
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+  .navbar font-sans-serif {
+    font-family: "Outfit", sans-serif;
+  }
 
-.navbar__item {
-  padding: 0.5rem 1rem;
-  text-decoration: underline;
-  text-decoration-thickness: 0.12rem;
-  text-underline-offset: 0.2rem;
-  color: var(--color-white);
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.navbar__item:hover {
-  text-underline-offset: 0.5rem;
-  color: var(--color-navbar-hover);
+  .navbar__item {
+    --_offset: 0.2rem;
+    padding: 0.5rem 1rem;
+    text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: var(--_offset);
+    color: #7a6650;
+    font-weight: bold;
+    cursor: pointer;
+    transition: text-underline-offset 0.2s ease-in-out;
+    &:hover {
+      --_offset: 0.5rem;
+    }
+  }
 }
 
 .navbar__profiles {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
-.navbar__select {
-  padding: 0.5rem 1rem;
+#profile-select {
+  padding: 0.4rem 0.8rem;
   font-size: 1rem;
   border-radius: 0.4rem;
-  border: 1px solid var(--color-white);
-  background-color: var(--color-select-bg);
-  color: var(--color-white);
+  border: 1px solid var(--color-fg);
+  background-color: #F5EBE0;
+  color: #7a6650;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.navbar__select:hover {
-  background-color: var(--color-select-hover-bg);
-  color: var(--color-select-hover-text);
-  transform: scale(1.05);
 }
 
 .profile__image {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--color-white);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.profile__image:hover {
-  transform: scale(1.15);
-  border-color: var(--color-white);
-}
-
-.navbar__favorites {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-radius: 0.4rem;
-  border: 1px solid var(--color-white);
-  background-color: var(--color-select-bg);
-  color: var(--color-white);
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
   margin-left: 1rem;
-}
-
-.navbar__favorites:hover {
-  background-color: var(--color-select-hover-bg);
-  color: var(--color-select-hover-text);
-  transform: scale(1.05);
+  object-fit: cover;
+  border: 2px solid var(--color-fg);
 }

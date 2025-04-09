@@ -4,34 +4,34 @@
     <title>SAE2.03 APP</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <linkgetSelectedprofile_i
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
     <link rel="stylesheet" href="./css/base.css" />
   </head>
 
   <body>
     <header id="header"></header>
+
     <section id="content"></section>
 
     <script type="module">
-      const HOST_URL = "https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel";
       import { NavBar } from "./component/NavBar/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
       import { Films } from "./component/film/script.js";
       import { MovieTrailer } from "./component/movieTrailer/script.js";
       import { MovieCategory } from "./component/movieCategory/script.js";
-
-      import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
+
+
 
       //import { MovieTrailer } from "./component/movieTrailer/script.js";
 
+
+      
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
-      C.activeprofile_id = null; // ID du profil actif
+
+      C.activeProfileId = null;
 
       C.handlerAbout = function () {
         alert(
@@ -39,130 +39,150 @@
         );
       };
 
+      
       C.handlerHome = function () {
-        C.getAllMovies(); // Ré-affiche la liste des films
+        C.getAllMovies(); 
       };
 
-      C.handlerTrailer = async function (movie_Id) {
-        // Récupérer les détails du film depuis le serveur
-        let movieTrailer = await DataMovie.requestMovieTrailer(movie_Id);
 
-        // Vérifiez si les données sont valides
-        if (!movieTrailer || !movieTrailer.name) {
-          throw new Error("Les détails du film sont invalides ou manquants.");
+      C.handlerProfileSelect = function (selectElement) {
+        const selectedProfileId = selectElement.value; // Récupère l'ID du profil sélectionné
+        C.activeProfileId = selectedProfileId; // Met à jour le profil actif
+
+        const avatarElement = document.getElementById("profile__image"); // Correction ici
+
+        if (!selectedProfileId) {
+          avatarElement.style.display = "none";
+          return;
         }
 
-        // Afficher les détails du film
-        V.renderMovieTrailer(movieTrailer);
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        const avatarFileName = selectedOption.dataset.img || "default-avatar.jpg";
+        const avatarUrl = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${avatarFileName}`;
+        avatarElement.src = avatarUrl;
+        avatarElement.style.display = "block";
+
+        console.log("Profil sélectionné :", selectedProfileId);
+        console.log("Avatar sélectionné :", avatarFileName);
+
+        C.getAllMovies(); // Recharge les films pour le profil sélectionné
+      };
+
+      C.getSelectedProfileAge = function () {
+        const profileSelect = document.querySelector(".navbar__profile-select"); // Assurez-vous que l'élément existe
+        if (profileSelect) {
+          const profileOptions =
+            profileSelect.options[profileSelect.selectedIndex];
+          return parseInt(profileOptions.dataset.age, 10) || 0; // Récupère l'âge ou retourne 0
+        }
+        return 0;
+      };
+
+      C.getSelectedProfileId = function () {
+        const profileSelect = document.querySelector(".navbar__profile-select");
+        if (profileSelect) {
+          console.log("Profil sélectionné :", profileSelect.value);
+          return profileSelect.value || null;
+        }
+        console.log("Aucun profil sélectionné.");
+        return null;
+      };
+
+      C.handlerTrailer = async function (movieId) {
+          // Récupérer les détails du film depuis le serveur
+          let movieTrailer = await DataMovie.requestMovieTrailer(movieId);
+
+          // Vérifiez si les données sont valides
+          if (!movieTrailer || !movieTrailer.name) {
+            throw new Error("Les détails du film sont invalides ou manquants.");
+          }
+
+          // Afficher les détails du film
+          V.renderMovieTrailer(movieTrailer);
       };
 
       C.getAllMovies = async function () {
-        const age = C.getSelectedProfileAge();
-        let data = await DataMovie.requestMoviesByCategory(age);
-        V.renderMoviesByCategory(data); // ✅ On les passe à la vue
+        let data = await DataMovie.requestMoviesByCategory(); // Récupère les films par catégorie
+        V.renderMoviesByCategory(data); // Affiche les films par catégorie
       };
+
 
       C.start = function () {
-        V.renderNavBar(
-          "C.handlerAbout()",
-          "C.handlerHome()",
-          "C.changeProfile(event)"
-        );
-        C.getAllMovies(); // Appelle la fonction pour récupérer les films
-        V.renderMovieTrailer();
+              V.renderNavBar("C.handlerAbout()", "C.handlerHome()", "C.handlerProfileSelect(event)");
+              C.getAllMovies(); // Appelle la fonction pour récupérer les films
+              V.renderMovieTrailer();
+            };
+
+            window.changeProfile = function (event) {
+        const profileId = event.target.value; // Récupère l'ID du profil sélectionné
+        const profiles = JSON.parse(localStorage.getItem("profiles")); // Récupère les profils stockés localement
+
+        if (profiles) {
+          const selectedProfile = profiles.find(profile => profile.id == profileId);
+          if (selectedProfile) {
+            const profileImage = document.querySelector("#profile__image");
+            profileImage.src = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${selectedProfile.avatar}`;
+            profileImage.alt = `Image de ${selectedProfile.name}`;
+          }
+        }
       };
 
-      C.addFavorite = async function (movie_id) {
-        let profileId = C.getSelectedprofile_id();
+      C.addFavorites = async function (movieId) {
+        // Récupérez le profil actif
+        const profileId = C.getSelectedProfileId();
 
         if (!profileId) {
           alert("Veuillez sélectionner un profil avant d'ajouter un favori.");
           return;
         }
 
-        let response = await DataMovie.addFavorite(profileId, movie_id);
-        alert(response); // Affiche un message de confirmation
-        C.getAllMovies(); // Recharge la liste des films
+        try {
+          let response = await DataMovie.addFavorite(movieId, profileId);
+          alert(response.message || "Film ajouté aux favoris avec succès."); // Affiche un message de confirmation
+          C.getAllMovies(); // Recharge la liste des films
+        } catch (error) {
+          console.error("Erreur lors de l'ajout aux favoris :", error);
+          alert("Une erreur est survenue lors de l'ajout aux favoris.");
+        }
       };
 
-      /**
-       * C.showFavorites
-       * Affiche les favoris pour le profil sélectionné.
-       */
-      C.showFavorites = async function (profile_id) {
-        profile_id = C.getSelectedprofile_id();
-
-        if (!profile_id) {
-          alert("Veuillez sélectionner un profil pour voir les favoris.");
+      C.showFavorites = async function (profilId) {
+        profilId = profilId || C.getSelectedProfileId();
+        if (!profilId) {
+          alert("Aucun profil sélectionné.");
           return;
         }
-
-        let favorites = await DataMovie.getFavorites(profile_id);
-        V.renderFavorites(favorites);
+        let data = await DataMovie.getFavorite(profilId);
+        V.renderFavorites(data);
       };
 
-      /**
-       * C.removeFavorite
-       * Supprime un film des favoris pour le profil sélectionné.
-       */
-      C.removeFavorite = async function (movie_Id) {
-        const profile_id = C.getSelectedprofile_id();
-        if (!profile_id || profile_id === "null") {
-          alert("Veuillez sélectionner un profil pour retirer un favori.");
+      C.removeFavorites = async function (profilId, movieId) {
+        profilId = profilId || C.getSelectedProfileId();
+        if (!profilId) {
+          alert("Aucun profil sélectionné.");
           return;
         }
-
-        const response = await DataMovie.removeFavorite(profile_id, movie_Id);
-        alert(response);
-        C.showFavorites(); // Recharge les favoris
-      };
-
-      C.changeProfile = function (selectElement) {
-        const profile_id = selectElement.value; // Récupère l'ID du profil sélectionné
-        C.activeprofile_id = profile_id; // Met à jour le profil actif
-
-        console.log("Profil sélectionné :", profile_id); // Vérifier le profil sélectionné
-
-        // Met à jour l'avatar
-        const avatarElement = document.getElementById("profile-image");
-        if (!profile_id) {
-          avatarElement.style.display = "none";
-          return;
+        try {
+          let res = await DataMovie.removeFavorite(profilId, movieId);
+          if (res.error) {
+            alert(res.error); // Affiche le message d'erreur si présent
+          } else if (res["Le film a bien été retiré de vos favoris"]) {
+            alert("Le film a bien été retiré de vos favoris.");
+          } else {
+            alert("Action effectuée avec succès.");
+          }
+          C.showFavorites(profilId); // Recharge les favoris
+        } catch (error) {
+          console.error("Erreur lors de la suppression des favoris :", error);
+          alert("Une erreur est survenue lors de la suppression des favoris.");
         }
-
-        const selectedOption =
-          selectElement.options[selectElement.selectedIndex];
-        const avatarFileName =
-          selectedOption.dataset.img || "default-avatar.jpg";
-        avatarElement.src = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${avatarFileName}`;
-        avatarElement.style.display = "block";
-
-        // Recharge les films en fonction de l'âge du profil sélectionné
-        C.getAllMovies();
       };
 
-      C.getSelectedProfileAge = function () {
-        const selectElement = document.querySelector(".navbar__select");
-        if (selectElement) {
-          const selectedOption =
-            selectElement.options[selectElement.selectedIndex];
-          return parseInt(selectedOption.dataset.age, 10) || 0; // Récupère l'âge ou retourne 0
-        }
-        return 0; // Valeur par défaut si aucun profil n'est sélectionné
-      };
-
-      C.getSelectedprofile_id = function () {
-        const selectElement = document.querySelector(".navbar__select");
-        if (selectElement) {
-          const value = selectElement.value || null;
-          console.log("getSelectedprofile_id →", value); // 👈 Debug
-          return value !== "null" ? value : null; // Évite de retourner "null" comme chaîne
-        }
-        return null;
-      };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
+
+
 
       /**
        * V.renderNavBar
@@ -171,9 +191,10 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function (hAbout, hHome) {
+       V.renderNavBar = async function (hAbout, hHome) {
         const profiles = await DataProfile.read(); // Récupère les profils depuis le serveur
-        const header = document.querySelector("#header");
+        localStorage.setItem("profiles", JSON.stringify(profiles)); // Stocke les profils localement
+        let header = document.querySelector("#header");
         header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
       };
 
@@ -184,35 +205,35 @@
 
       V.renderMovieTrailer = function (movieData) {
         let content = document.querySelector("#content");
-        content.innerHTML = MovieTrailer.format(movieData);
+        content.innerHTML =  MovieTrailer.format(movieData);
       };
-
-      V.renderMoviesByCategory = function (data, profile_id, favorites) {
+      
+      V.renderMoviesByCategory = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = data
-          .map((category) =>
-            MovieCategory.format(category, profile_id, favorites)
-          )
-          .join("");
+        content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
       };
 
       V.renderFavorites = function (favorites) {
-        const content = document.querySelector("#content");
-        if (!Array.isArray(favorites) || favorites.length === 0) {
-          content.innerHTML = "<p>Votre liste de favoris est vide.</p>";
+        let content = document.querySelector("#content");
+        content.innerHTML = "";
+
+        if (favorites.length === 0) {
+          content.innerHTML = "<p>Aucun film dans les favoris.</p>";
           return;
         }
 
-        content.innerHTML = favorites
-          .map(
-            (fav) => `
-      <div class="favorite">
-        <img src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${fav.image}" alt="${fav.name}" />
-        <h3>${fav.name}</h3>
-        <button onclick="C.removeFavorite(${fav.id})">Retirer</button>
-      </div>`
-          )
-          .join("");
+        let favoriteHtml = "";
+        for (let i = 0; i < favorites.length; i++) {
+          let fav = favorites[i];
+          favoriteHtml += `
+            <div class="favorite-item">
+              <img src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${fav.image}" alt="${fav.name}" onclick="C.handlerDetail"/>
+              <h3>${fav.name}</h3>
+              <button onclick="C.removeFavorites(${C.getSelectedProfileId()}, ${fav.id})">Retirer des favoris</button>
+            </div>
+          `;
+        }
+        content.innerHTML = favoriteHtml;
       };
 
       C.start(); // Démarre l'application

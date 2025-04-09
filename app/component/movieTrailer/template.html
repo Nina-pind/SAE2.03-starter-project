@@ -1,36 +1,29 @@
+
 <div class="movie__trailer">
   <div id="movie__video__container">
-    <iframe 
-      class="movie__video" 
-      src="{{movieTrailerUrl}}" 
-      width="560" 
-      height="415" 
-      frameborder="0" 
-      allowfullscreen 
-      title="Trailer de {{movieTitle}}" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-    </iframe>
-  </div>
 
+    <iframe 
+    class="movie__video" src="{{movieTrailerUrl}}" width="560" height="415" frameborder="0" allowfullscreen 
+    title="Trailer de {{ movieTitle }}" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+  </iframe>
+
+  
   <div class="movie__details">
     <img class="movie__image"
-      src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
-      alt="Affiche du film" />
-    
+    src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}"
+    alt="Affiche du film" />
     <div class="movie__info">
-      <!-- Titre et synopsis -->
-      <div class="movie__header">
-        <h2 class="movie__title">{{movieTitle}}</h2>
-        <p class="movie__synopsis"><strong>Synopsis :</strong> {{movieSynopsis}}</p>
-      </div>
-
-      <!-- Autres informations -->
-      <div class="movie__extra-info">
-        <p class="info-box"><strong>Réalisateur :</strong> {{movieDirector}}</p>
-        <p class="info-box"><strong>Année de sortie :</strong> {{movieYear}}</p>
-        <p class="info-box"><strong>Catégorie :</strong> {{movieCategory}}</p>
-        <p class="info-box"><strong>Restrictions d'âge :</strong> {{movieAgeRestriction}}</p>
+      <h2 class="movie__title">{{movieTitle}}</h2>
+      <p><strong>Synopsis :</strong> <span class="movie__synopsis">{{movieSynopsis}}</span></p>
+      <p><span class="info-box"><strong>Réalisateur :</strong> {{movieDirector}}</span></p>
+      <p><span class="info-box"><strong>Année de sortie :</strong> {{movieYear}}</span></p>
+      <p><span class="info-box"><strong>Catégorie :</strong> {{movieCategory}}</span></p>
+      <p><span class="info-box"><strong>Restrictions d'âge :</strong> {{movieAgeRestriction}}</span></p>
       </div>
     </div>
+      
+    </div>
   </div>
-</div>
+
