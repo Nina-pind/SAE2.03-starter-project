@@ -2,9 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8d7b9;
+  background-color: #2a2a2a; /* Gris foncé adapté du premier CSS */
   padding: 10px 20px;
-  border-bottom: 2px solid var(--color-black);
+  border-bottom: 2px solid #c389c7; /* Violet inspiré du premier CSS */
   font-family: "Outfit", sans-serif;
 }
 
@@ -19,12 +19,12 @@
 .navbar__item {
   cursor: pointer;
   font-weight: bold;
-  color: #7a6650;
+  color: #c389c7; /* Violet inspiré du premier CSS */
   transition: color 0.3s ease;
 }
 
 .navbar__item:hover {
-  color: #604826;
+  color: #9c51a1; /* Violet plus clair pour l'effet hover */
 }
 
 .navbar__profiles {
@@ -36,18 +36,18 @@
 .navbar__profile-select {
   padding: 6px 12px;
   border-radius: 1rem;
-  border: 1px solid var(--color-black);
-  background-color: #F5EBE0;
+  border: 1px solid #c389c7; /* Violet inspiré du premier CSS */
+  background-color: #1c1c1c; /* Gris foncé adapté du premier CSS */
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
-  color: #7a6650;
+  color: #c389c7; /* Violet inspiré du premier CSS */
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .navbar__profile-select:focus {
   outline: none;
-  border-color: #7b6537;
+  border-color: #9c51a1; /* Violet plus clair pour le focus */
 }
 
 .profile__image {
@@ -55,6 +55,6 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid var(--color-black);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid #c389c7; /* Violet inspiré du premier CSS */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

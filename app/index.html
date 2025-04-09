@@ -21,6 +21,7 @@
       import { MovieCategory } from "./component/movieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js";
       import { MovieFeatured } from "./component/movieFeatured/script.js";
+      import { movieFavorite } from "./component/movieFavorite/script.js";
       
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -228,17 +229,12 @@
           return;
         }
 
-        let favoriteHtml = "";
+        let favoriteHtml = "<div class='favorites-container'>";
         for (let i = 0; i < favorites.length; i++) {
           let fav = favorites[i];
-          favoriteHtml += `
-            <div class="favorite-item">
-              <img src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${fav.image}" alt="${fav.name}" onclick="C.handlerDetail"/>
-              <h3>${fav.name}</h3>
-              <button onclick="C.removeFavorites(${C.getSelectedProfileId()}, ${fav.id})">Retirer des favoris</button>
-            </div>
-          `;
+          favoriteHtml += `<div class="favorite-item">${movieFavorite.formatLi(fav)}</div>`;
         }
+        favoriteHtml += "</div>";
         content.innerHTML = favoriteHtml;
       };
 

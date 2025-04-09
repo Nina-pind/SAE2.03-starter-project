@@ -6,6 +6,7 @@
   justify-content: center;
   margin-top: 2rem;
   padding: 1rem;
+  background-color: #1c1c1c; /* Fond gris foncé */
 }
 
 /* Contenu du film (identique à la page d'accueil) */
@@ -21,13 +22,13 @@
 /* Carte du film */
 .card {
   position: relative;
-  background-color: #F5EBE0;
-  border: 1px solid #ccc;
+  background-color: #2a2a2a; /* Couleur adaptée */
+  border: 1px solid #c389c7; /* Couleur inspirée */
   border-radius: 8px;
   padding: 12px;
   max-width: 300px;
   text-align: center;
-  box-shadow: 0 3px 5px var(--color-black);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,19 +39,19 @@
 .card__image {
   width: 250px;
   height: 350px;
-  border: 1px solid var(--color-black);
+  border: 2px solid #c389c7; /* Couleur inspirée */
   object-fit: cover;
 }
 
 /* Titre du film sous l'image */
 .card__title {
   font-family: "Outfit", sans-serif;
-  background-color: #F5EBE0;
-  color: #7a6650;
+  background-color: #2a2a2a; /* Couleur adaptée */
+  color: #c389c7; /* Couleur inspirée */
   padding: 8px;
   text-align: center;
   font-weight: bold;
-  border: 1px solid var(--color-black);
+  border: 1px solid #c389c7; /* Couleur inspirée */
   border-radius: 1rem;
   width: 250px;
   font-size: 0.9rem;
@@ -59,9 +60,9 @@
 
 .add-to-favorites-button {
   margin-top: 10px;
-  background-color: #f8d7b9;
-  color: #7a6650;
-  border: 1px solid var(--color-black);
+  background-color: #c389c7; /* Couleur inspirée */
+  color: #fff; /* Couleur blanche */
+  border: 1px solid #642362; /* Couleur adaptée */
   border-radius: 1rem;
   padding: 6px 12px;
   font-family: "Outfit", sans-serif;
@@ -76,13 +77,13 @@
 }
 
 .add-to-favorites-button:hover {
-  background-color: #eac9aa;
+  background-color: #9c51a1; /* Couleur adaptée */
 }
 
 .add-to-favorites-button::before {
   content: "♡";
   font-size: 1.1rem;
-  color: #c44c4c;
+  color: #c389c7; /* Couleur inspirée */
   margin-right: 0;
 }
 
@@ -91,3 +92,5 @@
   display: flex;
   justify-content: center;
 }
+
+

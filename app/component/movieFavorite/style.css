@@ -1,0 +1,50 @@
+.favorite-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #2a2a2a; /* Fond gris foncé inspiré du premier CSS */
+  border: 1px solid #c389c7; /* Bordure violette inspirée */
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  max-width: 250px;
+  text-align: center;
+}
+
+.favorite-item img {
+  width: 200px;
+  height: 300px;
+  border: 2px solid #c389c7; /* Bordure violette pour l'image */
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.favorite-item h3 {
+  font-family: "Outfit", sans-serif;
+  color: #c389c7; /* Texte violet pour le titre */
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.favorite-item button {
+  padding: 8px 16px;
+  background-color: #c389c7; /* Violet inspiré du premier CSS */
+  color: #fff; /* Texte blanc pour le contraste */
+  font-family: "Outfit", sans-serif;
+  font-size: 0.9rem;
+  border: 1px solid #9c51a1; /* Violet plus foncé pour la bordure */
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.favorite-item button:hover {
+  background-color: #9c51a1; /* Violet foncé pour l'effet hover */
+  color: #1c1c1c; /* Texte gris foncé pour le contraste */
+  transform: scale(1.05); /* Animation légère au survol */
+}
+

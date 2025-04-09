@@ -4,11 +4,22 @@
   color: var(--color-black);
 }
 
+.category-rectangle {
+  background-color: #c389c7;
+  border-radius: 2rem;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: fit-content; 
+  max-height: 50px;
+  display: inline-block; 
+}
+
+
 .category__title{
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #7a6650;
+  color: #2a2a2a;
 }
 
 .category__list{
