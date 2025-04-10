@@ -15,10 +15,10 @@
     <script type="module">
       import { Log } from "./component/Log/script.js";
       import { FilmsForm } from "./component/filmform/script.js";
-      import { DataFilm } from "./data/dataMovie.js";
+      import { DataFilm, DataMovie } from "./data/dataMovie.js";
       import { ProfileForm } from "./component/Profileform/script.js";
       import { DataProfile } from "./data/dataProfile.js";
-      import { MovieSearch } from "./component/MovieSearch/script.js";
+      import { movieSearch } from "./component/movieSearch/script.js";
 
 
       window.C = {};
@@ -37,40 +37,38 @@
       C.handlerAddProfile = async function () {
         let form = document.querySelector(".addprofile__form");
 
-        let fd = new FormData(form); // Declare and initialize the FormData object
+        let fd = new FormData(form); 
         let res = await DataProfile.addProfile(fd);
         V.renderLog(res);
       };
 
       C.handlerSearchMovies = async function () {
-        const keyword = document.querySelector("#searchKeyword").value.trim();
+        let keyword = document.querySelector("#searchKeyword").value;
+        let content = document.querySelector("#searchMovies .movieSearch__results");
 
-        if (!keyword) {
-          alert("Veuillez saisir un mot-clé pour effectuer la recherche.");
+        if (!content) {
+          console.error("Le conteneur .movieSearch__results est introuvable.");
           return;
         }
 
-        const movies = await DataFilm.searchMovies(keyword);
-        if (movies.length === 0) {
-          document.querySelector(".movieSearch__results").innerHTML = "<p>Aucun film trouvé.</p>";
-        } else {
-          document.querySelector(".movieSearch__results").innerHTML = movies
-            .map(movie => `<div class="movieSearch__card"><h3>${movie.name}</h3><p>${movie.description}</p></div>`)
-            .join("");
-        }
+        let movies = await DataMovie.searchMovies(keyword);
+        content.innerHTML = movieSearch.formatResults(
+          movies,
+          "C.handlerUpdateFeaturedStatus"
+        );
       };
 
       C.handlerUpdateFeaturedStatus = async function (movieId, isFeatured) {
-        let res = await DataFilm.updateFeaturedStatus(movieId, isFeatured);
+        let res = await DataMovie.updateFeaturedStatus(movieId, isFeatured);
         V.renderLog(res);
-        C.handlerSearchMovies(); // Rafraîchir les résultats après mise à jour
+        C.handlerSearchMovies(); 
       };
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderaddFilm("C.handlerAddFilm()");
         V.renderAddProfile("C.handlerAddProfile()");
-        V.renderSearchMovies();;
+        V.renderSearchMovies();
       };
       
 
@@ -93,19 +91,14 @@
         content.innerHTML = ProfileForm.format(handler);
       };
 
-      V.renderSearchResults = function (movies) {
-        let content = document.querySelector("#searchMovies .movieSearch__results");
-        content.innerHTML = MovieSearch.formatResults(movies, "C.handlerUpdateFeaturedStatus");
-      };
-
       V.renderSearchMovies = function () {
         let content = document.querySelector("#searchMovies");
         content.innerHTML = `
           <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
           <button onclick="C.handlerSearchMovies()">Rechercher</button>
-          <div class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
+          <div class="movieSearch__results"></div>
         `;
-        MovieSearch.init(); 
+        movieSearch.init(); // Assurez-vous que cette ligne est présente
       };
 
       C.start();

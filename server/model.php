@@ -306,7 +306,15 @@ function getMoviesByCategory() {
         }
     
         // On commence à construire la requête SQL
-        $sql = "SELECT id, name, image FROM Movie WHERE name LIKE :keyword";
+        $sql = "SELECT 
+                Movie.id, 
+                Movie.name, 
+                Movie.image, 
+                Movie.is_featured, 
+                Category.name AS category 
+            FROM Movie
+            LEFT JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.name LIKE :keyword";
     
         // Si une catégorie ou une année est précisée, on ajoute ces critères
         if ($category) {
@@ -337,26 +345,15 @@ function getMoviesByCategory() {
     
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-    
 
-    function updateFeaturedStatus($movie_id, $is_featured) {
-        // Connexion à la base de données
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-        
-        // Préparation de la requête SQL
-        $sql = "UPDATE Movie SET is_featured = :is_featured WHERE id = :movie_id";
-        
-        // Préparation de la requête
-        $stmt = $cnx->prepare($sql);
-    
-        // Bind des paramètres
-        $stmt->bindParam(':is_featured', $is_featured, PDO::PARAM_BOOL);  // Utilisation de PARAM_BOOL pour la valeur booléenne
-        $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
-    
-        // Exécution de la requête
-        $stmt->execute();
-    
-        // Retourner le nombre de lignes affectées (si > 0, la mise à jour a été effectuée)
-        return $stmt->rowCount() > 0;
-    }
+
+function updateFeaturedStatus($movie_id, $is_featured) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "UPDATE Movie SET is_featured = :is_featured WHERE id = :movie_id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':is_featured', $is_featured, PDO::PARAM_BOOL);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
     

@@ -1,83 +1,90 @@
-/* Style pour le conteneur principal de la recherche */
+/* Style principal pour la section de recherche */
 .movieSearch {
+  width: 100%;
+  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  width: 80%;
-  max-width: 800px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
+  background: #f8f9fa;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Style pour le formulaire de recherche */
+/* Style pour la barre de recherche */
 .movieSearch__form {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .movieSearch__form input {
   width: 80%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
   outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.movieSearch__form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .movieSearch__form button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  color: white;
+  padding: 12px 20px;
   font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
 }
 
 .movieSearch__form button:hover {
   background-color: #0056b3;
 }
 
-/* Style pour les résultats de recherche */
+/* Style pour les résultats de la recherche */
 .movieSearch__results {
   margin-top: 20px;
 }
 
+/* Carte de chaque film dans les résultats */
 .movieSearch__card {
-  background-color: white;
-  border: 1px solid #ddd;
+  font-family: "Outfit", sans-serif;
+  background: #fff;
   padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .movieSearch__card h3 {
-  margin: 0;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
   color: #333;
+  margin-bottom: 10px;
 }
 
 .movieSearch__card p {
-  color: #666;
-  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 .movieSearch__card button {
-  background-color: #28a745;
-  color: white;
+  font-family: "Outfit", sans-serif;
+  font-weight: bold;
+  padding: 8px 12px;
+  background-color: #3928a7;
+  color: #fff;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.movieSearch__card button:hover {
-  background-color: #218838;
-}
-
-.movieSearch__card button:focus {
-  outline: none;
+  border-radius: 5px;
+  font-size: 16px;
 }

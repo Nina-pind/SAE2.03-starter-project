@@ -108,7 +108,6 @@
               V.renderNavBar("C.handlerAbout()", "C.handlerHome()", "C.handlerProfileSelect(event)");
               C.getAllMovies(); 
               C.getFeaturedMovies();
-              V.renderMovieTrailer();
             };
 
             window.changeProfile = function (event) {
@@ -180,34 +179,34 @@
       };
 
       C.searchMovies = async function () {
-        // Masquer les films mis en avant
-        document.querySelector("#featured-movies").style.display = "none";
+      // Masquer les films mis en avant
+      document.querySelector("#featured-movies").style.display = "none";
 
-        // Récupérer le mot-clé saisi par l'utilisateur
-        const keyword = document.getElementById("searchKeyword").value.trim();
+      // Récupérer le mot-clé saisi par l'utilisateur
+      const keyword = document.getElementById("searchKeyword").value.trim();
 
-        if (!keyword) {
-          alert("Veuillez saisir un mot-clé pour effectuer la recherche.");
-          return;
-        }
+      if (!keyword) {
+        alert("Veuillez saisir un mot-clé pour effectuer la recherche.");
+        return;
+      }
 
-        // Appeler la méthode DataMovie.searchMovies pour effectuer la recherche
-        DataMovie.searchMovies(keyword)
-          .then(movies => {
-            // Vérifier si des films ont été trouvés
-            if (movies.length === 0) {
-              document.querySelector("#content").innerHTML =
-                "<p>Aucun film ne correspond à votre recherche.</p>";
-            } else {
-              // Afficher les films trouvés
-              V.renderMovies(movies);
-            }
-          })
-          .catch(error => {
-            console.error("Erreur lors de la recherche :", error);
-            alert("Une erreur est survenue lors de la recherche.");
-          });
-      };
+      // Appeler la méthode DataMovie.searchMovies pour effectuer la recherche
+      DataMovie.searchMovies(keyword)
+        .then(movies => {
+          // Vérifier si des films ont été trouvés
+          if (movies.length === 0) {
+            document.querySelector("#content").innerHTML =
+              "<p>Aucun film ne correspond à votre recherche.</p>";
+          } else {
+            // Afficher les films trouvés
+            V.renderMovies(movies);
+          }
+        })
+        .catch(error => {
+          console.error("Erreur lors de la recherche :", error);
+          alert("Une erreur est survenue lors de la recherche.");
+        });
+    };
 
 
 
