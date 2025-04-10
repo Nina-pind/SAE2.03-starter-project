@@ -60,12 +60,9 @@
 
         const selectedOption = selectElement.options[selectElement.selectedIndex];
         const avatarFileName = selectedOption.dataset.img || "default-avatar.jpg";
-        const avatarUrl = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${avatarFileName}`;
+        const avatarUrl = `../server/images/${avatarFileName}`;
         avatarElement.src = avatarUrl;
         avatarElement.style.display = "block";
-
-        console.log("Profil sélectionné :", selectedProfileId);
-        console.log("Avatar sélectionné :", avatarFileName);
 
         C.getAllMovies(); // Recharge les films pour le profil sélectionné
       };
@@ -83,10 +80,8 @@
       C.getSelectedProfileId = function () {
         const profileSelect = document.querySelector(".navbar__profile-select");
         if (profileSelect) {
-          console.log("Profil sélectionné :", profileSelect.value);
           return profileSelect.value || null;
         }
-        console.log("Aucun profil sélectionné.");
         return null;
       };
 
@@ -124,14 +119,13 @@
           const selectedProfile = profiles.find(profile => profile.id == profileId);
           if (selectedProfile) {
             const profileImage = document.querySelector("#profile__image");
-            profileImage.src = `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/${selectedProfile.avatar}`;
+            profileImage.src = `../server/images/${selectedProfile.avatar}`;
             profileImage.alt = `Image de ${selectedProfile.name}`;
           }
         }
       };
 
-      C.addFavorites = async function (movieId) {
-        // Récupérez le profil actif
+      C.addFavorites = function (movieId) {
         const profileId = C.getSelectedProfileId();
 
         if (!profileId) {
@@ -139,15 +133,17 @@
           return;
         }
 
-        try {
-          let response = await DataMovie.addFavorite(movieId, profileId);
-          alert(response.message || "Film ajouté aux favoris avec succès."); // Affiche un message de confirmation
-          C.getAllMovies(); // Recharge la liste des films
-        } catch (error) {
-          console.error("Erreur lors de l'ajout aux favoris :", error);
-          alert("Une erreur est survenue lors de l'ajout aux favoris.");
-        }
+        DataMovie.addFavorite(movieId, profileId)
+          .then(response => {
+            alert(response.message || "Film ajouté aux favoris avec succès.");
+            C.getAllMovies(); // Recharge la liste des films
+          })
+          .catch(error => {
+            console.error("Erreur lors de l'ajout aux favoris :", error);
+            alert("Une erreur est survenue lors de l'ajout aux favoris.");
+          });
       };
+
 
       C.showFavorites = async function (profilId) {
         profilId = profilId || C.getSelectedProfileId();
@@ -159,27 +155,64 @@
         V.renderFavorites(data);
       };
 
-      C.removeFavorites = async function (profilId, movieId) {
+      C.removeFavorites = function (profilId, movieId) {
         profilId = profilId || C.getSelectedProfileId();
         if (!profilId) {
           alert("Aucun profil sélectionné.");
           return;
         }
-        try {
-          let res = await DataMovie.removeFavorite(profilId, movieId);
-          if (res.error) {
-            alert(res.error); // Affiche le message d'erreur si présent
-          } else if (res["Le film a bien été retiré de vos favoris"]) {
-            alert("Le film a bien été retiré de vos favoris.");
-          } else {
-            alert("Action effectuée avec succès.");
-          }
-          C.showFavorites(profilId); // Recharge les favoris
-        } catch (error) {
-          console.error("Erreur lors de la suppression des favoris :", error);
-          alert("Une erreur est survenue lors de la suppression des favoris.");
-        }
+
+        DataMovie.removeFavorite(profilId, movieId)
+          .then(res => {
+            if (res && res.error) {
+              alert(res.error);
+            } else if (res && res["Le film a bien été retiré de vos favoris"]) {
+              alert("Le film a bien été retiré de vos favoris.");
+            } else {
+              alert("Action effectuée avec succès.");
+            }
+            C.showFavorites(profilId);
+          })
+          .catch(error => {
+            console.error("Erreur lors de la suppression des favoris :", error);
+            alert("Une erreur est survenue lors de la suppression des favoris.");
+          });
       };
+
+      C.searchMovies = async function () {
+        // Masquer les films mis en avant
+        document.querySelector("#featured-movies").style.display = "none";
+
+        // Récupérer le mot-clé saisi par l'utilisateur
+        const keyword = document.getElementById("searchKeyword").value.trim();
+
+        if (!keyword) {
+          alert("Veuillez saisir un mot-clé pour effectuer la recherche.");
+          return;
+        }
+
+        // Appeler la méthode DataMovie.searchMovies pour effectuer la recherche
+        DataMovie.searchMovies(keyword)
+          .then(movies => {
+            // Vérifier si des films ont été trouvés
+            if (movies.length === 0) {
+              document.querySelector("#content").innerHTML =
+                "<p>Aucun film ne correspond à votre recherche.</p>";
+            } else {
+              // Afficher les films trouvés
+              V.renderMovies(movies);
+            }
+          })
+          .catch(error => {
+            console.error("Erreur lors de la recherche :", error);
+            alert("Une erreur est survenue lors de la recherche.");
+          });
+      };
+
+
+
+
+
 
 
       // Vue (contient tout ce qui est relatif à l'affichage)

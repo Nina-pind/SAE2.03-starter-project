@@ -15,11 +15,6 @@
  *  Et dans une véritable application il peut y avoir énormément de paramètres, ce qui deviendrait compliqué et illisible.
  * 
  */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-ini_set('log_errors', 1);
-ini_set('error_log', '/tmp/php-error.log');
 /**
  * Inclusion du fichier controller.php.
  * 
@@ -95,10 +90,19 @@ if ( isset($_REQUEST['todo']) ){
       $data = removeFavoritesController();
       break;
 
-      case 'getFeaturedMovies':
-        error_log("Appel de getFeaturedMovies dans script.php");
-        $data = getFeaturedMovies();
-        break;
+    case 'getFeaturedMovies':
+      $data = getFeaturedMovies();
+      break;
+
+    case 'searchMovies':
+      $data = searchMoviesController();
+      break;
+
+    case 'updateFeaturedStatus':
+      $data = updateFeaturedStatusController();
+      break;
+    
+      
 
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée

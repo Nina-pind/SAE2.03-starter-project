@@ -72,7 +72,9 @@ function readMoviesByCategoryController() {
 function addProfileController() {
   // Vérifie si tous les paramètres nécessaires sont présents
   $requiredFields = ['name', 'avatar', 'min_age'];
-  foreach ($requiredFields as $field) {
+  $count = count($requiredFields);
+  for ($i = 0; $i < $count; $i++) {
+      $field = $requiredFields[$i];
       if (!isset($_REQUEST[$field])) {
           return "Erreur : Le champ '$field' est manquant.";
       }
@@ -94,9 +96,9 @@ function addProfileController() {
 }
 
 
+
 function readProfilesController() {
   $profiles = getProfiles(); // Appel de la fonction du modèle
-  error_log("Données retournées par getProfiles : " . print_r($profiles, true));
   if (!$profiles) {
     return ["error" => "Impossible de récupérer les profils."];
   }
@@ -114,22 +116,18 @@ function addFavoritesController() {
     $id_profile = intval($_REQUEST['id_profile']);
     $id_movie = intval($_REQUEST['id_movie']);
 
-    error_log("addFavoritesController : id_profile = $id_profile, id_movie = $id_movie");
-
     if (isFavorites($id_profile, $id_movie)) {
         return ["message" => "Le film est déjà dans vos favoris."];
     }
 
     $ok = addFavorites($id_profile, $id_movie);
     if (!$ok) {
-        error_log("Erreur lors de l'ajout aux favoris : id_profile = $id_profile, id_movie = $id_movie");
     }
     return $ok ? ["message" => "Le film a été ajouté à vos favoris."] : ["error" => "Erreur lors de l'ajout aux favoris."];
 }
 
 function getFavoritesController() {
   $id_profile = $_REQUEST['id_profile']; 
-  error_log("ID Profil reçu : " . $id_profile);
   return getFavorites($id_profile); 
 }
 
@@ -139,3 +137,52 @@ function removeFavoritesController() {
   $ok = removeFavorites($id_profile, $id_movie); 
   return $ok ? ["Le film a bien été retiré de vos favoris" => true] : ["error" => "Erreur lors de la suppression des favoris"];
 }
+
+
+function searchMoviesController() {
+  // Récupération des paramètres de la requête
+  $keyword = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '';
+  $category = isset($_REQUEST['category']) ? $_REQUEST['category'] : null;
+  $year = isset($_REQUEST['year']) ? $_REQUEST['year'] : null;
+
+  // Si aucun mot-clé n'est précisé, on renvoie une erreur
+  if (empty($keyword)) {
+      return ["error" => "Le titre du film est requis pour la recherche."];
+  }
+
+  // Recherche des films via le modèle
+  $movies = searchMovies('%' . $keyword . '%', $category, $year);
+
+  if ($movies === false) {
+      return ["error" => "Une erreur est survenue lors de la recherche des films."];
+  }
+
+  if (empty($movies)) {
+      return ["message" => "Aucun film ne correspond à votre recherche."];
+  }
+
+  return $movies;
+}
+
+
+function updateFeaturedStatusController() {
+  // Récupère les paramètres de la requête
+  $movieId = $_REQUEST['movieId']; // L'ID du film
+  $featuredStatus = $_REQUEST['featuredStatus']; // Le nouveau statut (true/false)
+
+  // Connexion à la base de données
+  $conn = dbConnect();
+
+  // Prépare la requête SQL pour mettre à jour le statut
+  $query = "UPDATE movies SET featured = ? WHERE id = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param('ii', $featuredStatus, $movieId);
+
+  // Exécute la requête
+  if ($stmt->execute()) {
+      return ['success' => true, 'message' => 'Le statut du film a été mis à jour avec succès.'];
+  } else {
+      return ['success' => false, 'message' => 'Une erreur est survenue lors de la mise à jour du statut.'];
+  }
+}
+

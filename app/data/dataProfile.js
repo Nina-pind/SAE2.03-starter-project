@@ -1,4 +1,4 @@
-let HOST_URL = "https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel";
+let HOST_URL = "..";
 
 let DataProfile = {};
 

@@ -1,4 +1,4 @@
-let HOST_URL = "https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel";
+let HOST_URL = "..";
 
 let DataMovie = {};
 
@@ -28,7 +28,6 @@ DataMovie.requestMoviesByCategory = async function () {
 
 DataMovie.addFavorite = async function (movieId, profileId) {
   const url = `${HOST_URL}/server/script.php?todo=addFavorites&id_profile=${profileId}&id_movie=${movieId}`; 
-  console.log("URL générée pour ajouter aux favoris :", url);
   let answer = await fetch(url);
   if (!answer.ok) {
     throw new Error("Erreur lors de la requête au serveur.");
@@ -39,7 +38,6 @@ DataMovie.addFavorite = async function (movieId, profileId) {
 
 DataMovie.getFavorite = async function (profileId) {
   const url = `${HOST_URL}/server/script.php?todo=getFavorites&id_profile=${profileId}`; 
-  console.log("URL générée pour récupérer les favoris :", url);
   let answer = await fetch(url);
   let favoriteResponse = await answer.json();
   return favoriteResponse;
@@ -48,8 +46,23 @@ DataMovie.getFavorite = async function (profileId) {
 DataMovie.requestFeaturedMovies = async function () {
   let answer = await fetch(HOST_URL + "/server/script.php?todo=getFeaturedMovies");
   let data = await answer.json();
-  console.log("Réponse de getFeaturedMovies :", data); // Log de la réponse
   return data;
+};
+
+DataMovie.searchMovies = async function (keyword, category = "", year = "") {
+  const params = new URLSearchParams({
+    keyword: keyword,
+    category: category,
+    year: year
+  });
+
+  const url = `${HOST_URL}/server/script.php?todo=searchMovies&${params.toString()}`;
+  let answer = await fetch(url);
+  if (!answer.ok) {
+    throw new Error("Erreur lors de la requête au serveur.");
+  }
+  let searchResponse = await answer.json();
+  return searchResponse;
 };
 
 

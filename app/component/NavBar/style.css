@@ -58,3 +58,54 @@
   border: 2px solid #c389c7; /* Violet inspiré du premier CSS */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+/* Style pour la barre de recherche */
+.navbar__search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar__search input {
+  padding: 8px 12px;
+  border-radius: 1rem;
+  border: 1px solid #c389c7; /* Violet inspiré du design */
+  background-color: #1c1c1c; /* Gris foncé */
+  color: #ffffff; /* Texte blanc */
+  font-family: "Outfit", sans-serif;
+  font-size: 0.9rem;
+  width: 200px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar__search input::placeholder {
+  color: #c389c7; /* Violet pour le placeholder */
+  opacity: 0.7;
+}
+
+.navbar__search input:focus {
+  outline: none;
+  border-color: #9c51a1; /* Violet plus clair pour le focus */
+  box-shadow: 0 0 5px #9c51a1;
+}
+
+.navbar__search button {
+  padding: 8px 16px;
+  border-radius: 1rem;
+  border: none;
+  background-color: #c389c7; /* Violet inspiré du design */
+  color: #ffffff; /* Texte blanc */
+  font-family: "Outfit", sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar__search button:hover {
+  background-color: #9c51a1; /* Violet plus clair pour le hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.navbar__search button:active {
+  background-color: #7a3b7a; /* Violet plus foncé pour le clic */
+}

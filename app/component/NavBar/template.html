@@ -5,11 +5,16 @@
     <li class="navbar__item" onclick="C.showFavorites()">Voir mes favoris</li>
   </ul>
 
+  <div class="navbar__search">
+    <input type="text" id="searchKeyword" placeholder="Rechercher un film" />
+    <button onclick="C.searchMovies()">Rechercher</button>
+  </div>
+
   <div class="navbar__profiles">
     <select class="navbar__profile-select" onchange="C.handlerProfileSelect(this)">
       <option value="">Choisir un profil</option>
       {{profileOptions}}
     </select>
-    <img id="profile__image" src="https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server/images/{{image}}" alt="Profile Image" class="profile__image" style="display: none;">
+    <img id="profile__image" src="../server/images/{{image}}" alt="Profile Image" class="profile__image" style="display: none;">
   </div>
 </nav>

@@ -9,11 +9,11 @@ NavBar.format = function (hAbout, hHome, profiles) {
   html = html.replace("{{hHome}}", hHome);
 
   // Générer les options pour les profils
-  let profileOptions = profiles
-    .map(profile => {
-      return `<option value="${profile.id}" data-img="${profile.avatar}" data-age="${profile.min_age}">${profile.name}</option>`;
-    })
-    .join("");
+  let profileOptions = "";
+  for (let i = 0; i < profiles.length; i++) {
+    let profile = profiles[i];
+    profileOptions += `<option value="${profile.id}" data-img="${profile.avatar}" data-age="${profile.min_age}">${profile.name}</option>`;
+  }
 
   html = html.replace("{{profileOptions}}", profileOptions);
 
