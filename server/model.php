@@ -338,3 +338,25 @@ function getMoviesByCategory() {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     
+
+    function updateFeaturedStatus($movie_id, $is_featured) {
+        // Connexion à la base de données
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        
+        // Préparation de la requête SQL
+        $sql = "UPDATE Movie SET is_featured = :is_featured WHERE id = :movie_id";
+        
+        // Préparation de la requête
+        $stmt = $cnx->prepare($sql);
+    
+        // Bind des paramètres
+        $stmt->bindParam(':is_featured', $is_featured, PDO::PARAM_BOOL);  // Utilisation de PARAM_BOOL pour la valeur booléenne
+        $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    
+        // Exécution de la requête
+        $stmt->execute();
+    
+        // Retourner le nombre de lignes affectées (si > 0, la mise à jour a été effectuée)
+        return $stmt->rowCount() > 0;
+    }
+    

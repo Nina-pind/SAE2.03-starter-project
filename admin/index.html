@@ -10,6 +10,7 @@
     <section id="log"></section>
     <section id="addfilm"></section>
     <section id="addProfile"></section>
+    <section id="searchMovies"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
@@ -17,6 +18,7 @@
       import { DataFilm } from "./data/dataMovie.js";
       import { ProfileForm } from "./component/Profileform/script.js";
       import { DataProfile } from "./data/dataProfile.js";
+      import { MovieSearch } from "./component/MovieSearch/script.js";
 
 
       window.C = {};
@@ -40,10 +42,35 @@
         V.renderLog(res);
       };
 
+      C.handlerSearchMovies = async function () {
+        const keyword = document.querySelector("#searchKeyword").value.trim();
+
+        if (!keyword) {
+          alert("Veuillez saisir un mot-clé pour effectuer la recherche.");
+          return;
+        }
+
+        const movies = await DataFilm.searchMovies(keyword);
+        if (movies.length === 0) {
+          document.querySelector(".movieSearch__results").innerHTML = "<p>Aucun film trouvé.</p>";
+        } else {
+          document.querySelector(".movieSearch__results").innerHTML = movies
+            .map(movie => `<div class="movieSearch__card"><h3>${movie.name}</h3><p>${movie.description}</p></div>`)
+            .join("");
+        }
+      };
+
+      C.handlerUpdateFeaturedStatus = async function (movieId, isFeatured) {
+        let res = await DataFilm.updateFeaturedStatus(movieId, isFeatured);
+        V.renderLog(res);
+        C.handlerSearchMovies(); // Rafraîchir les résultats après mise à jour
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderaddFilm("C.handlerAddFilm()");
         V.renderAddProfile("C.handlerAddProfile()");
+        V.renderSearchMovies();;
       };
       
 
@@ -64,6 +91,21 @@
       V.renderAddProfile = function (handler) {
         let content = document.querySelector("#addProfile");
         content.innerHTML = ProfileForm.format(handler);
+      };
+
+      V.renderSearchResults = function (movies) {
+        let content = document.querySelector("#searchMovies .movieSearch__results");
+        content.innerHTML = MovieSearch.formatResults(movies, "C.handlerUpdateFeaturedStatus");
+      };
+
+      V.renderSearchMovies = function () {
+        let content = document.querySelector("#searchMovies");
+        content.innerHTML = `
+          <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
+          <button onclick="C.handlerSearchMovies()">Rechercher</button>
+          <div class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
+        `;
+        MovieSearch.init(); 
       };
 
       C.start();

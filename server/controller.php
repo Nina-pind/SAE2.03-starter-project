@@ -164,25 +164,19 @@ function searchMoviesController() {
   return $movies;
 }
 
-
 function updateFeaturedStatusController() {
-  // Récupère les paramètres de la requête
-  $movieId = $_REQUEST['movieId']; // L'ID du film
-  $featuredStatus = $_REQUEST['featuredStatus']; // Le nouveau statut (true/false)
-
-  // Connexion à la base de données
-  $conn = dbConnect();
-
-  // Prépare la requête SQL pour mettre à jour le statut
-  $query = "UPDATE movies SET featured = ? WHERE id = ?";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param('ii', $featuredStatus, $movieId);
-
-  // Exécute la requête
-  if ($stmt->execute()) {
-      return ['success' => true, 'message' => 'Le statut du film a été mis à jour avec succès.'];
-  } else {
-      return ['success' => false, 'message' => 'Une erreur est survenue lors de la mise à jour du statut.'];
+  if (!isset($_REQUEST['movie_id']) || !isset($_REQUEST['is_featured'])) {
+      return "Erreur : les paramètres sont manquants.";
   }
+
+  $movie_id = intval($_REQUEST['movie_id']);
+  $is_featured = filter_var($_REQUEST['is_featured'], FILTER_VALIDATE_BOOLEAN);  // Convertit la valeur en booléen
+
+  // Appel à la fonction du modèle pour mettre à jour le statut
+  $result = updateFeaturedStatus($movie_id, $is_featured);
+
+  // Retourne un message de succès ou d'erreur
+  return $result ? "Le statut du film a été mis à jour avec succès." : "Erreur lors de la mise à jour du statut.";
 }
+
 

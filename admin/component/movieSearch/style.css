@@ -1,0 +1,83 @@
+/* Style pour le conteneur principal de la recherche */
+.movieSearch {
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour le formulaire de recherche */
+.movieSearch__form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.movieSearch__form input {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+}
+
+.movieSearch__form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.movieSearch__form button:hover {
+  background-color: #0056b3;
+}
+
+/* Style pour les résultats de recherche */
+.movieSearch__results {
+  margin-top: 20px;
+}
+
+.movieSearch__card {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.movieSearch__card h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.movieSearch__card p {
+  color: #666;
+  margin: 5px 0;
+}
+
+.movieSearch__card button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.movieSearch__card button:hover {
+  background-color: #218838;
+}
+
+.movieSearch__card button:focus {
+  outline: none;
+}
