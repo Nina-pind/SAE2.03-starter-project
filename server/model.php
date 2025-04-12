@@ -356,4 +356,32 @@ function updateFeaturedStatus($movie_id, $is_featured) {
     $stmt->execute();
     return $stmt->rowCount();
 }
-    
+
+
+function addRating($profile_id, $movie_id, $rating) {
+$cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+$cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+
+    $sql = "INSERT INTO Ratings (profile_id, movie_id, rating) VALUES (:profile_id, :movie_id, :rating)";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->bindParam(':rating', $rating, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function getAverageRating($movie_id) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT AVG(rating) AS average_rating FROM Ratings WHERE movie_id = :movie_id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $average = $stmt->fetch(PDO::FETCH_OBJ)->average_rating ?? 0;
+    return round($average, 1);
+}
+

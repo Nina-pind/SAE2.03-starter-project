@@ -1,19 +1,21 @@
-
 <div class="movie__trailer">
   <div id="movie__video__container">
-
     <iframe 
-    class="movie__video" src="{{movieTrailerUrl}}" width="560" height="415" frameborder="0" allowfullscreen 
-    title="Trailer de {{ movieTitle }}" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-  </iframe>
+      class="movie__video" 
+      src="{{movieTrailerUrl}}" 
+      width="560" 
+      height="415" 
+      frameborder="0" 
+      allowfullscreen 
+      title="Trailer de {{ movieTitle }}" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
 
-  
   <div class="movie__details">
     <img class="movie__image"
-    src="../server/images/{{image}}"
-    alt="Affiche du film" />
+         src="../server/images/{{image}}"
+         alt="Affiche du film" />
     <div class="movie__info">
       <h2 class="movie__title">{{movieTitle}}</h2>
       <p><strong>Synopsis :</strong> <span class="movie__synopsis">{{movieSynopsis}}</span></p>
@@ -21,9 +23,27 @@
       <p><span class="info-box"><strong>Année de sortie :</strong> {{movieYear}}</span></p>
       <p><span class="info-box"><strong>Catégorie :</strong> {{movieCategory}}</span></p>
       <p><span class="info-box"><strong>Restrictions d'âge :</strong> {{movieAgeRestriction}}</span></p>
+
+
+      <p><span class="info-box"><strong>Note moyenne :</strong> {{averageRating}}</span></p>
+
+
+      <div class="movie-rating">
+        <label for="rating">Votre note :</label>
+        <select id="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button onclick="{{onclick}}">Noter ce film</button>
       </div>
     </div>
-      
-    </div>
   </div>
-
+</div>

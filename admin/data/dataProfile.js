@@ -1,4 +1,4 @@
-let HOST_URL = "..";
+let HOST_URL = "../server";
 
 let DataProfile = {}; 
 
@@ -11,7 +11,7 @@ DataProfile.addProfile = async function (fdata) {
     method: "POST", // méthode HTTP à utiliser
     body: fdata, // données à envoyer sous forme d'objet FormData
   };
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=addProfile", config);
+  let answer = await fetch(`${HOST_URL}/script.php?todo=addProfile`, config);
   let data = await answer.json();
   return data;
 };

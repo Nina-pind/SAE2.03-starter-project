@@ -176,3 +176,31 @@ function updateFeaturedStatusController() {
   $result = updateFeaturedStatus($movie_id, $is_featured);
   return $result ? "Le statut du film a été mis à jour avec succès." : "Erreur lors de la mise à jour du statut.";
 }
+
+function addRatingController() { 
+    if (!isset($_REQUEST['profile_id'], $_REQUEST['movie_id'], $_REQUEST['rating'])) {
+        http_response_code(400);
+        return ["error" => "Paramètres manquants : profile_id, movie_id ou rating"];
+    }
+
+    $profile_id = intval($_REQUEST['profile_id']);
+    $movie_id = intval($_REQUEST['movie_id']);
+    $rating = intval($_REQUEST['rating']);
+
+    if ($profile_id <= 0 || $movie_id <= 0 || $rating < 1 || $rating > 10) {
+        http_response_code(400);
+        return ["error" => "Paramètres invalides"];
+    }
+
+    $ok = addRating($profile_id, $movie_id, $rating);
+    return $ok ? ["message" => "Votre note a été enregistrée."] : ["error" => "Erreur lors de l'enregistrement de la note."];
+}
+
+function getAverageRatingController() {
+  if (!isset($_REQUEST['movie_id'])) {
+      return "Paramètre manquant : movie_id.";
+  }
+
+  $movie_id = $_REQUEST['movie_id'];
+  return getAverageRating($movie_id);
+}

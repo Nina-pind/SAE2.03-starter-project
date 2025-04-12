@@ -9,11 +9,18 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+#searchMovies {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 /* Style pour la barre de recherche */
 .movieSearch__form {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -87,4 +94,23 @@
   border: none;
   border-radius: 5px;
   font-size: 16px;
+}
+
+#searchKeyword {
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.movieSearch__buttonresearch {
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
