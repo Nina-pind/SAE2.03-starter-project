@@ -7,15 +7,18 @@
       height="415" 
       frameborder="0" 
       allowfullscreen 
-      title="Trailer de {{ movieTitle }}" 
+      title="Trailer de {{movieTitle}}" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
     </iframe>
   </div>
 
   <div class="movie__details">
-    <img class="movie__image"
-         src="../server/images/{{image}}"
-         alt="Affiche du film" />
+    <div class="movie__image-container">
+      <img class="movie__image"
+           src="../server/images/{{image}}"
+           alt="Affiche du film" />
+      {{newTag}}
+    </div>
     <div class="movie__info">
       <h2 class="movie__title">{{movieTitle}}</h2>
       <p><strong>Synopsis :</strong> <span class="movie__synopsis">{{movieSynopsis}}</span></p>
@@ -24,10 +27,8 @@
       <p><span class="info-box"><strong>Catégorie :</strong> {{movieCategory}}</span></p>
       <p><span class="info-box"><strong>Restrictions d'âge :</strong> {{movieAgeRestriction}}</span></p>
 
-
       <hr class="separator-line">
       <p><span class="info-box"><strong>Note moyenne :</strong> {{averageRating}}</span></p>
-
 
       <div class="movie-rating">
         <label for="rating">Votre note :</label>

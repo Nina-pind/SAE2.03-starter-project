@@ -94,6 +94,7 @@ function getMovieTrailer($id) {
                 Movie.trailer, 
                 Movie.min_age, 
                 Movie.id_category, 
+                Movie.created_at, 
                 Category.name AS category
             FROM Movie
             JOIN Category ON Movie.id_category = Category.id
@@ -444,4 +445,13 @@ function getDatabaseConnection() {
     } catch (PDOException $e) {
         die("Erreur de connexion à la base de données : " . $e->getMessage());
     }
+}
+
+function getRecentMovies() {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, image, created_at 
+            FROM Movie 
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+    $stmt = $cnx->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
 }

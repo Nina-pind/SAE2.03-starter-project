@@ -20,6 +20,11 @@ Films.format = function (films, profileId, favorites = []) {
     templateCopy = templateCopy.replace("{{image}}", movie.image);
     templateCopy = templateCopy.replace("{{handler}}", `C.handlerTrailer(${movie.id})`);
 
+    // Vérifie si le film est récent (ajouté dans les 7 derniers jours)
+    const isRecent = new Date(movie.created_at) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const newTag = isRecent ? '<span class="tag-new">New</span>' : '';
+    templateCopy = templateCopy.replace("{{newTag}}", newTag);
+
     let isFavorite = favorites.some(fav => fav.id === movie.id);
 
     // Ajoute un bouton "Ajouter aux favoris" ou "Favoris" désactivé

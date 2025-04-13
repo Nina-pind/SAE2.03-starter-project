@@ -260,3 +260,7 @@ function deleteCommentController() {
     }
     return false;
 }
+
+function getRecentMoviesController() {
+  return getRecentMovies();
+}

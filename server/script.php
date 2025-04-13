@@ -121,12 +121,10 @@ if ( isset($_REQUEST['todo']) ){
     case 'getComments':
       $data = getCommentsController();
       break;
-      
-      case 'getPendingComments':
-        $data = getPendingCommentsController();
-        echo json_encode($data);
-        exit();
-        break;
+
+    case 'getPendingComments':
+      $data = getPendingCommentsController();
+      break;
 
     case 'approveComment': 
       $data = approveCommentController();
@@ -134,6 +132,10 @@ if ( isset($_REQUEST['todo']) ){
 
     case 'deleteComment': 
       $data = deleteCommentController();
+      break;
+
+    case 'getRecentMovies':
+      $data = getRecentMoviesController();
       break;
 
 

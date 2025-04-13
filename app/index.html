@@ -14,6 +14,7 @@
     
 
     <script type="module">
+      const HOST_URL = "../server"; 
       import { NavBar } from "./component/NavBar/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { Films } from "./component/film/script.js";
@@ -102,6 +103,18 @@
 
       C.getAllMovies = async function () {
         let data = await DataMovie.requestMoviesByCategory(); // Récupère les films par catégorie
+        let recentMovies = await fetch(`${HOST_URL}/script.php?todo=getRecentMovies`).then(res => res.json());
+        
+        // Ajoutez les informations de "created_at" aux films
+        data.forEach(category => {
+          category.movies.forEach(movie => {
+            const recentMovie = recentMovies.find(r => r.id === movie.id);
+            if (recentMovie) {
+              movie.created_at = recentMovie.created_at;
+            }
+          });
+        });
+
         V.renderMoviesByCategory(data); // Affiche les films par catégorie
       };
 
@@ -310,12 +323,18 @@
       };
 
       V.renderMovieTrailer = function (movieData) {
+        const isRecent = new Date(movieData.created_at) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
         let content = document.querySelector("#content");
         content.innerHTML = `
-          ${MovieTrailer.format(movieData)}
-          <div id="comments-section-${movieData.id}" class="comments-section">
-            <h3>Commentaires</h3>
-            <p>Chargement des commentaires...</p>
+          <div class="movie-details">
+            <div class="movie-trailer">
+              ${MovieTrailer.format(movieData)}
+            </div>
+            <div id="comments-section-${movieData.id}" class="comments-section">
+              <h3>Commentaires</h3>
+              <p>Chargement des commentaires...</p>
+            </div>
           </div>
         `;
       };
