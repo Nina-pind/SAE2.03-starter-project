@@ -11,6 +11,7 @@
     <section id="addfilm"></section>
     <section id="addProfile"></section>
     <section id="searchMovies"></section>
+    <section id="moderateComments"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
@@ -19,7 +20,8 @@
       import { ProfileForm } from "./component/Profileform/script.js";
       import { DataProfile } from "./data/dataProfile.js";
       import { movieSearch } from "./component/movieSearch/script.js";
-
+      import { DataComment } from "./data/dataComment.js"; 
+      import { ModerateComments } from "./component/moderateComments/script.js";
 
       window.C = {};
       
@@ -64,11 +66,34 @@
         C.handlerSearchMovies(); 
       };
 
+      C.handlerGetPendingComments = async function () {
+        let comments = await DataComment.getPendingComments();
+        let content = document.querySelector("#moderateComments");
+        content.innerHTML = ModerateComments.format(
+          comments,
+          "C.handlerApproveComment",
+          "C.handlerDeleteComment"
+        );
+      };
+
+      C.handlerApproveComment = async function (commentId) {
+        let res = await DataComment.approveComment(commentId);
+        V.renderLog(res);
+        C.handlerGetPendingComments(); 
+      };
+
+      C.handlerDeleteComment = async function (commentId) {
+        let res = await DataComment.deleteComment(commentId);
+        V.renderLog(res);
+        C.handlerGetPendingComments(); 
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderaddFilm("C.handlerAddFilm()");
         V.renderAddProfile("C.handlerAddProfile()");
         V.renderSearchMovies();
+        C.handlerGetPendingComments();
       };
       
 
@@ -98,7 +123,33 @@
           <button class= "movieSearch__buttonresearch" onclick="C.handlerSearchMovies()">Rechercher</button>
           <div class="movieSearch__results"></div>
         `;
-        movieSearch.init(); // Assurez-vous que cette ligne est présente
+        movieSearch.init(); 
+      };
+
+      V.renderModerateComments = function (comments) {
+        let content = document.querySelector("#moderateComments");
+        if (comments.length === 0) {
+          content.innerHTML = "<p>Aucun commentaire à modérer pour le moment.</p>";
+          return;
+        }
+
+        content.innerHTML = `
+          <h2>Modération des commentaires</h2>
+          <ul>
+            ${comments
+              .map(
+                (comment) => `
+              <li>
+                <p><strong>${comment.profile_name}</strong> (${comment.created_at}):</p>
+                <p>${comment.comment}</p>
+                <button onclick="C.handlerApproveComment(${comment.id})">Approuver</button>
+                <button onclick="C.handlerDeleteComment(${comment.id})">Supprimer</button>
+              </li>
+            `
+              )
+              .join("")}
+          </ul>
+        `;
       };
 
       C.start();

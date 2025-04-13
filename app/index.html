@@ -14,7 +14,7 @@
     
 
     <script type="module">
-      import { NavBar } from "./component/NavBar/script.js";0
+      import { NavBar } from "./component/NavBar/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { Films } from "./component/film/script.js";
       import { MovieTrailer } from "./component/movieTrailer/script.js";
@@ -22,6 +22,7 @@
       import { DataProfile } from "./data/dataProfile.js";
       import { MovieFeatured } from "./component/movieFeatured/script.js";
       import { movieFavorite } from "./component/movieFavorite/script.js";
+      import { MovieComment } from "./component/movieComment/script.js";
       
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -96,6 +97,7 @@
 
           // Afficher les détails du film
           V.renderMovieTrailer(movieTrailer);
+          C.showComments(movieId);
       };
 
       C.getAllMovies = async function () {
@@ -210,31 +212,74 @@
 
 
     C.addRating = function (movieId) {
+      const profileId = C.getSelectedProfileId();
+      if (!profileId) {
+          alert("Veuillez sélectionner un profil pour noter un film.");
+          return;
+      }
+
+      const rating = document.querySelector("#rating").value;
+
+      if (!rating || rating < 1 || rating > 10) { 
+          alert("Veuillez entrer une note valide entre 1 et 10.");
+          return;
+      }
+
+      DataMovie.addRating(profileId, movieId, rating)
+          .then(function(message) {
+              alert(message); 
+              C.handlerTrailer(movieId); 
+          })
+          .catch(function(error) {
+              console.error("Erreur lors de l'ajout de la note :", error);
+              alert("Une erreur est survenue lors de l'ajout de la note.");
+          });
+  };
+
+    C.getRating = async function (movieId) {
+      const profileId = C.getSelectedProfileId();
+      if (!profileId) {
+        alert("Veuillez sélectionner un profil pour voir la note.");
+        return;
+      }
+
+      const rating = await DataMovie.getRating(profileId, movieId);
+      if (rating) {
+        document.querySelector("#rating").value = rating;
+      } else {
+        alert("Aucune note trouvée pour ce film.");
+      }
+    };
+
+  C.showComments = async function (movieId) {
+      const comments = await DataMovie.getComments(movieId);
+      V.renderComments(movieId, comments);
+    };
+
+  C.addComment = async function (movieId) {
     const profileId = C.getSelectedProfileId();
     if (!profileId) {
-        alert("Veuillez sélectionner un profil pour noter un film.");
-        return;
+      alert("Veuillez sélectionner un profil pour ajouter un commentaire.");
+      return;
     }
 
-    const rating = document.querySelector("#rating").value;
+    const commentInput = document.querySelector(`#comment-input-${movieId}`);
+    const commentText = commentInput.value.trim();
 
-    if (!rating || rating < 1 || rating > 10) { 
-        alert("Veuillez entrer une note valide entre 1 et 5.");
-        return;
+    if (!commentText) {
+      alert("Le commentaire ne peut pas être vide.");
+      return;
     }
 
-    DataMovie.addRating(profileId, movieId, rating)
-        .then(function(message) {
-            alert(message); 
-            C.handlerTrailer(movieId); 
-        })
-        .catch(function(error) {
-            console.error("Erreur lors de l'ajout de la note :", error);
-            alert("Une erreur est survenue lors de l'ajout de la note.");
-        });
-};
-
-
+    const response = await DataMovie.addComment(movieId, profileId, commentText);
+    if (response.error) {
+      alert(response.error);
+    } else {
+      alert(response.message || "Commentaire ajouté avec succès.");
+      commentInput.value = ""; 
+      C.showComments(movieId); 
+    }
+  };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
@@ -266,12 +311,18 @@
 
       V.renderMovieTrailer = function (movieData) {
         let content = document.querySelector("#content");
-        content.innerHTML =  MovieTrailer.format(movieData);
+        content.innerHTML = `
+          ${MovieTrailer.format(movieData)}
+          <div id="comments-section-${movieData.id}" class="comments-section">
+            <h3>Commentaires</h3>
+            <p>Chargement des commentaires...</p>
+          </div>
+        `;
       };
       
       V.renderMoviesByCategory = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
+        content.innerHTML = data.map(MovieCategory.format).join("");
       };
 
       V.renderFavorites = function (favorites) {
@@ -292,7 +343,14 @@
         content.innerHTML = favoriteHtml;
       };
 
-      C.start(); // Démarre l'application
+      V.renderComments = function (movieId, comments) {
+        const content = document.querySelector(`#comments-section-${movieId}`);
+        if (!content) return;
+
+        content.innerHTML = MovieComment.format(movieId, comments);
+      };
+
+      C.start(); 
     </script>
   </body>
 </html>

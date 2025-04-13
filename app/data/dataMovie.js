@@ -70,11 +70,6 @@ DataMovie.getFavorite = async function (profileId) {
   return favoriteResponse;
 };
 
-DataMovie.requestFeaturedMovies = async function () {
-  let answer = await fetch(`${HOST_URL}/script.php?todo=getFeaturedMovies`);
-  let data = await answer.json();
-  return data;
-};
 
 DataMovie.searchMovies = async function (keyword, category = "", year = "") {
   const params = new URLSearchParams({
@@ -92,6 +87,32 @@ DataMovie.searchMovies = async function (keyword, category = "", year = "") {
   return searchResponse;
 };
 
+DataMovie.getComments = async function (movieId) {
+  const url = `${HOST_URL}/script.php?todo=getComments&movie_id=${movieId}`;
+  const response = await fetch(url);
 
+  if (!response.ok) {
+    return { error: "Erreur lors de la récupération des commentaires." };
+  }
+
+  return await response.json();
+};
+
+DataMovie.addComment = async function (movieId, profileId, comment) {
+  const params = new URLSearchParams({
+    movie_id: movieId,
+    profile_id: profileId,
+    comment: comment
+  });
+
+  const url = `${HOST_URL}/script.php?todo=addComment&${params.toString()}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    return { error: "Erreur lors de l'ajout du commentaire." };
+  }
+
+  return await response.json();
+};
 
 export {DataMovie}

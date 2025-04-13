@@ -14,10 +14,12 @@ MovieTrailer.format = function (movieData) {
   html = html.replace("{{movieAgeRestriction}}", movieData.min_age);
   html = html.replace("{{movieTrailerUrl}}", movieData.trailer);
   html = html.replace("{{onclick}}", `C.addRating(${movieData.id})`);
-  return html;
+
 
   let averageRating = movieData.average_rating || 0;
   html = html.replace("{{averageRating}}", averageRating);
+
+  return html;
 };
 
 

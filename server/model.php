@@ -385,3 +385,63 @@ function getAverageRating($movie_id) {
     return round($average, 1);
 }
 
+function addComment($movie_id, $profile_id, $comment) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "INSERT INTO Comments (movie_id, profile_id, comment) VALUES (:movie_id, :profile_id, :comment)";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+    $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+
+function getCommentsByMovie($movie_id) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT 
+                Comments.comment, 
+                Comments.created_at, 
+                Profil.name AS profile_name 
+            FROM Comments 
+            JOIN Profil ON Comments.profile_id = Profil.id 
+            WHERE Comments.movie_id = :movie_id 
+            ORDER BY Comments.created_at DESC";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+function getPendingComments() {
+    $db = getDatabaseConnection();
+    $query = "SELECT Comments.id, Comments.comment, Comments.created_at, Profil.name AS profile_name
+              FROM Comments
+              JOIN Profil ON Comments.profile_id = Profil.id
+              WHERE Comments.status = 'pending'
+              ORDER BY Comments.created_at DESC";
+    $stmt = $db->query($query);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function approveComment($commentId) {
+    $db = getDatabaseConnection();
+    $query = "UPDATE Comments SET status = 'approved' WHERE id = :id";
+    $stmt = $db->prepare($query);
+    return $stmt->execute(['id' => $commentId]);
+}
+
+function deleteComment($commentId) {
+    $db = getDatabaseConnection();
+    $query = "DELETE FROM Comments WHERE id = :id";
+    $stmt = $db->prepare($query);
+    return $stmt->execute(['id' => $commentId]);
+}
+
+function getDatabaseConnection() {
+    try {
+        $db = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $db;
+    } catch (PDOException $e) {
+        die("Erreur de connexion à la base de données : " . $e->getMessage());
+    }
+}

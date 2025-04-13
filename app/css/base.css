@@ -10,3 +10,4 @@
 @import "../component/movieCategory/style.css" layer(components);
 @import "../component/movieFeatured/style.css" layer(components);
 @import "../component/movieFavorite/style.css" layer(components);
+@import "../component/movieComment/style.css" layer(components);

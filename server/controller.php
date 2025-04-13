@@ -60,6 +60,7 @@ function readMovieTrailerController() {
   } else {
       return false;
   }
+  $movie->average_rating = getAverageRating($id);
 }
 
 
@@ -203,4 +204,59 @@ function getAverageRatingController() {
 
   $movie_id = $_REQUEST['movie_id'];
   return getAverageRating($movie_id);
+}
+
+
+function addCommentController() {
+  if (!isset($_REQUEST['movie_id'], $_REQUEST['profile_id'], $_REQUEST['comment'])) {
+      http_response_code(400); 
+      return ["error" => "Paramètres manquants : movie_id, profile_id ou comment"];
+  }
+
+  $movie_id = intval($_REQUEST['movie_id']);
+  $profile_id = intval($_REQUEST['profile_id']);
+  $comment = trim($_REQUEST['comment']);
+
+  if (empty($comment)) {
+      return ["error" => "Le commentaire ne peut pas être vide."];
+  }
+
+  $ok = addComment($movie_id, $profile_id, $comment);
+  return $ok ? ["message" => "Votre commentaire a été ajouté avec succès."] : ["error" => "Erreur lors de l'ajout du commentaire."];
+}
+
+function getCommentsController() {
+  if (!isset($_REQUEST['movie_id'])) {
+      http_response_code(400); 
+      return ["error" => "Paramètre manquant : movie_id"];
+  }
+
+  $movie_id = intval($_REQUEST['movie_id']);
+  $comments = getCommentsByMovie($movie_id);
+
+  if (empty($comments)) {
+      return ["message" => "Aucun commentaire pour ce film. Soyez le premier à en laisser un !"];
+  }
+
+  return $comments;
+}
+
+function getPendingCommentsController() {
+    return getPendingComments();
+}
+
+function approveCommentController() {
+    if (isset($_POST['comment_id'])) {
+        $commentId = $_POST['comment_id'];
+        return approveComment($commentId);
+    }
+    return false;
+}
+
+function deleteCommentController() {
+    if (isset($_POST['comment_id'])) {
+        $commentId = $_POST['comment_id'];
+        return deleteComment($commentId);
+    }
+    return false;
 }
