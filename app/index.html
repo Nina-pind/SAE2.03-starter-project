@@ -96,16 +96,14 @@
             throw new Error("Les détails du film sont invalides ou manquants.");
           }
 
-          // Afficher les détails du film
           V.renderMovieTrailer(movieTrailer);
           C.showComments(movieId);
       };
 
       C.getAllMovies = async function () {
-        let data = await DataMovie.requestMoviesByCategory(); // Récupère les films par catégorie
+        let data = await DataMovie.requestMoviesByCategory(); 
         let recentMovies = await fetch(`${HOST_URL}/script.php?todo=getRecentMovies`).then(res => res.json());
         
-        // Ajoutez les informations de "created_at" aux films
         data.forEach(category => {
           category.movies.forEach(movie => {
             const recentMovie = recentMovies.find(r => r.id === movie.id);
@@ -115,7 +113,7 @@
           });
         });
 
-        V.renderMoviesByCategory(data); // Affiche les films par catégorie
+        V.renderMoviesByCategory(data); 
       };
 
 
@@ -262,6 +260,8 @@
       } else {
         alert("Aucune note trouvée pour ce film.");
       }
+
+      
     };
 
   C.showComments = async function (movieId) {

@@ -5,7 +5,7 @@ let MovieTrailer = {};
 
 MovieTrailer.format = function (movieData) {
   let html = template;
-  html = html.replace("{{movieTitle}}", movieData.name);
+  html = html.replace(/{{movieTitle}}/g, movieData.name);
   html = html.replace("{{image}}", movieData.image);
   html = html.replace("{{movieSynopsis}}", movieData.description);
   html = html.replace("{{movieDirector}}", movieData.director);
