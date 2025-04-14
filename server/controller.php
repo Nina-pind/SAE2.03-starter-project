@@ -56,11 +56,11 @@ function readMovieTrailerController() {
   $movie = getMovieTrailer($id);
 
   if ($movie) {
-      return $movie;
-  } else {
-      return false;
-  }
-  $movie->average_rating = getAverageRating($id);
+    $movie->average_rating = getAverageRating($id);
+    return $movie;
+}
+return false;
+
 }
 
 
@@ -71,30 +71,36 @@ function readMoviesByCategoryController() {
 
 
 function addProfileController() {
-  // Vérifie si tous les paramètres nécessaires sont présents
-  $requiredFields = ['name', 'avatar', 'min_age'];
-  $count = count($requiredFields);
-  for ($i = 0; $i < $count; $i++) {
-      $field = $requiredFields[$i];
-      if (!isset($_REQUEST[$field])) {
-          return "Erreur : Le champ '$field' est manquant.";
-      }
-  }
+    // Vérifie si tous les paramètres nécessaires sont présents
+    $requiredFields = ['name', 'avatar', 'min_age'];
+    foreach ($requiredFields as $field) {
+        if (!isset($_REQUEST[$field])) {
+            // Paramètre manquant
+            http_response_code(400); // Mauvaise requête
+            echo json_encode(["error" => "Le champ '$field' est manquant."]);
+            return; // Arrête l'exécution après l'erreur
+        }
+    }
 
-  // Récupère les données du formulaire
-  $name = $_REQUEST['name'];
-  $avatar = $_REQUEST['avatar'];
-  $min_age = intval($_REQUEST['min_age']);
+    // Récupère les données du formulaire
+    $name = $_REQUEST['name'];
+    $avatar = $_REQUEST['avatar'];
+    $min_age = intval($_REQUEST['min_age']);
 
-  // Appelle la fonction du modèle pour ajouter le profil
-  $ok = addProfile($name, $avatar, $min_age);
+    // Appelle la fonction du modèle pour ajouter le profil
+    $ok = addProfile( $name, $avatar, $min_age); // Utilisation de 'null' pour un nouvel id (s'il est auto-généré)
 
-  if ($ok) {
-      return "$name a été ajouté avec succès !";
-  } else {
-      return "Erreur lors de l'ajout du profil $name !";
-  }
+    // Vérifie si l'ajout a réussi
+    if ($ok) {
+        echo json_encode(["success" => true, "message" => "$name a été ajouté avec succès"]);
+        exit;
+    } else {
+        http_response_code(500); // Erreur interne
+        echo json_encode(["error" => "Le profil n'a pas pu être ajouté"]);
+        exit;
+    }
 }
+
 
 
 
@@ -122,8 +128,6 @@ function addFavoritesController() {
     }
 
     $ok = addFavorites($id_profile, $id_movie);
-    if (!$ok) {
-    }
     return $ok ? ["message" => "Le film a été ajouté à vos favoris."] : ["error" => "Erreur lors de l'ajout aux favoris."];
 }
 
@@ -133,11 +137,24 @@ function getFavoritesController() {
 }
 
 function removeFavoritesController() {
-  $id_profile = $_REQUEST['id_profile']; 
-  $id_movie = $_REQUEST['id_movie'];
-  $ok = removeFavorites($id_profile, $id_movie); 
-  return $ok ? ["Le film a bien été retiré de vos favoris" => true] : ["error" => "Erreur lors de la suppression des favoris"];
+    if (!isset($_REQUEST['id_profile']) || !isset($_REQUEST['id_movie'])) {
+        http_response_code(400); 
+        return ["error" => "Paramètres requis manquants (id_profile, id_movie)"];
+    }
+
+    $id_profile = intval($_REQUEST['id_profile']); 
+    $id_movie = intval($_REQUEST['id_movie']);
+
+    $ok = removeFavorites($id_profile, $id_movie); 
+
+    if ($ok) {
+        return ["message" => "Le film a bien été retiré de vos favoris."];
+    } else {
+        http_response_code(500);
+        return ["error" => "Erreur lors de la suppression du favori."];
+    }
 }
+
 
 
 function searchMoviesController() {
@@ -200,6 +217,11 @@ function addRatingController() {
 function getAverageRatingController() {
     $movie_id = $_REQUEST['movie_id'];
     return getAverageRating($movie_id);
+
+    if (!isset($_REQUEST['movie_id'])) {
+        return ["error" => "Paramètre manquant : movie_id"];
+    }
+    
 }
 
 

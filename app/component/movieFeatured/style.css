@@ -88,6 +88,7 @@
 @media (max-width: 768px) {
   /* Conteneur principal pour les films à la une */
   .featured-content {
+    width: 90%;
     padding: 10px;
     gap: 15px;
   }

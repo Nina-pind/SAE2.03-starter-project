@@ -23,6 +23,7 @@
 @media (max-width: 768px) {
   /* Section de catégorie */
   .category__section {
+    width: 90%;
     margin-bottom: 2rem;
     padding: 1rem;
     font-size: 0.9rem;

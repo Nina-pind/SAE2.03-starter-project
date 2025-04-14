@@ -132,6 +132,7 @@
 @media (max-width: 768px) {
   /* Conteneur principal de la barre de navigation */
   .navbar {
+    width: 90%;
     flex-wrap: wrap;
     padding: 15px;
     gap: 1rem;

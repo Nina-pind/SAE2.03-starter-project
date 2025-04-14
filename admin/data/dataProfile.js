@@ -2,18 +2,50 @@ let HOST_URL = "../server";
 
 let DataProfile = {}; 
 
+// Ajoute un profil au serveur
 DataProfile.addProfile = async function (fdata) {
-  // fetch possède un deuxième paramètre (optionnel) qui est un objet de configuration de la requête HTTP:
-  //  - method : la méthode HTTP à utiliser (GET, POST...)
-  //  - body : les données à envoyer au serveur (sous forme d'objet FormData ou bien d'une chaîne de caractères, par exempe JSON)
-
   let config = {
-    method: "POST", // méthode HTTP à utiliser
-    body: fdata, // données à envoyer sous forme d'objet FormData
+    method: "POST", // Méthode HTTP à utiliser
+    body: fdata,    // Données à envoyer sous forme d'objet FormData
   };
+
+  // Envoie la requête HTTP
   let answer = await fetch(`${HOST_URL}/script.php?todo=addProfile`, config);
+
+  // Vérifie si la réponse est correcte (status 200-299)
+  if (!answer.ok) {
+    console.error("Erreur HTTP:", answer.status);
+    let text = await answer.text();
+    console.error("Réponse brute :", text);
+    return { success: false, error: `Erreur serveur (${answer.status})` };
+  }
+
+  // Tente de parser la réponse JSON
   let data = await answer.json();
   return data;
+};
+
+// Met à jour un profil sur le serveur
+DataProfile.updateProfile = async function (fdata) {
+  let config = {
+    method: "POST", // Méthode HTTP à utiliser
+    body: fdata,    // Données à envoyer sous forme d'objet FormData
+  };
+
+  let answer = await fetch(`${HOST_URL}/script.php?todo=updateProfiles`, config);
+
+  // Tente de parser la réponse JSON
+  let data = await answer.json();
+  return data;
+};
+
+// Lit les profils du serveur
+DataProfile.readProfile = async function () {
+  let answer = await fetch(`${HOST_URL}/script.php?todo=readProfiles`);
+
+  // Tente de parser la réponse JSON
+  let profile = await answer.json();
+  return profile;
 };
 
 export { DataProfile };

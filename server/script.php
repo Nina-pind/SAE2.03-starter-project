@@ -114,9 +114,6 @@ if ( isset($_REQUEST['todo']) ){
       $data = addCommentController();
       break;
 
-    case 'addComment':
-      $data = addCommentController();
-      break;
     
     case 'getComments':
       $data = getCommentsController();

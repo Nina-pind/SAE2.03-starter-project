@@ -159,6 +159,7 @@
 @media (max-width: 600px) {
   /* Conteneur principal pour la bande-annonce */
   .movie__trailer {
+    width: 90%;
     padding: 15px;
     margin: 20px auto;
     max-width: 90%;

@@ -111,10 +111,12 @@
         content.innerHTML = FilmsForm.format(handler);
       };
 
-      V.renderAddProfile = function (handler) {
-        let content = document.querySelector("#addProfile");
-        content.innerHTML = ProfileForm.format(handler);
-      };
+      V.renderAddProfile = async function (handler) {
+    let content = document.querySelector("#addProfile");
+    let profiles = await DataProfile.readProfile();
+    content.innerHTML = ProfileForm.format(profiles, handler);
+    ProfileForm.init();
+};
 
       V.renderSearchMovies = function () {
         let content = document.querySelector("#searchMovies");

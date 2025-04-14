@@ -82,6 +82,18 @@ DataMovie.getFavorite = async function (profileId) {
   return favoriteResponse;
 };
 
+DataMovie.removeFavorite = async function (profileId, movieId) {
+  const url = `${HOST_URL}/script.php?todo=removeFavorites&id_profile=${profileId}&id_movie=${movieId}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de la suppression du favori.");
+  }
+
+  const result = await response.json();
+  return result;
+};
+
 
 DataMovie.searchMovies = async function (keyword, category = "", year = "") {
   const params = new URLSearchParams({
