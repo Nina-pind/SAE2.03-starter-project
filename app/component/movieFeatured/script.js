@@ -9,7 +9,6 @@ let MovieFeatured = {};
 MovieFeatured.formatOne = function (movie) {
   let movieHtml = template;
   movieHtml = movieHtml.replace("{{image}}", movie.image);
-  console.log("URL de l'image générée :", `https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/${movie.image}`);
   movieHtml = movieHtml.replace("{{title}}", movie.name);
   movieHtml = movieHtml.replace("{{description}}", movie.description);
   movieHtml = movieHtml.replace("{{onclick}}", `C.handlerTrailer(${movie.id})`);

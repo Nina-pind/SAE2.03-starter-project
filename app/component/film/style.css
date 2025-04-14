@@ -106,3 +106,36 @@
   text-transform: uppercase;
   z-index: 10;
 }
+
+@media (max-width: 768px) {
+  /* Conteneur des films favoris */
+  .favorites-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  /* Carte du film */
+  .card {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  /* Image du film dans la carte */
+  .card__image {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Titre du film sous l'image */
+  .card__title {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  /* Bouton d'ajout aux favoris */
+  .add-to-favorites-button {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+}

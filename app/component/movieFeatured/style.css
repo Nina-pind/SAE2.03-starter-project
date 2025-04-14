@@ -84,3 +84,51 @@
   background-color: #9c51a1;
   transform: scale(1.01); 
 }
+
+@media (max-width: 768px) {
+  /* Conteneur principal pour les films à la une */
+  .featured-content {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  /* Conteneur des films en vedette */
+  .featured-movies {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Titre principal */
+  .featured-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Carte individuelle */
+  .featured-movie {
+    padding: 10px;
+    gap: 10px;
+    box-shadow: none; /* Optionnel : pour simplifier visuellement sur mobile */
+  }
+
+  /* Titre du film */
+  .featured-movie h2 {
+    font-size: 1rem;
+  }
+
+  /* Infos du film */
+  .movie-info {
+    font-size: 0.8rem;
+  }
+
+  /* Image du film */
+  .featured-movie img {
+    max-width: 100px;
+  }
+
+  /* Bouton d'action */
+  .view-details-btn {
+    padding: 10px 30px;
+    font-size: 0.9em;
+  }
+}

@@ -21,7 +21,7 @@
       import { DataProfile } from "./data/dataProfile.js";
       import { movieSearch } from "./component/movieSearch/script.js";
       import { DataComment } from "./data/dataComment.js"; 
-      import { ModerateComments } from "./component/moderateComments/script.js";
+      import { moderateComments } from "./component/moderateComments/script.js";
 
       window.C = {};
       
@@ -69,7 +69,7 @@
       C.handlerGetPendingComments = async function () {
         let comments = await DataComment.getPendingComments();
         let content = document.querySelector("#moderateComments");
-        content.innerHTML = ModerateComments.format(
+        content.innerHTML = moderateComments.format(
           comments,
           "C.handlerApproveComment",
           "C.handlerDeleteComment"

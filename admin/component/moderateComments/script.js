@@ -1,9 +1,9 @@
 let templateFile = await fetch("./component/moderateComments/template.html");
 let template = await templateFile.text();
 
-let ModerateComments = {};
+let moderateComments = {};
 
-ModerateComments.format = function (comments, approveHandler, deleteHandler) {
+moderateComments.format = function (comments, approveHandler, deleteHandler) {
   let html = template;
 
   if (comments.length === 0) {
@@ -30,4 +30,4 @@ ModerateComments.format = function (comments, approveHandler, deleteHandler) {
   return html;
 };
 
-export { ModerateComments };
+export { moderateComments };

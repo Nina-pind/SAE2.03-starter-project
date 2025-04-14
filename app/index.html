@@ -101,20 +101,28 @@
       };
 
       C.getAllMovies = async function () {
-        let data = await DataMovie.requestMoviesByCategory(); 
+        const profileAge = C.getSelectedProfileAge(); // Récupérer l'âge du profil sélectionné
+        let data = await DataMovie.requestMoviesByCategory(profileAge); // Passer l'âge ici
         let recentMovies = await fetch(`${HOST_URL}/script.php?todo=getRecentMovies`).then(res => res.json());
-        
+
         data.forEach(category => {
-          category.movies.forEach(movie => {
-            const recentMovie = recentMovies.find(r => r.id === movie.id);
-            if (recentMovie) {
-              movie.created_at = recentMovie.created_at;
-            }
-          });
+            category.movies.forEach(movie => {
+                const recentMovie = recentMovies.find(r => r.id === movie.id);
+                if (recentMovie) {
+                    movie.created_at = recentMovie.created_at;
+                }
+            });
         });
 
+        if (data.length === 0) {
+            document.querySelector("#content").innerHTML = `<p>Aucun film disponible pour votre tranche d'âge.</p>`;
+            return;
+        }
+
         V.renderMoviesByCategory(data); 
-      };
+    };
+
+
 
 
       C.start = function () {

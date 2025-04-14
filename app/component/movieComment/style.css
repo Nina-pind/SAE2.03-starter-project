@@ -73,3 +73,45 @@
 .comments-container button:hover {
   background-color: rgb(144, 84, 133);
 }
+
+@media (max-width: 768px) {
+  /* Conteneur des commentaires */
+  .comments-container {
+    width: 95%; 
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  /* Titre des commentaires */
+  .comments-container h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  /* Liste des commentaires */
+  .comments-container ul {
+    gap: 10px;
+  }
+
+  .comments-container li {
+    padding: 8px;
+  }
+
+  /* Texte des commentaires */
+  .comments-container p {
+    font-size: 0.9em;
+    margin: 5px 0;
+  }
+
+  /* Champ de texte pour les commentaires */
+  .comments-container textarea {
+    height: 70px;
+    font-size: 0.9em;
+  }
+
+  /* Bouton pour envoyer les commentaires */
+  .comments-container button {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+}

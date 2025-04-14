@@ -198,12 +198,8 @@ function addRatingController() {
 }
 
 function getAverageRatingController() {
-  if (!isset($_REQUEST['movie_id'])) {
-      return "Paramètre manquant : movie_id.";
-  }
-
-  $movie_id = $_REQUEST['movie_id'];
-  return getAverageRating($movie_id);
+    $movie_id = $_REQUEST['movie_id'];
+    return getAverageRating($movie_id);
 }
 
 

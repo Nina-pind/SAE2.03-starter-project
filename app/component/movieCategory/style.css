@@ -19,3 +19,26 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+@media (max-width: 768px) {
+  /* Section de catégorie */
+  .category__section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Titre de catégorie */
+  .category__title {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  /* Liste de catégories */
+  .category__list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

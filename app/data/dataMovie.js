@@ -31,27 +31,39 @@ DataMovie.addRating = async function (profileId, movieId, rating) {
   return jsonResponse.message;
 };
 
-DataMovie.requestMovieTrailer = function (trailerId) {
-  return fetch(`${HOST_URL}/script.php?todo=readMovieTrailer&id=${trailerId}`)
-      .then(response => {
-          if (!response.ok) {
-              return Promise.reject('Erreur serveur');
-          }
-          return response.json();  
-      })
-      .then(data => data)  
-      .catch(error => {
-          console.error(error);
-          return { error: "Une erreur est survenue lors de la récupération du trailer." }; 
-      });
+
+DataMovie.requestMovieTrailer = async function (trailerId) {
+  let answer = await fetch(
+    HOST_URL + `/script.php?todo=readMovieTrailer&id=${trailerId}`
+  );
+  let movieDetails = await answer.json();
+
+  // Récupérer la note moyenne
+  let averageRating = await fetch(
+    HOST_URL + `/script.php?todo=getAverageRating&movie_id=${trailerId}`
+  );
+  movieDetails.average_rating = await averageRating.json();
+
+  return movieDetails;
 };
 
 
-DataMovie.requestMoviesByCategory = async function () {
-  let answer = await fetch(`${HOST_URL}/script.php?todo=readMovies`);
+DataMovie.requestMoviesByCategory = async function (ageLimit = 0) {
+  let answer = await fetch(`${HOST_URL}/script.php?todo=readMovies&ageLimit=${ageLimit}`);
   let categories = await answer.json();
+
+  categories.forEach(category => {
+      category.movies = category.movies.filter(movie => {
+          return parseInt(movie.min_age || 0) <= ageLimit; 
+      });
+  });
+
+  categories = categories.filter(category => category.movies.length > 0);
   return categories;
 };
+
+
+
 
 DataMovie.addFavorite = async function (movieId, profileId) {
   const url = `${HOST_URL}/script.php?todo=addFavorites&id_profile=${profileId}&id_movie=${movieId}`; 
