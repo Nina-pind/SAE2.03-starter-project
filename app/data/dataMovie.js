@@ -53,14 +53,17 @@ DataMovie.requestMoviesByCategory = async function (ageLimit = 0) {
   let categories = await answer.json();
 
   categories.forEach(category => {
-      category.movies = category.movies.filter(movie => {
-          return parseInt(movie.min_age || 0) <= ageLimit; 
-      });
+    category.movies = category.movies.filter(movie => {
+      const age = parseInt(movie.min_age || 0);
+
+      return ageLimit === 0 || age <= ageLimit;
+    });
   });
 
-  categories = categories.filter(category => category.movies.length > 0);
-  return categories;
+  return categories.filter(category => category.movies.length > 0);
 };
+
+
 
 
 

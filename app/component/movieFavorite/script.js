@@ -6,7 +6,6 @@ let templateLi = await templateLiFile.text();
 
 let movieFavorite = {};
 
-// Formate les movieFavorite avec le template principal
 movieFavorite.format = function (favoriteData) {
   let html = template;
 
@@ -19,11 +18,10 @@ movieFavorite.format = function (favoriteData) {
   return html;
 };
 
-// Insère les films formatés dans le conteneur défini par template_li
 movieFavorite.formatLi = function (favoriteData) {
-  let favoriteContent = movieFavorite.format(favoriteData); // Génère le HTML des movieFavorite
+  let favoriteContent = movieFavorite.format(favoriteData); 
   let liHtml = templateLi;
-  liHtml = liHtml.replace("{{favorite}}", favoriteContent); // Insère les movieFavorite dans le conteneur
+  liHtml = liHtml.replace("{{favorite}}", favoriteContent); 
   return liHtml;
 };
 
