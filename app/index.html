@@ -364,10 +364,16 @@
           </div>
         `;
       };
-      
+
+
       V.renderMoviesByCategory = function (data) {
+        console.log("Data envoyée à V.renderMoviesByCategory :", data);
         let content = document.querySelector("#content");
-        content.innerHTML = data.map(MovieCategory.format).join("");
+        content.innerHTML = "";
+        data.forEach(category => {
+          const categoryElement = MovieCategory.format(category);
+          content.appendChild(categoryElement);
+        });
       };
 
       V.renderFavorites = function (favorites) {
@@ -394,6 +400,26 @@
 
         content.innerHTML = MovieComment.format(movieId, comments);
       };
+
+      window.scrollCarousel = function (btn, direction) {
+        console.log("scrollCarousel triggered:", direction);
+
+        const container = btn.closest(".carousel-wrapper").querySelector(".category__list");
+        if (!container) {
+          console.warn("Pas trouvé de .category__list !");
+          return;
+        }
+
+        const scrollAmount = 300;
+        container.scrollBy({
+          left: direction === 'left' ? -scrollAmount : scrollAmount,
+          behavior: 'smooth'
+        });
+      };
+
+
+
+
 
       C.start(); 
     </script>

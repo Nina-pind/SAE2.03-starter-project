@@ -21,11 +21,9 @@ NavBar.format = async function (hAbout, hHome) {
 // Définir le premier profil comme sélectionné par défaut
 
 if (profiles.length > 0) {
-  // Sélection automatique du premier profil
   C.currentProfile = profiles[0];
-
-  // Tu peux appeler showFavorites pour afficher directement ses favoris
-  C.showFavorites(C.currentProfile.id);
+  C.activeProfileId = profiles[0].id;
+  C.getAllMovies(); 
 }
 
 

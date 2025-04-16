@@ -6,14 +6,14 @@ let template = await templateFile.text();
 let MovieCategory = {};
 
 MovieCategory.format = function (category) {
-    let categoryHtml = template;
-    categoryHtml = categoryHtml.replace("{{categoryName}}", category.name);
+  let categoryHtml = template;
+  categoryHtml = categoryHtml.replace("{{categoryName}}", category.name);
+  categoryHtml = categoryHtml.replace("{{moviesList}}", Films.format(category.movies || []));
 
-    // Ensure category.movies is passed to Movie.format
-    let moviesListHtml = Films.format(category.movies || []);
-    categoryHtml = categoryHtml.replace("{{moviesList}}", moviesListHtml);
-
-    return categoryHtml;
+  // 🆕 Convertir le string HTML en élément DOM
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = categoryHtml.trim();
+  return wrapper.firstChild;
 };
 
 export { MovieCategory };

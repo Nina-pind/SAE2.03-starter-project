@@ -1,90 +1,176 @@
-/* Section principale */
+/* SECTION GÉNÉRALE */
 .category__section {
-    margin-bottom: 3rem;
-    font-family: "Outfit", sans-serif;
-    color: var(--color-black);
+  background-color: #000;
+  color: white;
+  font-family: "Outfit", sans-serif;
+  padding: 2rem 0;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Titre de catégorie */
+/* HEADER AVEC BOUTON SEE ALL */
+.category__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin-bottom: 1rem;
+}
+
 .category__title {
-    background-color: #c389c7;
-    padding: 1rem;
-    max-width: max-content;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #2a2a2a;
-    border-radius: 2rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
 }
 
-/* Conteneur du carrousel */
-.carousel-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.see-all {
+  font-size: 0.95rem;
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-/* Liste des films avec carrousel */
+.see-all:hover {
+  color: white;
+}
+
+/* CAROUSEL */
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 190px; /* largeur du bandeau */
+  background-color: rgba(0, 0, 0, 0.5); /* opacité noire */
+  z-index: 1; /* en dessous des boutons (z-index: 3 sur les boutons) */
+  pointer-events: none;
+}
+
+.carousel-wrapper::before {
+  left: 0;
+}
+
+.carousel-wrapper::after {
+  right: 0;
+}
+
+
+/* LISTE SCROLLABLE */
 .category__list {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 1rem;
-    padding: 1rem;
-    scrollbar-width: none; /* Masquer la scrollbar sur Firefox */
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
 }
+
+.category__list > * {
+  flex: 0 0 auto;
+}
+
 
 .category__list::-webkit-scrollbar {
-    display: none; /* Masquer la scrollbar sur Webkit (Chrome, Edge, Safari) */
+  display: none;
 }
 
-.category__list > div {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
+/* MOVIE CARD */
+.movie-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  min-width: 240px;
+  position: relative;
+  cursor: pointer;
 }
 
-/* Boutons de navigation */
-button {
-    background-color: #c389c7;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 1.2rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
 }
 
-button:hover {
-    background-color: #a36ea7;
+.movie-card:hover img {
+  transform: scale(1.05);
 }
 
-/* Responsive Design */
+/* FOND NOIR EN GRADIENT */
+.category__list::before,
+.category__list::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.category__list::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), transparent);
+}
+
+.category__list::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.9), transparent);
+}
+
+/* BOUTONS DE NAVIGATION */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  z-index: 3;
+  cursor: pointer;
+  transition: background 0.3s;
+  border-radius: 50%;
+}
+
+.carousel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    /* Section de catégorie */
-    .category__section {
-        width: 90%;
-        margin-bottom: 2rem;
-        padding: 1rem;
-        font-size: 0.9rem;
-    }
+  .category__title {
+    font-size: 1.5rem;
+  }
 
-    /* Titre de catégorie */
-    .category__title {
-        font-size: 1.5rem;
-        padding: 0.8rem;
-        max-width: 100%;
-        text-align: center;
-    }
+  .category__list {
+    gap: 0.6rem;
+    padding: 1rem;
+  }
 
-    /* Carrousel ajusté */
-    .category__list {
-        flex-direction: row;
-        gap: 0.5rem;
-        overflow-x: scroll;
-    }
+  .movie-card {
+    min-width: 180px;
+  }
 
-    /* Boutons de navigation */
-    button {
-        font-size: 1rem;
-        padding: 0.3rem 0.8rem;
-    }
+  .carousel-btn {
+    font-size: 1.5rem;
+  }
 }
