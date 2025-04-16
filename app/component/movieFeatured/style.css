@@ -1,170 +1,126 @@
-/* CONTENEUR PRINCIPAL */
+/* Conteneur principal */
 .featured-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
   background-color: #000;
+  padding: 20px 40px;
   font-family: "Outfit", sans-serif;
+  color: white;
 }
 
-/* HEADER AVEC TITRE + LIEN */
-.carousel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
+/* Titre de section */
+.featured-header {
+  margin-bottom: 50px;
 }
 
 .featured-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: white;
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(to right, #E50914, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.see-all {
-  font-size: 0.9rem;
-  color: #bbb;
-  text-decoration: none;
-}
-
-.see-all:hover {
-  text-decoration: underline;
-}
-
-/* WRAPPER DU CAROUSEL */
-.carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ZONE DE SCROLL HORIZONTAL */
-.carousel-track {
+/* Conteneur principal du film */
+.highlight-container {
   display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 5px;
-}
-
-.carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-/* BOUTONS GAUCHE / DROITE */
-.carousel-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 5px 10px;
-  z-index: 10;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
-}
-
-.carousel-nav:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.carousel-nav.left {
-  left: 0;
-}
-
-.carousel-nav.right {
-  right: 0;
-}
-
-/* UNE SEULE CARTE FILM */
-.featured-movie {
-  min-width: 220px;
-  max-width: 220px;
-  background-color: #111;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
+  align-items: stretch; /* important pour forcer la même hauteur */
   justify-content: space-between;
-  transition: transform 0.3s ease-in-out;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+  background: #000;
+  border-radius: 20px;
+  padding-left: 40px; 
+  height: 624px; /* facultatif : hauteur fixe si tu veux maîtriser ça */
+  overflow: hidden;
+  position: relative;
 }
 
-.featured-movie:hover {
+
+/* Texte à gauche */
+.highlight-text {
+  flex: 1;
+  padding: 60px 0; /* ⬅️ reviens au padding que tu avais, mais que pour le texte */
+  z-index: 2;
+}
+
+
+.highlight-title {
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(to right, #ffffff, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.highlight-description {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  max-width: 500px;
+}
+
+/* Image à droite */
+.highlight-image-wrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  margin-right: 0;
+  padding-right: 0;
+  overflow: hidden; /* ← important pour couper le ::before au bon endroit */
+}
+
+.highlight-image-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px; /* Ajuste la largeur du fondu ici */
+  height: 100%;
+  background: linear-gradient(to right, #000 0%, transparent 100%);
+  z-index: 3; /* Assure-toi qu'il est AU-DESSUS de l'image */
+  pointer-events: none;
+}
+
+.highlight-image {
+  height: 100%;
+  border-radius: 5px 0 0 5px; /* pour éviter que le fondu touche les bords arrondis à droite si besoin */
+  object-fit: cover;
+  width: auto; /* ← utile si l’image est trop étirée */
+  max-width: none;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+  z-index: 1; /* image en dessous du dégradé */
+}
+
+
+
+.highlight-image-wrapper:hover .highlight-image {
   transform: scale(1.03);
 }
 
-/* IMAGE DU FILM */
-.featured-movie img {
-  width: 100%;
-  height: auto;
-  border-bottom: 1px solid #222;
-}
-
-/* INFOS DU FILM */
-.movie-info {
-  padding: 15px;
-  color: white;
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.movie-info h2 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  margin: 0;
-}
-
-/* BOUTON */
-.view-details-btn {
-  background-color: transparent;
-  color: #bbb;
-  border: 2px solid #555;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease, color 0.2s ease, border 0.2s ease;
-}
-
-.view-details-btn:hover {
-  background-color: #c389c7;
-  color: white;
-  border-color: #c389c7;
-}
-
-/* RESPONSIVE */
+/* Responsive */
 @media (max-width: 768px) {
-  .carousel-track {
-    padding: 5px;
-    gap: 15px;
+  .highlight-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
   }
 
-  .featured-movie {
-    min-width: 180px;
-    max-width: 180px;
+  .highlight-text {
+    margin-bottom: 30px;
   }
 
-  .movie-info h2 {
-    font-size: 0.9rem;
+  .highlight-title {
+    font-size: 2.5rem;
   }
 
-  .movie-info {
-    font-size: 0.8rem;
-    padding: 10px;
+  .highlight-description {
+    font-size: 1rem;
+    max-width: 100%;
   }
 
-  .view-details-btn {
-    font-size: 0.8rem;
-    padding: 8px;
-    margin: 8px;
+  .highlight-image {
+    height: auto;
+    width: 100%;
+    max-width: 300px;
   }
 }

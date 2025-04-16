@@ -1,10 +1,11 @@
-  <div class="featured-movie">
-    <div class="movie-info">
-      <h2>{{title}}</h2>
-      <img src="../server/images/{{image}}" class="movie-image">
-      <p>{{description}}</p>
-    </div>
-    <div class="movie-action">
-      <button onclick="{{onclick}}" class="view-details-btn">Voir les détails</button>
-    </div>
+<div class="highlight-container" onclick="{{onclick}}">
+  <div class="highlight-text">
+    <h1 class="highlight-title">{{title}}</h1>
+    <p class="highlight-description">{{description}}</p>
   </div>
+  <div class="highlight-image-wrapper">
+    <a href="{{link}}">
+      <img src="../server/images/{{image}}" alt="{{title}}" class="highlight-image" />
+    </a>
+  </div>
+</div>
