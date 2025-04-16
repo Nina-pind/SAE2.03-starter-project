@@ -1,47 +1,43 @@
-let navBarTemplateFile = await fetch("./component/NavBar/template.html");
-let navBarTemplate = await navBarTemplateFile.text();
+import { DataProfile } from "../../data/dataProfile.js";
+
+let templateFile = await fetch("./component/NavBar/template.html");
+let template = await templateFile.text();
 
 let NavBar = {};
 
-NavBar.format = function (hAbout, hHome, profiles) {
-  let html = navBarTemplate;
-  html = html.replace("{{hAbout}}", hAbout);
-  html = html.replace("{{hHome}}", hHome);
+NavBar.format = async function (hAbout, hHome) {
+  let html = template;
 
-  // Générer les options pour les profils
+  // Récupération des profils via DataProfile
+  const profiles = await DataProfile.readProfile();
+  console.log("Profils récupérés :", profiles);
+
   let profileOptions = "";
   for (let i = 0; i < profiles.length; i++) {
-    let profile = profiles[i];
+    const profile = profiles[i];
     profileOptions += `<option value="${profile.id}" data-img="${profile.avatar}" data-age="${profile.min_age}">${profile.name}</option>`;
   }
-  
+
+// Définir le premier profil comme sélectionné par défaut
+
+if (profiles.length > 0) {
+  // Sélection automatique du premier profil
+  C.currentProfile = profiles[0];
+
+  // Tu peux appeler showFavorites pour afficher directement ses favoris
+  C.showFavorites(C.currentProfile.id);
+}
+
+
+
+  html = html.replace("{{hAbout}}", hAbout);
+  html = html.replace("{{hHome}}", hHome);
   html = html.replace("{{profileOptions}}", profileOptions);
 
-  // Utiliser l'image du premier profil ou une image par défaut
   let image = profiles[0]?.avatar || "default-avatar.jpg";
   html = html.replace("{{image}}", image);
 
-  // Ajouter le bouton menu burger avec sa fonction
-  html = html.replace(
-    "{{burgerMenu}}",
-    `<button class="navbar__burger" onclick="toggleMenu()">☰</button>`
-  );
-
   return html;
 };
-
-// Définir toggleMenu à l'extérieur pour une portée globale
-function toggleMenu() {
-  console.log("toggleMenu a été appelé !");
-  const menu = document.querySelector(".navbar__list");
-  if (menu) {
-    menu.classList.toggle("navbar__list--open");
-  } else {
-    console.error("Élément '.navbar__list' introuvable.");
-  }
-}
-
-// Exposez la fonction globalement pour l'utiliser avec `onclick`
-window.toggleMenu = toggleMenu;
 
 export { NavBar };

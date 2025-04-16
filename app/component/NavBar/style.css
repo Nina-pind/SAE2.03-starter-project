@@ -1,217 +1,112 @@
 .navbar {
+  background-color: #1c1c1c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 32px;
+  font-family: Arial, sans-serif;
+}
+
+.navbar__left {
+  margin-right: 150px;
+}
+
+.navbar__center {
+  margin-right: 150px;
+}
+
+.navbar__right {
+  gap: 24px;
+}
+
+
+.navbar__container {
+  max-width: 1200px;         /* ✅ limite la largeur totale */
+  margin: 0 auto;            /* ✅ centre horizontalement */
+  padding: 0 20px;           /* ✅ espace latéral */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2a2a2a; /* Gris foncé adapté du premier CSS */
-  padding: 10px 20px;
-  border-bottom: 2px solid #c389c7; /* Violet inspiré du premier CSS */
-  font-family: "Outfit", sans-serif;
+}
+
+.navbar__logo-img {
+  height: 24px;
+}
+
+.navbar__section {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__center {
+  flex: 1;
+  justify-content: center;
 }
 
 .navbar__list {
   display: flex;
-  gap: 2rem;
+  gap: 32px;
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .navbar__item {
   cursor: pointer;
-  font-weight: bold;
-  color: #c389c7; /* Violet inspiré du premier CSS */
-  transition: color 0.3s ease;
+  color: white;
+  transition: color 0.3s;
 }
 
 .navbar__item:hover {
-  color: #9c51a1; /* Violet plus clair pour l'effet hover */
+  color: #e50914;
+}
+
+.navbar__item.active {
+  color: #e50914;
+}
+
+.navbar__right {
+  gap: 24px;
+}
+
+.navbar__search-icon,
+.navbar__login {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s;
+}
+
+.navbar__search-icon svg,
+.navbar__login svg {
+  fill: white;
+  transition: fill 0.3s;
 }
 
 .navbar__profiles {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.navbar__profile-select {
-  padding: 6px 12px;
-  border-radius: 1rem;
-  border: 1px solid #c389c7; /* Violet inspiré du premier CSS */
-  background-color: #1c1c1c; /* Gris foncé adapté du premier CSS */
-  font-family: "Outfit", sans-serif;
-  font-size: 0.9rem;
-  color: #c389c7; /* Violet inspiré du premier CSS */
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.navbar__profile-select:focus {
-  outline: none;
-  border-color: #9c51a1; /* Violet plus clair pour le focus */
-}
-
-.profile__image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #c389c7; /* Violet inspiré du premier CSS */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Style pour la barre de recherche */
-.navbar__search {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.navbar__search input {
-  padding: 8px 12px;
-  border-radius: 1rem;
-  border: 1px solid #c389c7; /* Violet inspiré du design */
-  background-color: #1c1c1c; /* Gris foncé */
-  color: #ffffff; /* Texte blanc */
-  font-family: "Outfit", sans-serif;
-  font-size: 0.9rem;
-  width: 200px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar__search input::placeholder {
-  color: #c389c7; /* Violet pour le placeholder */
-  opacity: 0.7;
-}
-
-.navbar__search input:focus {
-  outline: none;
-  border-color: #9c51a1; /* Violet plus clair pour le focus */
-  box-shadow: 0 0 5px #9c51a1;
-}
-
-.navbar__search button {
-  padding: 8px 16px;
-  border-radius: 1rem;
-  border: none;
-  background-color: #c389c7; /* Violet inspiré du design */
-  color: #ffffff; /* Texte blanc */
-  font-family: "Outfit", sans-serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar__search button:hover {
-  background-color: #9c51a1; /* Violet plus clair pour le hover */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.navbar__search button:active {
-  background-color: #7a3b7a; /* Violet plus foncé pour le clic */
-}
-
-.navbar__burger {
-  display: none; /* Masqué sur les écrans larges */
-  font-size: 1.5rem;
-  color: #c389c7;
-  background: none;
-  border: none;
-  cursor: pointer;
+  position: absolute;
+  top: 60px; /* ou ajuste selon ta navbar */
+  right: 32px;
+  background-color: #2c2c2c;
   padding: 10px;
+  border-radius: 6px;
+  z-index: 10;
 }
 
-.navbar__list {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.hidden {
+  display: none;
 }
 
-
-@media (max-width: 768px) {
-  /* Conteneur principal de la barre de navigation */
-  .navbar {
-    width: 90%;
-    flex-wrap: wrap;
-    padding: 15px;
-    gap: 1rem;
-    background-color: #1e1e1e;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    position: relative; /* Nécessaire pour le placement absolu des enfants */
-  }
-
-  /* Conteneur de la sélection du profil */
-  .navbar__profiles {
-    position: absolute;
-    top: 10px; /* Position en haut */
-    left: 10px; /* Position à gauche */
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #2a2a2a; /* Fond gris foncé pour contraste */
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Ombre subtile */
-  }
-
-  .navbar__profile-select {
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid #c389c7;
-    background-color: #1e1e1e;
-    color: #ffffff;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-
-  /* Image de profil */
-  .profile__image {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid #c389c7;
-  }
-
-  /* Bouton burger aligné à droite */
-  .navbar__burger {
-    display: block;
-    font-size: 1.8rem;
-    color: #ffffff;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: auto; /* Aligné à droite */
-  }
-
-  /* Liste des éléments de navigation */
-  .navbar__list {
-    display: none;
-    flex-direction: column;
-    gap: 1rem;
-    background-color: #1e1e1e;
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-  }
-
-  .navbar__list.navbar__list--open {
-    display: flex;
-  }
-
-  .navbar__item {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 8px;
-    color: #ffffff;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .navbar__item:hover {
-    background-color: #c389c7;
-    color: #1e1e1e;
-  }
+.navbar__profiles select {
+  padding: 6px 10px;
+  background-color: #1c1c1c;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 4px;
 }
-

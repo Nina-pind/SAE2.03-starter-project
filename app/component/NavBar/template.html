@@ -1,21 +1,64 @@
 <nav class="navbar font-sans">
-  <button class="navbar__burger" onclick="toggleMenu()">☰</button>
-  <ul class="navbar__list">
-    <li class="navbar__item" onclick="{{hAbout}}">About</li>
-    <li class="navbar__item" onclick="{{hHome}}">Home</li>
-    <li class="navbar__item" onclick="C.showFavorites()">Voir mes favoris</li>
-  </ul>
+  <div class="navbar__container">
 
-  <div class="navbar__search">
-    <input type="text" id="searchKeyword" placeholder="Rechercher un film" />
-    <button onclick="C.searchMovies()">Rechercher</button>
-  </div>
+    <!-- Gauche : logo -->
+    <div class="navbar__section navbar__left">
+      <div class="navbar__logo">
+        <img src="../server/images/logo.png" alt="Logo" class="navbar__logo-img">
+      </div>
+    </div>
 
-  <div class="navbar__profiles">
-    <select class="navbar__profile-select" onchange="C.handlerProfileSelect(this)">
-      <option value="">Choisir un profil</option>
-      {{profileOptions}}
-    </select>
-    <img id="profile__image" src="../server/images/{{image}}" alt="Profile Image" class="profile__image" style="display: none;">
+    <!-- Centre : navigation -->
+    <div class="navbar__section navbar__center">
+      <ul class="navbar__list"> 
+        <li class="navbar__item active" onclick="{{hHome}}">Home</li>
+        <li class="navbar__item" onclick="{{hAbout}}">About</li>
+        <li class="navbar__item" onclick="C.showFavorites()">See my favorites</li>
+      </ul>
+    </div>
+
+    <!-- Droite : search + login -->
+    <div class="navbar__section navbar__right">
+
+      <!-- Icône de recherche -->
+      <div class="navbar__search-icon" onclick="C.toggleSearchBar()">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M7.99979 4.49979C7.99979 4.95941 7.90926 5.41454 7.73336 5.83918C7.55747 6.26382 7.29966 6.64965 6.97466 6.97466C6.64965 7.29966 6.26382 7.55747 5.83918 7.73336C5.41454 7.90926 4.95941 7.99979 4.49979 7.99979C4.04016 7.99979 3.58503 7.90926 3.16039 7.73336C2.73575 7.55747 2.34992 7.29966 2.02491 6.97466C1.69991 6.64965 1.4421 6.26382 1.26621 5.83918C1.09032 5.41454 0.999785 4.95941 0.999785 4.49979C0.999785 3.57153 1.36853 2.68129 2.02491 2.02491C2.68129 1.36853 3.57153 0.999785 4.49979 0.999785C5.42804 0.999785 6.31828 1.36853 6.97466 2.02491C7.63104 2.68129 7.99979 3.57153 7.99979 4.49979ZM7.30879 8.01579C6.4102 8.73367 5.27085 9.08024 4.12472 8.98433C2.97859 8.88841 1.91269 8.35728 1.14592 7.50003C0.379161 6.64278 -0.0302609 5.52447 0.00174442 4.37478C0.0337497 3.22509 0.504753 2.13129 1.31802 1.31802C2.13129 0.504753 3.22509 0.0337497 4.37478 0.00174442C5.52447 -0.0302609 6.64278 0.379161 7.50003 1.14592C8.35728 1.91269 8.88841 2.97859 8.98433 4.12472C9.08024 5.27085 8.73367 6.4102 8.01579 7.30879L10.8538 10.1458C10.9003 10.1923 10.9371 10.2475 10.9623 10.3082C10.9875 10.3689 11.0004 10.434 11.0004 10.4998C11.0004 10.5655 10.9875 10.6306 10.9623 10.6914C10.9371 10.7521 10.9003 10.8073 10.8538 10.8538C10.8073 10.9003 10.7521 10.9371 10.6914 10.9623C10.6306 10.9875 10.5655 11.0004 10.4998 11.0004C10.434 11.0004 10.3689 10.9875 10.3082 10.9623C10.2475 10.9371 10.1923 10.9003 10.1458 10.8538L7.30879 8.01579Z"
+                fill="white"/>
+        </svg>
+        <span>Search</span>
+      </div>
+
+      <!-- Barre de recherche (hidden au départ) -->
+      <div class="navbarsearch" style="display: none;">
+        <input type="text" placeholder="Rechercher..." />
+      </div>
+
+      <!-- Sélection de profil -->
+      <div class="navbar__login" onclick="C.toggleProfileSelect()">
+
+        <!-- Menu déroulant des profils -->
+      <!-- Menu déroulant des profils -->
+      <div class="navbarprofile-select" style="display: none;">
+        <select onclick="event.stopPropagation()" onchange="C.selectProfile(this.value)">
+          {{profileOptions}}
+        </select>
+      </div>
+
+
+        <!-- Icône avatar SVG -->
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 8C14 9.06087 13.5786 10.0783 12.8284 10.8284C12.0783 11.5786 11.0609 12 10 12C8.93913 12 7.92172 11.5786 7.17157 10.8284C6.42143 10.0783 6 9.06087 6 8C6 6.93913 6.42143 5.92172 7.17157 5.17157C7.92172 4.42143 8.93913 4 10 4C11.0609 4 12.0783 4.42143 12.8284 5.17157C13.5786 5.92172 14 6.93913 14 8Z"
+                fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M9.592 19.992C4.2585 19.778 0 15.386 0 10C0 4.477 4.477 0 10 0C15.523 0 20 4.477 20 10C20 15.523 15.523 20 10 20H9.863C9.77233 20 9.682 19.9973 9.592 19.992ZM3.583 16.31C3.50823 16.0953 3.48278 15.8665 3.50854 15.6406C3.5343 15.4147 3.6106 15.1975 3.73179 15.0051C3.85298 14.8128 4.01593 14.6502 4.20856 14.5294C4.40119 14.4086 4.61855 14.3328 4.8445 14.3075C8.7425 13.876 11.2815 13.915 15.1605 14.3165C15.3868 14.3401 15.6046 14.4149 15.7976 14.5354C15.9905 14.6559 16.1534 14.8189 16.2739 15.0119C16.3943 15.2048 16.4691 15.4227 16.4927 15.649C16.5162 15.8753 16.4877 16.1039 16.4095 16.3175C18.0721 14.6355 19.0031 12.365 19 10C19 5.0295 14.9705 1 10 1C5.0295 1 1 5.0295 1 10C1 12.458 1.9855 14.686 3.583 16.31Z"
+                fill="white"/>
+        </svg>
+        <span>Login</span>
+      </div>
+
+    </div>
   </div>
 </nav>
