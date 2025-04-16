@@ -29,6 +29,14 @@ MovieFeatured.formatGrid = function (movies) {
   return gridHtml;
 };
 
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("carousel-nav")) {
+    const direction = e.target.classList.contains("left") ? -1 : 1;
+    const track = e.target.closest(".carousel-wrapper").querySelector(".carousel-track");
+    const scrollAmount = 300;
+    track.scrollBy({ left: scrollAmount * direction, behavior: "smooth" });
+  }
+});
 
 
 export { MovieFeatured };

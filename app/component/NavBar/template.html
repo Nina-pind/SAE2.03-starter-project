@@ -13,14 +13,27 @@
       <ul class="navbar__list"> 
         <li class="navbar__item active" onclick="{{hHome}}">Home</li>
         <li class="navbar__item" onclick="{{hAbout}}">About</li>
-        <li class="navbar__item" onclick="C.showFavorites()">See my favorites</li>
+        <li class="navbar__item" onclick="C.showFavorites(C.getSelectedProfileId())">See my favorites</li>
       </ul>
     </div>
 
     <!-- Droite : search + login -->
     <div class="navbar__section navbar__right">
 
-      <!-- Icône de recherche -->
+      <!-- Barre de recherche en overlay (hidden au départ) -->
+      <div class="search-overlay hidden" id="searchOverlay" style="display: none;">
+        <div class="search-bar">
+          <div onclick="C.searchMovies()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path fill="white" d="M21.53 20.47L16.94 15.88A7.94 7.94 0 1015.88 16.94l4.59 4.59a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0 6 6 0 01-12 0z"/>
+          </svg>
+        </div>
+          <input type="text" placeholder="Search" id="searchKeyword"/>
+        </div>
+        <span class="search-close" onclick="C.toggleSearchBar()">✕ Close</span>
+      </div>
+    
+      <!-- Icône de recherche (clic déclenche l’apparition de l’overlay) -->
       <div class="navbar__search-icon" onclick="C.toggleSearchBar()">
         <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -30,18 +43,17 @@
         <span>Search</span>
       </div>
 
-      <!-- Barre de recherche (hidden au départ) -->
-      <div class="navbarsearch" style="display: none;">
-        <input type="text" placeholder="Rechercher..." />
-      </div>
+
 
       <!-- Sélection de profil -->
       <div class="navbar__login" onclick="C.toggleProfileSelect()">
+        <img id="profile__image" src="../server/images/{{image}}" alt="Avatar" style="display: none;">
 
         <!-- Menu déroulant des profils -->
       <!-- Menu déroulant des profils -->
       <div class="navbarprofile-select" style="display: none;">
-        <select onclick="event.stopPropagation()" onchange="C.selectProfile(this.value)">
+        <select class= "navbar__profile-select" onclick="event.stopPropagation()" onchange="C.handlerProfileSelect(this)">
+          <option value="">Choisir un profil</option>
           {{profileOptions}}
         </select>
       </div>

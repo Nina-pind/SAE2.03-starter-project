@@ -1,5 +1,14 @@
 <div class="featured-content">
-  <h2 class="featured-title">Films à la une</h2>
-   <div class="featured-movies">{{movies}}</div>
+  <div class="carousel-header">
+    <h2 class="featured-title">Films à la une</h2>
+    <a href="#" class="see-all">Tout voir</a>
   </div>
-  
+
+  <div class="carousel-wrapper">
+    <button class="carousel-nav left">&#10094;</button>
+    <div class="carousel-track">
+      {{movies}}
+    </div>
+    <button class="carousel-nav right">&#10095;</button>
+  </div>
+</div>

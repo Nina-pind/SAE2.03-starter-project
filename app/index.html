@@ -302,14 +302,15 @@
     }
   };
 
-  C.toggleSearchBar = function () {
-        const searchBar = document.querySelector(".navbarsearch");
+        C.toggleSearchBar = function () {
+        const searchBar = document.querySelector(".search-overlay"); // Correction ici
         if (searchBar.style.display === "none" || !searchBar.style.display) {
           searchBar.style.display = "flex";
         } else {
           searchBar.style.display = "none";
         }
       };
+
 
       C.toggleProfileSelect = function () {
         const profileSelect = document.querySelector(".navbarprofile-select");
@@ -332,7 +333,7 @@
        * formaté par le composant NavBar.
        */
        V.renderNavBar = async function (hAbout, hHome) {
-        const profiles = await DataProfile.read(); // Récupère les profils depuis le serveur
+        const profiles = await DataProfile.readProfile(); // Récupère les profils depuis le serveur
         localStorage.setItem("profiles", JSON.stringify(profiles)); // Stocke les profils localement
         let header = document.querySelector("#header");
         header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
