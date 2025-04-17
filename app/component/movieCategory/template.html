@@ -1,17 +1,21 @@
 <div class="category__section">
-  <div class="category__header">
-    <h1 class="category__title">{{categoryName}}</h1>
-    <a href="#" class="see-all">See all</a>
-  </div>
-
-  <div class="carousel-wrapper">
-    <button class="carousel-btn left" onclick="scrollCarousel(this, 'left')">&#10094;</button>
-
-    <div class="category__list">
-      {{moviesList}}
+  <div class="category__container">
+    <div class="category__header">
+      <h1 class="category__title">{{categoryName}}</h1>
+      <a href="#" class="see-all">See all</a>
     </div>
-    
 
-    <button class="carousel-btn right" onclick="scrollCarousel(this, 'right')">&#10095;</button>
+    <div class="carousel-wrapper">
+      <div class="carousel-side-left"></div>
+      <button class="carousel-btn left" onclick="scrollCarousel(this, 'left')">&#10094;</button>
+
+      <div class="category__list">
+        {{moviesList}}
+      </div>
+      
+
+      <button class="carousel-btn right" onclick="scrollCarousel(this, 'right')">&#10095;</button>
+      <div class="carousel-side-right"></div>
+    </div>
   </div>
 </div>
