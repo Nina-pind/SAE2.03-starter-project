@@ -1,3 +1,17 @@
+.favorites-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
+  overflow-x: auto;
+  background-color: var(--color-primary);
+  scroll-snap-type: x mandatory;
+  padding-left: 20px;
+}
+
+.favorite {
+  padding-top: 160px;
+}
+
 .favorite-item {
   display: flex;
   flex-direction: column;
@@ -27,13 +41,13 @@
   font-family: 'Outfit', sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  color: #f0f0f0;
+  color: var(--color-gray-light);
   margin: 0.3rem 0 0;
 }
 
 .favorite-item button {
   background: none;
-  color: #ff3e3e;
+  color: var(--color-focus);
   border: none;
   font-family: 'Outfit', sans-serif;
   font-size: 0.85rem;
@@ -43,19 +57,34 @@
 }
 
 .favorite-item button:hover {
-  color: #ffffff;
+  color: var(--color-white);
   text-decoration: underline;
 }
 
+.favorites-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.favorites-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-dark);
+  border-radius: 4px;
+}
+
 @media (max-width: 768px) {
+
+  .favorite{
+    padding-top: 80px;
+  }
+
   .favorite-item {
-    max-width: 100%;
+    width: 140px;
     gap: 0.5rem;
+    margin-right: 0;
   }
 
   .favorite-item img {
-    width: 100%;
-    height: auto;
+    width: 140px;
+    height: 206px;
   }
 
   .favorite-item h3 {

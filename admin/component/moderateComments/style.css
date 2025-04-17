@@ -1,7 +1,16 @@
+:root {
+  --color-white: hsl(0, 0%, 100%);
+  --color-gray-light: hsl(0, 0%, 98%);
+  --color-gray: hsl(0, 0%, 87%);
+  --color-gray-dark: hsl(0, 0%, 20%);
+  --color-primary: hsl(211, 100%, 50%);
+  --color-primary-dark: hsl(211, 100%, 35%);
+}
+
 .moderateComments {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: var(--color-gray-light);
+  border: 1px solid var(--color-gray);
   border-radius: 5px;
   padding: 20px;
   max-width: 600px;
@@ -10,7 +19,7 @@
 
 .moderateComments h2 {
   font-size: 1.5em;
-  color: #333;
+  color: var(--color-gray-dark);
   margin-bottom: 15px;
 }
 
@@ -21,38 +30,38 @@
 }
 
 .moderateComments__list li {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray);
   border-radius: 3px;
   padding: 10px;
   margin-bottom: 10px;
-  display: block; 
+  display: block;
 }
 
 .moderateComments__list li div {
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
 }
 
 .moderateComments__list li:hover {
-  background-color: #f1f1f1;
+  background-color: var(--color-gray-light);
 }
 
 .moderateComments__list li button {
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   border: none;
   border-radius: 3px;
   padding: 5px 10px;
   cursor: pointer;
   font-size: 0.9em;
-  display: inline-block; 
+  display: inline-block;
   margin-right: 10px;
 }
 
 .moderateComments__list li button:last-child {
-  margin-right: 0; 
+  margin-right: 0;
 }
 
 .moderateComments__list li button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-dark);
 }

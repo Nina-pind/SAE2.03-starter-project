@@ -45,6 +45,7 @@
 
       
       C.handlerHome = function () {
+        document.querySelector("#featured-movies").style.display = "block";
         C.getAllMovies(); 
       };
 
@@ -52,6 +53,7 @@
       C.handlerProfileSelect = function (selectElement) {
         const selectedProfileId = selectElement.value; // Récupère l'ID du profil sélectionné
         C.activeProfileId = selectedProfileId; // Met à jour le profil actif
+        document.querySelector("#featured-movies").style.display = "block";
 
         const avatarElement = document.getElementById("profile__image"); // Correction ici
 
@@ -80,12 +82,15 @@
       };
 
       C.getSelectedProfileId = function () {
-        const profileSelect = document.querySelector(".navbar__profile-select");
-        if (profileSelect) {
-          return profileSelect.value || null;
+      const profileSelects = document.querySelectorAll(".navbar__profile-select");
+      for (const select of profileSelects) {
+        if (select.offsetParent !== null) {
+          return select.value || null;
         }
-        return null;
-      };
+      }
+      return null;
+    };
+
 
       C.handlerTrailer = async function (movieId) {
           // Récupérer les détails du film depuis le serveur
@@ -123,10 +128,16 @@
     };
 
 
+    C.toggleMobileMenu = function () {
+      const mobileNav = document.getElementById("mobileNavDropdown"); // ID sans point
+      if (!mobileNav) return;
+      mobileNav.classList.toggle("hidden");
+    };
 
 
       C.start = function () {
               V.renderNavBar("C.handlerAbout()", "C.handlerHome()", "C.handlerProfileSelect(event)");
+              document.querySelector("#featured-movies").style.display = "block";
               C.getAllMovies(); 
               C.getFeaturedMovies();
             };
@@ -177,6 +188,7 @@
       };
 
       C.removeFavorites = function (profilId, movieId) {
+        document.querySelector("#featured-movies").style.display = "none";
         profilId = profilId || C.getSelectedProfileId();
         if (!profilId) {
           alert("Aucun profil sélectionné.");
@@ -303,6 +315,8 @@
     }
   };
 
+  
+
         C.toggleSearchBar = function () {
         const searchBar = document.querySelector(".search-overlay"); // Correction ici
         if (searchBar.style.display === "none" || !searchBar.style.display) {
@@ -313,14 +327,17 @@
       };
 
 
-      C.toggleProfileSelect = function () {
-        const profileSelect = document.querySelector(".navbarprofile-select");
-        if (profileSelect.style.display === "none" || !profileSelect.style.display) {
-          profileSelect.style.display = "block";
-        } else {
-          profileSelect.style.display = "none";
+      C.toggleProfileSelect = function (event) {
+        event.stopPropagation();
+        const parent = event.currentTarget;
+        const profileSelect = parent.querySelector(".navbarprofile-select");
+        if (profileSelect) {
+          profileSelect.style.display = (profileSelect.style.display === "none" || !profileSelect.style.display)
+            ? "block"
+            : "none";
         }
       };
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -334,11 +351,18 @@
        * formaté par le composant NavBar.
        */
        V.renderNavBar = async function (hAbout, hHome) {
-        const profiles = await DataProfile.readProfile(); // Récupère les profils depuis le serveur
-        localStorage.setItem("profiles", JSON.stringify(profiles)); // Stocke les profils localement
+        const profiles = await DataProfile.readProfile();
+        localStorage.setItem("profiles", JSON.stringify(profiles));
         let header = document.querySelector("#header");
         header.innerHTML = await NavBar.format(hAbout, hHome, profiles);
+
+        requestAnimationFrame(() => {
+          NavBar.initListeners();
+        });
       };
+
+
+
       V.renderFeaturedMovies = function (movies) {
         let featuredSection = document.querySelector("#featured-movies");
         featuredSection.innerHTML = MovieFeatured.formatGrid(movies);

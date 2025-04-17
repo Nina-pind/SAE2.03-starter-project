@@ -10,6 +10,21 @@
 #movie__video__container {
   position: relative;
   font-family: 'Barlow Condensed', sans-serif;
+  margin-top: 40px;
+}
+
+.tag_new {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 1;
+  text-transform: uppercase;
 }
 
 .movie__video {
@@ -24,11 +39,10 @@
   margin-top: 10px;
   font-size: 2rem;
   font-weight: bold;
-  color: #fff;
+  color: var(--color-white);
   font-family: 'Barlow Condensed', sans-serif;
 }
 
-/* Image + Info en ligne */
 .movie__poster-info {
   display: flex;
   align-items: flex-start;
@@ -45,37 +59,36 @@
   height: auto;
   border-radius: 10px;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* LIGNE VERTICALE */
 .vertical-separator {
   width: 2px;
-  background-color: #444;
+  background-color: var(--color-gray-dark);
   height: 100%;
   opacity: 0.6;
 }
 
 .movie__info {
   flex: 1;
-  color: #eee;
+  color: var(--color-gray-light);
   display: flex;
   flex-direction: column;
-  gap: 8px; /* <- on réduit ça */
+  gap: 8px;
   padding-left: 20px;
 }
-
 
 .movie__synopsis {
   display: block;
   margin-top: 6px;
-  color: #ccc;
+  color: var(--color-gray-light);
   font-style: italic;
+  opacity: 0.8;
 }
 
 .separator-line {
   height: 1px;
-  background: #555;
+  background: var(--color-gray-dark);
   border: none;
   margin: 20px 0;
   opacity: 0.5;
@@ -88,20 +101,20 @@
 }
 
 .movie-rating label {
-  color: #ddd;
+  color: var(--color-gray-light);
 }
 
 .movie-rating select {
-  background: #222;
-  color: #fff;
-  border: 1px solid #444;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-gray-dark);
   border-radius: 4px;
   padding: 4px 8px;
 }
 
 .movie-rating button {
-  background: #444;
-  color: #fff;
+  background: var(--color-gray-dark);
+  color: var(--color-white);
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
@@ -109,7 +122,7 @@
 }
 
 .movie-rating button:hover {
-  background: #666;
+  background: var(--color-hover);
 }
 
 /* RESPONSIVE */
@@ -139,5 +152,19 @@
 
   .movie-rating {
     flex-direction: column;
+  }
+
+  .tag_new{
+    position: absolute;
+    top: 8px;
+    left: 70px;
+    background-color: red;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 6px;
+    z-index: 1;
+    text-transform: uppercase;
   }
 }

@@ -8,34 +8,45 @@ let NavBar = {};
 NavBar.format = async function (hAbout, hHome) {
   let html = template;
 
-  // Récupération des profils via DataProfile
   const profiles = await DataProfile.readProfile();
   console.log("Profils récupérés :", profiles);
 
-  let profileOptions = "";
-  for (let i = 0; i < profiles.length; i++) {
-    const profile = profiles[i];
-    profileOptions += `<option value="${profile.id}" data-img="${profile.avatar}" data-age="${profile.min_age}">${profile.name}</option>`;
+  let profileOptions = profiles.map(profile => `
+    <option value="${profile.id}" data-img="${profile.avatar}" data-age="${profile.min_age}">
+      ${profile.name}
+    </option>
+  `).join("");
+
+  if (profiles.length > 0) {
+    C.currentProfile = profiles[0];
+    C.activeProfileId = profiles[0].id;
+    C.getAllMovies();
   }
 
-// Définir le premier profil comme sélectionné par défaut
+  html = html.replace(/{{hAbout}}/g, hAbout);
+  html = html.replace(/{{hHome}}/g, hHome);
+  html = html.replace(/{{profileOptions}}/g, profileOptions);
 
-if (profiles.length > 0) {
-  C.currentProfile = profiles[0];
-  C.activeProfileId = profiles[0].id;
-  C.getAllMovies(); 
-}
-
-
-
-  html = html.replace("{{hAbout}}", hAbout);
-  html = html.replace("{{hHome}}", hHome);
-  html = html.replace("{{profileOptions}}", profileOptions);
-
-  let image = profiles[0]?.avatar || "default-avatar.jpg";
+  const image = profiles[0]?.avatar || "default-avatar.jpg";
   html = html.replace("{{image}}", image);
 
   return html;
 };
+
+NavBar.initListeners = function () {
+  const burger = document.querySelector('.burger');
+  const mobileNav = document.querySelector("#mobileNavDropdown");
+
+  if (!burger || !mobileNav) {
+    console.warn("Burger ou mobileNav introuvable !");
+    return;
+  }
+
+  burger.addEventListener('click', () => {
+    console.log("Burger cliqué !");
+    mobileNav.classList.toggle('hidden');
+  });
+};
+
 
 export { NavBar };

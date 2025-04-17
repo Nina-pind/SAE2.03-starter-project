@@ -1,47 +1,41 @@
-
-/* Conteneur principal pour le formulaire */
 .addprofile {
   max-width: 400px;
   margin: 20px auto;
   padding: 15px;
   font-family: "Outfit", sans-serif;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-light);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Titre du formulaire */
 .addprofile__title {
   text-align: center;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 15px;
-  color: #333;
+  color: var(--color-gray-dark);
 }
 
-/* Champs du formulaire */
 .addprofile__form input,
 .addprofile__form button {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-gray);
   border-radius: 5px;
   font-size: 14px;
 }
 
-/* Effet de focus sur les champs */
 .addprofile__form input:focus {
-  border-color: #007bff;
+  border-color: var(--color-primary);
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Bouton d'ajout */
 .addprofile__button {
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -49,7 +43,6 @@
   transition: background-color 0.3s ease;
 }
 
-/* Effet au survol du bouton */
 .addprofile__button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-dark);
 }

@@ -13,6 +13,18 @@
   --color-gray-dark: hsl(0, 0%, 20%);
   --color-gray-d: hsl(0, 0%, 38%);
   --color-black-nuance: hsl(0, 0%, 21%);
+
+    --color-primary: hsl(0, 0%, 12%); /* #1c1c1c */
+    --color-primary-dark: hsl(0, 0%, 18%); /* #2c2c2c */
+    --color-accent: hsl(358, 93%, 47%); /* #e50914 */
+    --color-white: hsl(0, 0%, 100%); /* white */
+    --color-gray-dark: hsl(0, 0%, 27%); /* proche de #444 */
+    --color-hover: hsl(0, 0%, 16%); /* #292929 */
+    --color-focus: hsl(0, 100%, 62%); /* #ff3e3e */
+    --color-shadow: hsla(0, 0%, 0%, 0.3); /* rgba(0, 0, 0, 0.3) */
+    --color-gray-light: hsl(0, 0%, 80%);
+
+  --ff-sans: Arial, sans-serif;
   --ff-sans: "DM sans", sans-serif;
   --ff-serif: "Outfit", sans-serif;
 

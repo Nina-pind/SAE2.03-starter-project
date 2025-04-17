@@ -99,8 +99,13 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+
+  .featured-content {
+    padding: 40px 0;
+  }
+
   .highlight-container {
-    flex-direction: column;
+    flex-direction: column-reverse;
     text-align: center;
     padding: 30px 20px;
   }
@@ -118,9 +123,26 @@
     max-width: 100%;
   }
 
+  .highlight-image-wrapper {
+    justify-content: center;
+    width: 100vw; /* ⬅️ Ajouté pour forcer la largeur de l'écran */
+    margin-left: -20px; /* ⬅️ Compense le padding horizontal du container */
+    margin-right: -20px;
+  }
+
   .highlight-image {
-    height: auto;
     width: 100%;
-    max-width: 300px;
+    height: auto;
+    max-width: none; /* ⬅️ Empêche toute restriction */
+    border-radius: 0; /* Optionnel : enlève les bords arrondis pour coller aux bords */
+  }
+
+  .featured-title{
+    margin: 0;
+    margin-top: 40px;
+  }
+
+  .featured-header{
+    margin: 0;
   }
 }

@@ -1,8 +1,8 @@
 .comments-container {
-  background-color: #1c1c1c;
+  background-color: var(--color-primary);
   border-radius: 10px;
   padding: 25px;
-  color: #eee;
+  color: var(--color-gray-light);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   max-width: 1000px;
   margin: 4px auto 15px;
@@ -12,17 +12,15 @@
   margin-bottom: 15px;
 }
 
-
 .comments-container h3 {
   font-size: 1.6rem;
   margin-bottom: 20px;
-  color: #fff;
-  border-bottom: 1px solid #444;
+  color: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-dark);
   padding-bottom: 10px;
   font-family: 'Barlow Condensed', sans-serif;
 }
 
-/* Liste des commentaires dynamiques injectés via {{commentsList}} */
 .comments-container ul {
   list-style: none;
   padding: 0;
@@ -33,14 +31,14 @@
 }
 
 .comments-container li {
-  background-color: #2a2a2a;
-  border-left: 4px solid #555;
+  background-color: var(--color-primary-dark);
+  border-left: 4px solid var(--color-gray-dark);
   padding: 15px;
   border-radius: 6px;
 }
 
 .comments-container strong {
-  color: #ccc;
+  color: var(--color-gray-light);
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
@@ -48,33 +46,31 @@
 
 .comment-date {
   font-size: 0.85rem;
-  color: #888;
+  color: var(--color-gray);
 }
 
 .comments-container p {
   margin: 4px 0 0;
-  color: #ddd;
+  color: var(--color-gray-light);
   font-size: 0.95rem;
 }
 
-/* Zone de saisie */
 .comments-container textarea {
   width: 100%;
   min-height: 80px;
   padding: 10px;
   font-size: 1rem;
-  background-color: #222;
-  color: #fff;
-  border: 1px solid #444;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-gray-dark);
   border-radius: 6px;
   resize: vertical;
   margin-bottom: 15px;
 }
 
-/* Bouton */
 .comments-container button {
-  background-color: #444;
-  color: #fff;
+  background-color: var(--color-gray-dark);
+  color: var(--color-white);
   padding: 10px 16px;
   border: none;
   border-radius: 6px;
@@ -88,7 +84,7 @@
 }
 
 .comments-container button:hover {
-  background-color: #666;
+  background-color: var(--color-hover);
 }
 
 /* Responsive */

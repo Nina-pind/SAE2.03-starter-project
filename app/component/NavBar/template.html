@@ -1,76 +1,85 @@
 <nav class="navbar font-sans">
   <div class="navbar__container">
 
-    <!-- Gauche : logo -->
+    <!-- Burger menu -->
+    
+    <!-- Logo -->
     <div class="navbar__section navbar__left">
       <div class="navbar__logo">
         <img src="../server/images/logo.png" alt="Logo" class="navbar__logo-img">
       </div>
     </div>
-
-    <!-- Centre : navigation -->
+    
+    <!-- Desktop nav -->
     <div class="navbar__section navbar__center">
-      <ul class="navbar__list"> 
+      <ul class="navbar__list">
         <li class="navbar__item active" onclick="{{hHome}}">Home</li>
         <li class="navbar__item" onclick="{{hAbout}}">About</li>
         <li class="navbar__item" onclick="C.showFavorites(C.getSelectedProfileId())">My favorites</li>
       </ul>
     </div>
-
-    <!-- Droite : search + login -->
+    
+    <!-- Right section -->
     <div class="navbar__section navbar__right">
-
-      <!-- Barre de recherche en overlay (hidden au départ) -->
-      <div class="search-overlay hidden" id="searchOverlay" style="display: none;">
+      <div class="search-overlay" style="display: none;">
         <div class="search-bar">
-          <div onclick="C.searchMovies()">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path fill="white" d="M21.53 20.47L16.94 15.88A7.94 7.94 0 1015.88 16.94l4.59 4.59a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0 6 6 0 01-12 0z"/>
-          </svg>
-        </div>
-          <input type="text" placeholder="Search" id="searchKeyword"/>
+          <div class="search-icon" onclick="C.searchMovies()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path fill="white" d="M21.53 20.47L16.94 15.88A7.94 7.94 0 1015.88 16.94l4.59 4.59a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0 6 6 0 01-12 0z"/>
+            </svg>
+          </div>
+          <input type="text" placeholder="Search" id="searchKeyword" onkeydown="if(event.key === 'Enter')" />
         </div>
         <span class="search-close" onclick="C.toggleSearchBar()">✕ Close</span>
       </div>
-    
-      <!-- Icône de recherche (clic déclenche l’apparition de l’overlay) -->
       <div class="navbar__search-icon" onclick="C.toggleSearchBar()">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M7.99979 4.49979C7.99979 4.95941 7.90926 5.41454 7.73336 5.83918C7.55747 6.26382 7.29966 6.64965 6.97466 6.97466C6.64965 7.29966 6.26382 7.55747 5.83918 7.73336C5.41454 7.90926 4.95941 7.99979 4.49979 7.99979C4.04016 7.99979 3.58503 7.90926 3.16039 7.73336C2.73575 7.55747 2.34992 7.29966 2.02491 6.97466C1.69991 6.64965 1.4421 6.26382 1.26621 5.83918C1.09032 5.41454 0.999785 4.95941 0.999785 4.49979C0.999785 3.57153 1.36853 2.68129 2.02491 2.02491C2.68129 1.36853 3.57153 0.999785 4.49979 0.999785C5.42804 0.999785 6.31828 1.36853 6.97466 2.02491C7.63104 2.68129 7.99979 3.57153 7.99979 4.49979ZM7.30879 8.01579C6.4102 8.73367 5.27085 9.08024 4.12472 8.98433C2.97859 8.88841 1.91269 8.35728 1.14592 7.50003C0.379161 6.64278 -0.0302609 5.52447 0.00174442 4.37478C0.0337497 3.22509 0.504753 2.13129 1.31802 1.31802C2.13129 0.504753 3.22509 0.0337497 4.37478 0.00174442C5.52447 -0.0302609 6.64278 0.379161 7.50003 1.14592C8.35728 1.91269 8.88841 2.97859 8.98433 4.12472C9.08024 5.27085 8.73367 6.4102 8.01579 7.30879L10.8538 10.1458C10.9003 10.1923 10.9371 10.2475 10.9623 10.3082C10.9875 10.3689 11.0004 10.434 11.0004 10.4998C11.0004 10.5655 10.9875 10.6306 10.9623 10.6914C10.9371 10.7521 10.9003 10.8073 10.8538 10.8538C10.8073 10.9003 10.7521 10.9371 10.6914 10.9623C10.6306 10.9875 10.5655 11.0004 10.4998 11.0004C10.434 11.0004 10.3689 10.9875 10.3082 10.9623C10.2475 10.9371 10.1923 10.9003 10.1458 10.8538L7.30879 8.01579Z"
-                fill="white"/>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 16.5C14.0376 16.5 16.5 14.0376 16.5 11C16.5 7.96243 14.0376 5.5 11 5.5C7.96243 5.5 5.5 7.96243 5.5 11C5.5 14.0376 7.96243 16.5 11 16.5Z" stroke="white"/>
+          <path d="M15 15L19 19" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>          
         <span>Search</span>
       </div>
-
-
-
-      <!-- Sélection de profil -->
-      <div class="navbar__login" onclick="C.toggleProfileSelect()">
+      <div class="burger">☰</div>
+    </div>
+    
+    
+    
+      <!-- Profile dropdown -->
+      <div class="navbar__login" onclick="C.toggleProfileSelect(event)">
         <img id="profile__image" src="../server/images/{{image}}" alt="Avatar" style="display: none;">
-
-        <!-- Menu déroulant des profils -->
-      <!-- Menu déroulant des profils -->
-      <div class="navbarprofile-select" style="display: none;">
-        <select class= "navbar__profile-select" onclick="event.stopPropagation()" onchange="C.handlerProfileSelect(this)">
-          <option value="">Choisir un profil</option>
-          {{profileOptions}}
-        </select>
-      </div>
-
-
-        <!-- Icône avatar SVG -->
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-             xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 8C14 9.06087 13.5786 10.0783 12.8284 10.8284C12.0783 11.5786 11.0609 12 10 12C8.93913 12 7.92172 11.5786 7.17157 10.8284C6.42143 10.0783 6 9.06087 6 8C6 6.93913 6.42143 5.92172 7.17157 5.17157C7.92172 4.42143 8.93913 4 10 4C11.0609 4 12.0783 4.42143 12.8284 5.17157C13.5786 5.92172 14 6.93913 14 8Z"
-                fill="white"/>
-          <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M9.592 19.992C4.2585 19.778 0 15.386 0 10C0 4.477 4.477 0 10 0C15.523 0 20 4.477 20 10C20 15.523 15.523 20 10 20H9.863C9.77233 20 9.682 19.9973 9.592 19.992ZM3.583 16.31C3.50823 16.0953 3.48278 15.8665 3.50854 15.6406C3.5343 15.4147 3.6106 15.1975 3.73179 15.0051C3.85298 14.8128 4.01593 14.6502 4.20856 14.5294C4.40119 14.4086 4.61855 14.3328 4.8445 14.3075C8.7425 13.876 11.2815 13.915 15.1605 14.3165C15.3868 14.3401 15.6046 14.4149 15.7976 14.5354C15.9905 14.6559 16.1534 14.8189 16.2739 15.0119C16.3943 15.2048 16.4691 15.4227 16.4927 15.649C16.5162 15.8753 16.4877 16.1039 16.4095 16.3175C18.0721 14.6355 19.0031 12.365 19 10C19 5.0295 14.9705 1 10 1C5.0295 1 1 5.0295 1 10C1 12.458 1.9855 14.686 3.583 16.31Z"
-                fill="white"/>
-        </svg>
+        <div class="navbarprofile-select" style="display: none;">
+          <select class="navbar__profile-select" onclick="event.stopPropagation()" onchange="C.handlerProfileSelect(this)">
+            <option value="">Choisir un profil</option>
+            {{profileOptions}}
+          </select>
+        </div>
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 1C5.477 1 1 5.477 1 11C1 16.523 5.477 21 11 21C16.523 21 21 16.523 21 11C21 5.477 16.523 1 11 1Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3.27148 17.346C3.27148 17.346 5.50048 14.5 11.0005 14.5C16.5005 14.5 18.7305 17.346 18.7305 17.346M11.0005 11C11.7961 11 12.5592 10.6839 13.1218 10.1213C13.6844 9.55871 14.0005 8.79565 14.0005 8C14.0005 7.20435 13.6844 6.44129 13.1218 5.87868C12.5592 5.31607 11.7961 5 11.0005 5C10.2048 5 9.44177 5.31607 8.87916 5.87868C8.31655 6.44129 8.00048 7.20435 8.00048 8C8.00048 8.79565 8.31655 9.55871 8.87916 10.1213C9.44177 10.6839 10.2048 11 11.0005 11Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>          
         <span>Login</span>
       </div>
-
     </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav hidden" id="mobileNavDropdown">
+    <ul class="mobile-nav__list">
+      <li class="navbar__item active" onclick="{{hHome}}">Home</li>
+      <li class="navbar__item" onclick="{{hAbout}}">About</li>
+      <li class="navbar__item" onclick="C.showFavorites(C.getSelectedProfileId())">My favorites</li>
+
+      <li class="navbar__item" onclick="C.toggleProfileSelect(event)">
+        <span>Login</span>
+        <div class="navbarprofile-select" style="display: none;" onclick="event.stopPropagation()">
+          <select class="navbar__profile-select" onchange="C.handlerProfileSelect(this)">
+            <option value="">Choisir un profil</option>
+            {{profileOptions}}
+          </select>
+        </div>
+      </li>
+      
+      <li class="navbar__item" onclick="C.toggleMobileMenu()">✕ Close</li>
+    </ul>
   </div>
 </nav>

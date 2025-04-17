@@ -1,9 +1,18 @@
+:root {
+  --color-white: hsl(0, 0%, 100%);
+  --color-gray-light: hsl(210, 17%, 95%);
+  --color-gray: hsl(0, 0%, 80%);
+  --color-gray-dark: hsl(0, 0%, 20%);
+  --color-primary: hsl(211, 100%, 50%);
+  --color-primary-dark: hsl(211, 100%, 35%);
+}
+
 .addfilm {
   width: 100%;
   max-width: 500px;
   margin: 20px auto;
   padding: 20px;
-  background: #f8f9fa;
+  background: var(--color-gray-light);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -13,7 +22,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  color: #333;
+  color: var(--color-gray-dark);
   margin-bottom: 15px;
 }
 
@@ -28,35 +37,35 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-gray);
   border-radius: 5px;
   font-size: 16px;
 }
 
 .addfilm__form input:focus,
 .addfilm__form select:focus {
-  border-color: #007bff;
+  border-color: var(--color-primary);
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .addfilm__form select {
-  background: #fff;
+  background: var(--color-white);
   cursor: pointer;
 }
 
 .addfilm__form button {
-  background-color: #007bff; 
-  color: #fff; 
+  background-color: var(--color-primary);
+  color: var(--color-white);
   font-size: 18px;
   font-weight: bold;
   border: none;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
   padding: 10px;
   transition: background-color 0.3s ease;
 }
 
 .addfilm__form button:hover {
-  background-color: #0056b3; 
+  background-color: var(--color-primary-dark);
 }

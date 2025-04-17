@@ -17,7 +17,7 @@ MovieTrailer.format = function (movieData) {
 
 
   const isRecent = new Date(movieData.created_at) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-  const newTag = isRecent ? '<span class="tag-new">New</span>' : '';
+  const newTag = isRecent ? '<span class="tag_new">New</span>' : '';
   html = html.replace("{{newTag}}", newTag); 
 
   let averageRating = movieData.average_rating || 0;
