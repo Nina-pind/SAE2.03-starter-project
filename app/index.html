@@ -166,6 +166,7 @@
 
 
       C.showFavorites = async function (profilId) {
+        document.querySelector("#featured-movies").style.display = "none";
         profilId = profilId || C.getSelectedProfileId();
         if (!profilId) {
           alert("Aucun profil sélectionné.");

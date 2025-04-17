@@ -2,79 +2,67 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background-color: #2a2a2a; /* Fond gris foncé inspiré du premier CSS */
-  border: 1px solid #c389c7; /* Bordure violette inspirée */
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  max-width: 250px;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  max-width: 240px;
   text-align: center;
+  margin: 1rem;
 }
 
 .favorite-item img {
-  width: 200px;
-  height: 300px;
-  border: 2px solid #c389c7; /* Bordure violette pour l'image */
-  border-radius: 4px;
+  width: 220px;
+  height: 310px;
   object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.favorite-item img:hover {
+  transform: scale(1.03);
 }
 
 .favorite-item h3 {
-  font-family: "Outfit", sans-serif;
-  color: #c389c7; /* Texte violet pour le titre */
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f0f0f0;
+  margin: 0.3rem 0 0;
 }
 
 .favorite-item button {
-  padding: 8px 16px;
-  background-color: #c389c7; /* Violet inspiré du premier CSS */
-  color: #fff; /* Texte blanc pour le contraste */
-  font-family: "Outfit", sans-serif;
-  font-size: 0.9rem;
-  border: 1px solid #9c51a1; /* Violet plus foncé pour la bordure */
-  border-radius: 1rem;
+  background: none;
+  color: #ff3e3e;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: color 0.3s ease;
+  padding: 4px;
 }
 
 .favorite-item button:hover {
-  background-color: #9c51a1; /* Violet foncé pour l'effet hover */
-  color: #1c1c1c; /* Texte gris foncé pour le contraste */
-  transform: scale(1.05); /* Animation légère au survol */
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  /* Conteneur d'un favori */
   .favorite-item {
-    width: 90%;
     max-width: 100%;
-    padding: 0.5rem;
-    gap: 0.8rem;
-    box-shadow: none; /* Supprimer l'ombre pour alléger le rendu */
+    gap: 0.5rem;
   }
 
-  /* Image d'un favori */
   .favorite-item img {
-    width: 100%; 
+    width: 100%;
     height: auto;
-    border-width: 1px; /* Réduire l'épaisseur de la bordure */
   }
 
-  /* Titre d'un favori */
   .favorite-item h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
-  /* Bouton pour les favoris */
   .favorite-item button {
     font-size: 0.8rem;
-    padding: 6px 12px;
   }
 }
-
-
