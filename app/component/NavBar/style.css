@@ -103,15 +103,13 @@
   width: 40px; /* Taille agréable et visible */
   height: 40px;
   border-radius: 50%; /* Effet circulaire */
-  object-fit: cover; /* Ajuste bien l’image sans déformation */
-  border: 2px solid #e50914; /* Ajoute une bordure élégante */
+  object-fit: cover; /* Ajuste bien l’image sans déformation */ /* Ajoute une bordure élégante */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Effet de profondeur */
 }
 
 .navbar__profile-select  {
   background-color: #1c1c1c; /* Fond sombre pour un look moderne */
-  color: white;
-  border: 2px solid #e50914; /* Bordure rouge pour une touche stylée */
+  color: white; /* Bordure rouge pour une touche stylée */
   border-radius: 6px; /* Bords arrondis */
   padding: 8px;
   font-size: 14px;

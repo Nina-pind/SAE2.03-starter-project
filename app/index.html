@@ -90,7 +90,7 @@
       C.handlerTrailer = async function (movieId) {
           // Récupérer les détails du film depuis le serveur
           let movieTrailer = await DataMovie.requestMovieTrailer(movieId);
-
+          document.querySelector("#featured-movies").style.display = "none"; // Masquer le contenu principal
           // Vérifiez si les données sont valides
           if (!movieTrailer || !movieTrailer.name) {
             throw new Error("Les détails du film sont invalides ou manquants.");
