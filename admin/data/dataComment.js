@@ -1,4 +1,4 @@
-let HOST_URL = "https://mmi.unilim.fr/~pinardel2/SAE2.03-Pinardel/server";
+let HOST_URL = "../server";
 
 let DataComment = {};
 
